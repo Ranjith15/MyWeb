@@ -1,0 +1,112 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="error" ng-if="employmentEducationCtrl.status === 'error'" role="alert">
+			<span class="icon-error"></span>
+			<span>{{'ERRORS.VALIDATION.MISSING_REQUIRED_FIELDS' | translate }}</span>
+		</div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-xs-12 col-sm-12">
+		<label for="reasonForAdvisingId" class="col-xs-12 col-sm-12 col-md-11">{{'ADVISING.APPOINTMENT.REASON_QUESTION' | translate}}
+			<p class="small">
+				<em>{{'ADVISING.APPOINTMENT.QUESTION_ON_POLICY' | translate}} <a ui-sref="{{global.constants.routes.support}}">{{'GENERAL.CLICK_HERE' | translate}}</a></em>
+			</p>
+		</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="reasonForAdvisingId" ng-model="employmentEducationCtrl.employmentEducationForm.isReasonForAdvising"
+				name="isReasonForAdvising" ng-options="isReasonForAdvising.value as isReasonForAdvising.display for isReasonForAdvising in employmentEducationCtrl.isReasonForAdvisingList | filter: { value: '!' + global.constants.advising.categoryId.policyCategoryId}" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-sm-4">
+		<label for="highestLevelOfEducationId" class="col-xs-12 col-sm-12 col-md-11">{{'ADVISING.APPOINTMENT.EDUCATION_LEVEL_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="highestLevelOfEducationId" ng-model="employmentEducationCtrl.employmentEducationForm.highestLevelOfEducation"
+				name="highestLevelOfEducation" ng-options="highestLevelOfEducation.value as highestLevelOfEducation.display for highestLevelOfEducation in employmentEducationCtrl.highestLvlOfEducationList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="educationTypeId" class="col-xs-12 col-sm-12 col-md-12">{{'ADVISING.APPOINTMENT.EDUCATION_TYPE_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="educationTypeId" ng-model="employmentEducationCtrl.employmentEducationForm.typeOfDegree"
+				name="typeOfDegree" ng-options="typeOfDegree.value as typeOfDegree.display for typeOfDegree in employmentEducationCtrl.typeOfDegreeList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="enrollmentProcess" class="col-xs-12 col-md-12 col-md-12">{{'ADVISING.APPOINTMENT.ENROLLMENT_PROCESS_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="enrollmentProcess" ng-model="employmentEducationCtrl.employmentEducationForm.whereAreYouInProcess"
+				name="whereAreYouInProcess" ng-options="whereAreYouInProcess.value as whereAreYouInProcess.display for whereAreYouInProcess in employmentEducationCtrl.whereRuInProcessList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class='col-sm-4'>
+		<label for="currentPositionId" class="col-xs-12 col-sm-12 col-md-11">{{'ADVISING.APPOINTMENT.CURRENT_POSTION_YEARS_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="currentPositionId" ng-model="employmentEducationCtrl.employmentEducationForm.noOfYearsInCurrentPosition"
+				name="noOfYearsInCurrentPosition" ng-options="noOfYearsInCurrentPosition.value as noOfYearsInCurrentPosition.display for noOfYearsInCurrentPosition in employmentEducationCtrl.noOfYrsInCPositionList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="currentlyEnrolledId" class="col-xs-12 col-sm-12 col-md-12">{{'ADVISING.APPOINTMENT.CURRENT_ENROLLED_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select id="currentlyEnrolledId" class="form-control" ng-model="employmentEducationCtrl.employmentEducationForm.currentlyEnrolledInUnivProgram" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+				<option value=true>{{'GENERAL.YES' | translate}}</option>
+				<option value=false>{{'GENERAL.NO' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="payBackStudentLoanId" class="col-xs-12 col-md-12 col-md-12">{{'ADVISING.APPOINTMENT.PROCESS_OF_PAYING_BACK_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select id="payBackStudentLoanId" class="form-control" ng-model="employmentEducationCtrl.employmentEducationForm.currentlyInProcessOfPayingBackStudentLoans" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+				<option value=true>{{'GENERAL.YES' | translate}}</option>
+				<option value=false>{{'GENERAL.NO' | translate}}</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-sm-4">
+		<label for="professionalExperienceId" class="col-xs-12 col-sm-12 col-md-11">{{'ADVISING.APPOINTMENT.TOTAL_EXPERIENCE_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="professionalExperienceId" ng-model="employmentEducationCtrl.employmentEducationForm.yearsOfProfessionalExp"
+				name="yearsOfProfessionalExp" ng-options="yearsOfProfessionalExp.value as yearsOfProfessionalExp.display for yearsOfProfessionalExp in employmentEducationCtrl.yrsOfProfExpList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="yearsWithCurrentEmployerId" class="col-xs-12 col-sm-12 col-md-12">{{'ADVISING.APPOINTMENT.YEARS_CURRENT_EMPLOYER_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="yearsWithCurrentEmployerId" ng-model="employmentEducationCtrl.employmentEducationForm.yearsWithCurrentEmployer"
+				name="yearsWithCurrentEmployer" ng-options="yearsWithCurrentEmployer.value as yearsWithCurrentEmployer.display for yearsWithCurrentEmployer in employmentEducationCtrl.yrsWithCurEmployerList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label for="currentEmpStatusId" class="col-xs-12 col-md-12 col-md-12">{{'ADVISING.APPOINTMENT.CURRENT_EMPLOYEE_STATUS_QUESTION' | translate}}</label>
+		<div class="col-xs-12 col-sm-12">
+			<select class="form-control" id="currentEmpStatusId" ng-model="employmentEducationCtrl.employmentEducationForm.currentEmpStatus"
+				name="currentEmpStatus" ng-options="currentEmpStatus.value as currentEmpStatus.display for currentEmpStatus in employmentEducationCtrl.currentEmpStatusList" required>
+				<option value="">{{'ADVISING.APPOINTMENT.SELECT' | translate}}</option>
+			</select>
+		</div>
+	</div>
+</div>

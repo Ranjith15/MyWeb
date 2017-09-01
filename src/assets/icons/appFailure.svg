@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213 221" width="213" height="221" ><title>appFailure</title>
+  <filter id="a" width="200%" height="200%" x="-50%" y="-50%" filterUnits="objectBoundingBox">
+    <feOffset result="shadowOffsetOuter1" in="SourceAlpha" dy="4"/>
+    <feGaussianBlur stdDeviation="5" result="shadowBlurOuter1" in="shadowOffsetOuter1"/>
+    <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" in="shadowBlurOuter1"/>
+  </filter>
+  <circle cx="105.5" cy="105.5" r="105.5" fill="#EF4136"/>
+  <path d="M35.4 0L0 31.5V119h92V0H35.4z" filter="url(#a)" transform="matrix(-1 0 0 1 156 45)"/>
+  <path fill="#FFF" d="M120.6 45L156 76.5V164H64V45h56.6z"/>
+  <path fill="#EDEDEE" d="M74.6 66h56.6v-7H74.6v7m0 14h70.8v-7H74.6v7m0 14h70.8v-7H74.6v7m0 14h70.8v-7H74.6v7m0 28h70.8v-7H74.6v7m0-14h70.8v-7H74.6v7m0 28h70.8v-7H74.6v7"/>
+  <path fill="#D8D8DB" d="M156 76.5h-35.4V45L156 76.5z"/>
+  <circle cx="46.5" cy="46.5" r="46.5" fill="#FF694C" stroke="#FAFAFA" stroke-width="6" transform="translate(117 125)"/>
+  <path fill="none" d="M157.4 142H172v61h-14.6z"/>
+  <path fill="#FCFCFC" d="M164.6 139c3.4 0 6.2 3 6 6.5l-1 36.3c0 2.8-2.3 5-5 5-3 0-5.2-2.2-5.2-5l-1-36.3c0-3.6 2.7-6.5 6.2-6.5zm0 67.7c-3.7 0-6.5-3-6.5-6.6 0-3.3 3-6.2 6.7-6.2s6.4 3 6.4 6.5c0 3.7-3 6.7-6.4 6.7z"/>
+</svg>

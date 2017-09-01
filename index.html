@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-us" ng-app="edAssistApp" ng-controller="globalController as global">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="dist/css/global.css">
+		<link rel="stylesheet" type="text/css" href="dist/css/select.css">
+
+		<title ng-bind="global.pageTitle"></title>
+	</head>
+
+	<body class="{{bodyClass}}" ng-class="{'print-fax-view' : global.faxView}">
+		<!--[if lt IE 10]>
+			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<div id="skip-main-container" tabindex="-1">
+			<a href="#main-content" ng-click="global.setElementFocus('main-content')" du-smooth-scroll du-scrollspy class="skip-main">{{ 'GENERAL.SKIP_TO_MAIN_CONTENT' | translate }} <i class="fa fa-level-down" aria-hidden="true"></i></a>
+		</div>
+		<div ng-if="global.isLoggedIn" ng-cloak>
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="navbar-header">
+					<button ng-keyup="closeMenu($event)" type="button" data-toggle="collapse" data-target="#edassist-navbar" aria-expanded="false" class="navbar-toggle collapsed">
+						<!-- used for screen readers-->
+						<span class="sr-only" aria-label="{{ 'NAV.PAGES.NAVIGATION' | translate }}"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div tabindex="-1" class="logo">
+						<img class="nav-logo" ng-src="{{global.logoPath}}" alt="{{global.clientName}} {{ 'GENERAL.LOGO' | translate }}" title="{{global.clientName}} {{ 'GENERAL.LOGO' | translate }}">
+					</div>
+				</div>
+				<div id="edassist-navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li ng-if="global.clientName !=='admin'" ng-class="{active: global.currentNav === global.constants.routes.home}"
+							class="visible-xs">
+							<a ui-sref="{{global.constants.routes.home}}">
+								<span class="icon-navHome visible-xs"></span>{{ 'NAV.PAGES.HOME' | translate }}
+							</a>
+						</li>					
+						<li ng-if="global.clientName !== 'admin'" class="newApp">
+							<a ui-sref="{{global.constants.routes.contactInformation}}({participantId : global.getParticipantId()})">
+								<span class="icon-navNewApp navbar-icon" ></span>{{ 'NAV.PAGES.NEW_APPLICATION' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName !=='admin'" ng-class="{active: global.currentNav === global.constants.routes.home}"
+							class="hidden-xs">
+							<a ui-sref="{{global.constants.routes.home}}">
+								<span class="icon-navHome visible-xs"></span>{{ 'NAV.PAGES.HOME' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName !== 'admin' && global.isAdvisingEnabled" ng-class="{active: global.currentNav === global.constants.routes.advising}">
+							<a ui-sref="{{global.constants.routes.employmentEducation}}">
+								<span class="icon-navCalendar visible-xs"></span>{{ 'NAV.PAGES.ADVISING' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName !== 'admin'" ng-class="{active: global.currentNav === global.constants.routes.history}">
+							<a ui-sref="{{global.constants.routes.history}}({participantId: global.getParticipantId()})">
+								<span class="icon-navHistory visible-xs "></span>{{ 'NAV.PAGES.HISTORY' | translate }}
+							</a>
+						</li>
+						<!-- TODO Remove hardcoded ng-if=false and add logic to configure show/hide of aceademic resources per client -->
+						<!-- Include ng-if="global.clientName != 'admin'" too -->
+						<li ng-if="false" ng-class="{active: global.currentNav === global.constants.routes.academicResources}">
+							<a ui-sref="{{global.constants.routes.academicResources}}">
+								<span class="icon-navResources visible-xs"></span>{{ 'NAV.PAGES.ACADEMIC_RESOURCES' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName !== 'admin'" ng-class="{active: global.currentNav === global.constants.routes.support}">
+							<a ui-sref="{{global.constants.routes.support}}">
+								<span class="icon-navSupport visible-xs"></span>{{ 'NAV.PAGES.SUPPORT' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName === 'admin'" ng-class="{active: global.currentNav === global.constants.routes.admin}">
+							<a ui-sref="{{global.constants.routes.admin}}">
+								<span class="icon-navSupport visible-xs"></span>{{ 'ADMIN.CONTENT' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.clientName === 'admin' && (global.isSuperAdmin() || global.isAdmin())" ng-class="{active: global.currentNav === global.constants.routes.systemAdmin}">
+							<a ui-sref="{{global.constants.routes.systemAdmin}}">
+								<span class="icon-navSupport visible-xs"></span>{{ 'NAV.PAGES.SYSTEM_ADMIN' | translate }}
+							</a>
+						</li>
+						<li ng-if="global.isClientAdmin()" ng-class="{active: global.currentNav === global.constants.routes.clientAdmin}">
+							<a ui-sref="{{global.constants.routes.clientAdmin}}">
+								<!-- TODO: Change this icon when we get it from SLALOM -->
+								<span class="icon-navAdmin visible-xs"></span>{{ 'NAV.PAGES.CLIENT_ADMIN' | translate }}
+							</a>
+						</li>					
+						<!-- dropdown for tablet/desktop only-->
+						<li class="profile hidden-xs" ng-class="{active: global.currentNav === global.constants.routes.profile}">
+							<a ng-if="global.clientName !== 'admin'" class="navbar-doubleicon-container" href="" data-toggle="dropdown" class="dropdown-toggle" title="{{ 'PROFILE.PROFILE' | translate }}">
+								<span class="icon-Profile navbar-icon double"></span>
+								<span class="sr-only"> {{ 'PROFILE.PROFILE' | translate }}</span>
+							</a>
+							<a ng-if="global.clientName === 'admin'" class="navbar-doubleicon-container" data-toggle="dropdown" class="dropdown-toggle" title="{{ 'PROFILE.PROFILE' | translate }}">
+								<span class="icon-Profile navbar-icon double"></span>
+								<span class="sr-only"> {{ 'PROFILE.PROFILE' | translate }}</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li ng-if="global.clientName !== 'admin'">
+									<a ui-sref="{{global.constants.routes.profile}}({participantId: global.getParticipantId()})">{{ 'NAV.PAGES.PROFILE' | translate }}</a>
+								</li>
+								<li ng-if="global.clientName === 'admin'">
+									<a ui-sref="{{global.constants.routes.changePassword}}">{{ 'GENERAL.CHANGE_PASSWORD' | translate }}</a>
+								</li>
+								<li>
+									<a href="" ng-click="global.logOut()">{{ 'NAV.PAGES.LOGOUT' | translate }}
+										<span class="icon-logout navbar-icon"></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- mobile profile and logout links-->
+						<li class="visible-xs">
+							<a ui-sref="{{global.constants.routes.profile}}({participantId: global.getParticipantId()})">
+								<span class="icon-navProfile visible-xs"></span>{{ 'NAV.PAGES.PROFILE' | translate }}
+							</a>
+						</li>
+					</ul>
+					<ul class="visible-xs nav-logout">
+						<li >
+							<a href="" ng-click="global.logOut()">
+								<span class="icon-navLogout visible-xs"></span>{{ 'NAV.PAGES.LOGOUT' | translate }}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+
+		<div class="container-fluid" role="main" id="main-content" du-spy-context="main-content" tabindex="-1">
+			<div ng-class="{'loading': !global.showContent}"></div>
+			<div ui-view autoscroll="true" ng-show="global.showContent"></div>
+		</div>
+
+
+		<div action="global.idleModalState" template="idle-warning.template" data="global.idleModalData" generic-modal></div>
+		<div action="global.deniedRulesModalState" template="rules-denied.template" data="global.deniedRulesMessages" generic-modal></div>
+		<footer ng-cloak>
+			<div class="container-fluid footer-container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row" ng-if="global.isLoggedIn">
+							<div class="col-sm-6">
+								<ng-include src="'/src/components/general/powered-by.html'"></ng-include>
+							</div>
+							<div class="col-sm-6">
+								<div class="links margin-top-3">
+									<span>&copy; 2017</span>
+									<a ui-sref="{{global.constants.routes.footerDetails}}({detailsHeader:'Terms &amp; Conditions',detailsName:'termsAndConditions'})">{{ 'FOOTER.TERMS_CONDITIONS' | translate}}</a>
+									<a ui-sref="{{global.constants.routes.footerDetails}}({detailsHeader:'Privacy Policy',detailsName:'privacyPolicy'})">{{ 'FOOTER.PRIVACY' | translate}}</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>	
+		</footer>		
+		<script src="dist/js/vendor.core.js"></script>
+		<script src="dist/js/edassist.core.js"></script>
+		<script src="dist/assets/icons/grunticon.loader.js"></script>
+	</body>
+</html>

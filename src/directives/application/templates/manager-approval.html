@@ -1,0 +1,31 @@
+<div class="error" ng-if="managerApprovalCtrl.status === 'error'"><span class="icon-error" ></span>
+	<span>{{managerApprovalCtrl.message}}</span>
+</div>
+
+<form novalidate name="approvalCommentForm">
+	<div ng-if="managerApprovalCtrl.showCommentBox">
+		<h3>{{'APPLICATION.MANAGER_REVIEW.APPROVAL_COMMENTS_HEADER' | translate }}</h3>
+		<label ng-if="!managerApprovalCtrl.isApproving">{{'APPLICATION.MANAGER_REVIEW.DENY_TEXT_HEADER' | translate }}</label>
+		<div ng-if="managerApprovalCtrl.isApproving && managerApprovalCtrl.approvalConfirmationIntro" ng-bind-html="managerApprovalCtrl.approvalConfirmationIntro | trustHtml"></div>
+		<div ng-if="!managerApprovalCtrl.isApproving && managerApprovalCtrl.denialConfirmationIntro" ng-bind-html="managerApprovalCtrl.denialConfirmationIntro | trustHtml"></div>
+		<div class="form-group" ng-class="{'field-error': !managerApprovalCtrl.isApproving && approvalCommentForm.approvalCommentText.$invalid && approvalCommentForm.$submitted}">
+			<textarea name="approvalCommentText" rows="5" class="form-control" aria-label="{{'APPLICATION.MANAGER_REVIEW.APPLICATION_REASON' | translate }}" ng-model="managerApprovalCtrl.approvalComment" maxlength="1000" ng-required=true></textarea>
+			<span class="help-block" ng-show="!managerApprovalCtrl.isApproving && approvalCommentForm.approvalCommentText.$invalid && approvalCommentForm.$submitted">
+				<div ng-messages="approvalCommentForm.approvalCommentText.$error">
+					<div ng-messages-include src="../src/components/errors/general.html"></div>
+				</div>
+			</span>
+		</div>
+	</div>
+
+	<div class="section-footer extended-footer" ng-if="!managerApprovalCtrl.showCommentBox">
+		<button type="submit" ng-click="managerApprovalCtrl.showCommentBox = true; managerApprovalCtrl.isApproving = true" class="btn btn-primary">{{'APPLICATION.MANAGER_REVIEW.APPROVE_BUTTON' | translate }}</button>
+		<button type="submit" ng-click="managerApprovalCtrl.showCommentBox = true; managerApprovalCtrl.isApproving = false" class="btn btn-default">{{'APPLICATION.MANAGER_REVIEW.DENY_BUTTON' | translate }}</button>
+	</div>
+
+	<div class="section-footer extended-footer" ng-if="managerApprovalCtrl.showCommentBox">
+		<button type="submit" ng-click="managerApprovalCtrl.approveApplication(managerApprovalCtrl.approvalComment)" ng-if="managerApprovalCtrl.isApproving" class="btn btn-primary" ng-class="{working: managerApprovalCtrl.updatingStatus}">{{'APPLICATION.MANAGER_REVIEW.APPROVE_BUTTON' | translate }}<span></span></button>
+		<button type="submit" ng-click="approvalCommentForm.approvalCommentText.$valid && managerApprovalCtrl.denyApplication(managerApprovalCtrl.approvalComment)" ng-if="!managerApprovalCtrl.isApproving" class="btn btn-danger" ng-class="{working: managerApprovalCtrl.updatingStatus}">{{'APPLICATION.MANAGER_REVIEW.DENY_BUTTON' | translate }}<span></span></button>
+		<button ng-click="managerApprovalCtrl.resetForm(approvalCommentForm);" class="btn btn-default">{{'GENERAL.CANCEL' | translate }}</button>
+	</div>
+</form>

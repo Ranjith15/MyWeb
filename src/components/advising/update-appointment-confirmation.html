@@ -1,0 +1,22 @@
+<div id="confirmationHeader" class="tile">
+	<div class="row">
+		<div class="left col-xs-12 col-md-3">
+			<div ng-class="updateAppointmentConfirmationCtrl.updateStatus ? 'icon-appSuccess huge' : 'icon-appFailure huge'"></div>
+		</div>
+		<div class="col-xs-12 col-md-9">
+			<div ng-show = "updateAppointmentConfirmationCtrl.updateStatus">
+				<div class="row input-row">
+					<strong>{{ 'ADVISING.UPDATE_APPOINTMENT.SUCCESS_MESSAGE' | translate}}</strong>
+				</div>
+			</div>
+			<div ng-show = "!updateAppointmentConfirmationCtrl.updateStatus">
+				<div class="row input-row">
+					<span>{{ 'ADVISING.UPDATE_APPOINTMENT.FAILURE_MESSAGE' | translate}}</span>
+				</div>
+			</div>
+			<div class="row input-row">
+				<a ng-click="updateAppointmentConfirmationCtrl.routeToEmploymentEducation()" href="" class="btn btn-primary" role="button">{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.NEW_APPOINTMENT' | translate}}</a>
+			</div>
+		</div>
+	</div>
+</div>

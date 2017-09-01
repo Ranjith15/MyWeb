@@ -1,0 +1,198 @@
+<div class="row" ng-if="form.$error.required && form.$submitted">
+	<div class="col-xs-12">
+		<div class="error" role="alert">
+			<span class="icon-error"></span>
+			<span>{{'ERRORS.VALIDATION.MISSING_REQUIRED_FIELDS' | translate }}</span>
+		</div>
+	</div>
+</div>
+
+<div class="row content-container" ng-show="!model.hideAddress && (model.workAddress.city || (model.homeAddress.city && profileContactCtrl.showAddressButtonsYN))">
+	<div class="row col-xs-12">
+		<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleContact"></span></div>
+		<div class="col-sm-12 col-xs-12 col-md-11">
+			<h2 ng-show="model.workAddress.city && model.homeAddress.city">{{'PROFILE.CONTACT.ADDRESS_QUESTION' | translate }}</h2>
+			<h2 ng-show="!model.workAddress.city || !model.homeAddress.city">{{'PROFILE.CONTACT.ADDRESS_SINGLE' | translate }}</h2>
+
+			<div class="row inline-radio-group">
+				<div class="col-xs-12 col-sm-6 col-md-4" ng-show="model.workAddress.city">
+					<div ng-show="model.workAddress.city" aria-labelledby="addressWork">
+						<label class="custom-radio">
+							<input id="workAddress" type="radio" aria-checked="true" ng-model="model.preferredAddress" ng-value="model.workAddress.addressId" name="addressRadioGroup"/>
+							<div class="radio-label">
+								<div>{{'PROFILE.CONTACT.WORK_ADDRESS' | translate }}</div>
+								<div class="form-group">
+										<div class="uneditable">
+											<p>{{model.workAddress.address1}}</p>
+											<p>{{model.workAddress.address2}}</p>
+											<p>{{model.workAddress.city}}, {{model.workAddress.state.stateAbbreviation}} {{model.workAddress.zip}}</p>
+										</div>
+								</div>
+							</div>
+						</label>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-10 col-md-4"  ng-show="model.homeAddress.city && profileContactCtrl.showAddressButtonsYN">
+					<label class="custom-radio" aria-labelledby="addressHome">
+						<input id="homeAddress" ng-model="model.preferredAddress" aria-checked="true" ng-value="model.homeAddress.addressId" type="radio" name="addressRadioGroup"/>
+						<div class="radio-label">
+							<div>{{'PROFILE.CONTACT.HOME_ADDRESS' | translate }}</div>
+							<div class="form-group">
+									<div class="uneditable">
+										<p>{{model.homeAddress.address1}}</p>
+										<p>{{model.homeAddress.address2}}</p>
+										<p>{{model.homeAddress.city}}, {{model.homeAddress.state.stateAbbreviation}} {{model.homeAddress.zip}}</p>
+									</div>
+							</div>
+						</div>
+					</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 hidden-xs hidden-sm">
+					<p class="explination">{{'PROFILE.CONTACT.ADDRESS_HELP_TEXT' | translate }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row content-container">
+	<div class="row col-xs-12">
+		<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circlePhone"></span></div>
+		<div class="col-sm-12 col-xs-12 col-md-11">
+			<h2 ng-show="profileContactCtrl.showAddressButtonsYN && (model.workAddress.phone || model.homeAddress.phone)">{{'PROFILE.CONTACT.PHONE_QUESTION' | translate }}</h2>
+			<h2 ng-show="!profileContactCtrl.showAddressButtonsYN || (profileContactCtrl.showAddressButtonsYN && !model.workAddress.phone && !model.homeAddress.phone)">{{'PROFILE.CONTACT.PHONE_SINGLE' | translate }}</h2>
+
+			<div class="row inline-radio-group" role="radiogroup">
+				<div class="col-xs-12 col-sm-6 col-md-4" ng-if="model.workAddress.phone">
+					<label class="custom-radio">
+						<input id='workPhoneRadio' ng-model="model.preferredPhone" aria-checked="true" value="Work" type="radio" name="phoneRadioGroup" ng-required="true"/>
+						<div class="radio-label">
+							<div>{{'PROFILE.CONTACT.WORK_PHONE' | translate }}</div>
+							<div class="form-group">
+								<div class="uneditable">{{model.workAddress.phone | formatTelephone}}</div>
+							</div>
+						</div>
+					</label>
+					<div class="" ng-class="{'field-error': form.profileWorkPhone.$invalid}">
+						<span class="help-block" ng-show="form.profileWorkPhone.$invalid && !form.profileWorkPhone.$pristine">
+							<div ng-messages="form.profileWorkPhone.$error">
+								<div ng-messages-include src="../src/components/errors/general.html"></div>
+							</div>
+						</span>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4" ng-if="model.homeAddress.phone && profileContactCtrl.showAddressButtonsYN">
+					<label class="custom-radio">
+						<input id='homePhoneRadio' ng-model="model.preferredPhone" aria-checked="false" value="Home" type="radio" name="phoneRadioGroup" ng-required="true"/>
+						<div class="radio-label">
+							<div>{{'PROFILE.CONTACT.HOME_PHONE' | translate}}</div>
+							<div class="form-group">
+								<div class="uneditable">{{model.homeAddress.phone | formatTelephone}}</div>
+							</div>
+						</div>
+					</label>
+
+					<div class="help-block" ng-show="form.profileHomePhone.$invalid && !form.profileHomePhone.$pristine" ng-class="{'field-error': form.profileHomePhone.$invalid}">
+						<div ng-messages="form.profileHomePhone.$error">
+							<div ng-messages-include src="../src/components/errors/general.html"></div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<label class="custom-radio">
+						<input id='otherPhoneRadio' ng-model="model.preferredPhone" aria-checked="false" value="Other" type="radio" name="phoneRadioGroup" ng-required="true"/>
+						<div class="radio-label">
+							<div>{{'PROFILE.CONTACT.OTHER_PHONE' | translate}}</div>
+
+							<div class="form-group">
+								<label class="sr-only" for="profileOtherPhone">{{'PROFILE.CONTACT.OTHER_PHONE' | translate}}</label>
+								<input type="text" id="profileOtherPhone" ng-disabled="model.preferredPhone !== 'Other'" name="profileOtherPhone" class="form-control other-input" ng-pattern="global.constants.patterns.phone" ng-model="model.otherPhone" maxlength="14" ng-required="model.preferredPhone === 'Other'"/>
+								<div class="help-block" ng-show="form.profileOtherPhone.$invalid && form.$submitted">
+									<div ng-messages="form.profileOtherPhone.$error">
+										<div ng-messages-include src="../src/components/errors/general.html"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</label>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="row major-row" ng-show="model.workAddress.email || profileContactCtrl.showAddressButtonsYN">
+	<div class="row col-xs-12">
+		<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleEmail"></span></div>
+		<div class="col-md-11 col-sm-12 col-xs-12">
+			<h2 ng-show="profileContactCtrl.showAddressButtonsYN && (model.workAddress.email || model.homeAddress.email)">{{'PROFILE.CONTACT.EMAIL_QUESTION' | translate }}</h2>
+			<h2 ng-show="!profileContactCtrl.showAddressButtonsYN || (profileContactCtrl.showAddressButtonsYN && !model.workAddress.email && !model.homeAddress.email)">{{'PROFILE.CONTACT.EMAIL_SINGLE' | translate }}</h2>
+
+			<div class="row inline-radio-group" role="radiogroup">
+				<div class="col-xs-12 col-sm-4" ng-if="model.workAddress.email">
+					<label class="custom-radio">
+						<input ng-model='model.preferredEmail'  aria-checked="true" value="Work" type="radio" name="emailRadioGroup" required/>
+						<div class="radio-label">
+							<div>{{'PROFILE.CONTACT.WORK_EMAIL' | translate }}</div>
+							<div class="form-group" ng-class="{'field-error': form.profileWorkEmail.$invalid}">
+								<div class="uneditable">{{model.workAddress.email}}</div>
+								<div class="help-block" ng-show="form.profileWorkEmail.$invalid && !model.profileWorkEmail.$pristine">
+									<div ng-messages="form.profileWorkEmail.$error">
+										<div ng-messages-include src="../src/components/errors/general.html"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</label>
+				</div>
+
+				<div class="col-xs-12 col-sm-4" ng-if="model.homeAddress.email && profileContactCtrl.showAddressButtonsYN">
+					<label class="custom-radio">
+						<input ng-model='model.preferredEmail'  aria-checked="false" value="Home" type="radio" name="emailRadioGroup" required/>
+						<div class="radio-label">
+							<div>{{ 'PROFILE.CONTACT.HOME_EMAIL' | translate }}</div>
+							<div class="form-group">
+								<div class="uneditable">{{model.homeAddress.email}}</div>
+								<div class="help-block" ng-show="form.profileHomeEmail.$invalid && !form.profileHomeEmail.$pristine">
+									<div ng-messages="form.profileHomeEmail.$error">
+										<div ng-messages-include src="../src/components/errors/general.html"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</label>
+				</div>
+
+				<div class="col-xs-12 col-sm-4" ng-if="profileContactCtrl.showAddressButtonsYN">
+					<label class="custom-radio">
+						<input ng-model='model.preferredEmail'  aria-checked="false" value="Other" type="radio" name="emailRadioGroup" required/>
+						<div class="radio-label">
+							<div>{{ 'PROFILE.CONTACT.OTHER_EMAIL' | translate }}</div>
+
+							<div class="form-group" ng-class="{'field-error': form.profileOtherEmail.$invalid && form.$submitted}">
+								<input type="text" name="profileOtherEmail" ng-disabled="model.preferredEmail !== 'Other'" class="form-control other-input" ng-pattern="global.constants.patterns.email" ng-model="model.otherEmail" maxlength="50" ng-required="model.preferredEmail === 'Other'"/>
+								<div class="help-block" ng-show="form.profileOtherEmail.$invalid && form.$submitted">
+									<div ng-messages="form.profileOtherEmail.$error">
+										<div ng-messages-include src="../src/components/errors/general.html"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

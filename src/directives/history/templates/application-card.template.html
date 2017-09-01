@@ -1,0 +1,193 @@
+<div class="row application-card">
+	<!-- Status Text - Smaller Screens Only -->
+	<div class="col-xs-12 hidden-md hidden-lg app-status-mobile">
+		<div class="status-wrapper-mobile">
+			<p><span class="ng-binding">{{applicationCardCtrl.app.applicationStatus.applicationStatus | translate | uppercase}}</span></p>
+		</div>
+	</div>
+	<!-- Status Icon -->
+	<div class="app-status-absolute status"
+		 ng-class="applicationCardCtrl.isSupervisor || applicationCardCtrl.appView === 'taskList' ? applicationCardCtrl.status.adminColor : applicationCardCtrl.status.color">
+		<span ng-class="applicationCardCtrl.status.icon"></span>
+	</div>
+	<!-- Status Text - Larger Screens Only -->
+	<div class="hidden-xs hidden-sm app-status-desktop">
+		<div class="status-wrapper-desktop margin-top-3">
+			<span>{{applicationCardCtrl.app.applicationStatus.applicationStatus | translate | uppercase}}</span>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-offset-4 col-md-8">
+		<div class="row application-info">
+			<div class="spacer"></div>
+			<div class="col-xs-9 col-sm-6 application-name">
+				<span class="">{{applicationCardCtrl.app.firstName}} {{applicationCardCtrl.app.lastName}}</span>
+			</div>
+			<div class="col-xs-3 col-sm-6">
+				<span class="application-number-wrapper pull-right" tooltip-enable="app.submittedDate" tooltip-placement="top" uib-tooltip="{{'GENERAL.SUBMITTED' | translate}} {{app.submittedDate | timezoneDate:'MMMM d, y' }}">
+					<a href="" ng-click="applicationCardCtrl.navigateToFullApp()">#{{applicationCardCtrl.app.applicationNumber}}</a>
+				</span>
+			</div>
+			<div class="hidden-xs hidden-sm col-md-12">
+				<span class="program-name-desktop" title="{{app.programName}}">
+					{{applicationCardCtrl.app.programName | limitTo: 75}}<span ng-if="app.programName.length > 75">&hellip;</span>
+				</span>
+			</div>
+			<div class="col-xs-12 hidden-md hidden-lg">
+				<span class="program-name-mobile">{{applicationCardCtrl.app.programName}}</span>
+			</div>
+			<div class="col-xs-12">
+				<div class="spacer"></div>
+			</div>
+			<div class="school-img"><span class="icon-circleSchool double"></span></div>
+			<div class="col-xs-9 col-sm-12">
+				<div class="application-school">
+					<span>{{applicationCardCtrl.app.providerName}}</span>
+				</div>
+			</div>
+			<div class="hidden-xs hidden-sm col-md-7">
+				<div class="application-degree-desktop">
+					<span>{{applicationCardCtrl.app.degreeObjective}} - </span>
+					<span title="{{applicationCardCtrl.app.courseOfStudy}}">
+						{{applicationCardCtrl.app.courseOfStudy | limitTo: 60}}<span ng-if="app.courseOfStudy.length > 60">&hellip;</span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 hidden-md hidden-lg">
+				<span class="application-degree-mobile">{{applicationCardCtrl.app.degreeObjective}}</span>
+			</div>
+			<div class="col-xs-12 hidden-md hidden-lg">
+				<div class="application-degree-desc-mobile">
+					<span>{{applicationCardCtrl.app.courseOfStudy | limitTo: 40}}<span ng-if="app.courseOfStudy.length > 40">&hellip;</span></span>
+				</div>
+			</div>
+			<div class="col-xs-12 hidden-md hidden-lg">
+				<div class="date-wrapper-mobile">
+					<span class="app-date" title="{{applicationCardCtrl.app.sessionStartDate | timezoneDate:'MMMM d, y' }} - {{applicationCardCtrl.app.sessionEndDate | timezoneDate:'MMMM d, y' }}">
+						{{applicationCardCtrl.app.sessionStartDate | timezoneDate:'MMM d, y' }} <span ng-hide="applicationCardCtrl.app.sessionStartDate == null">- </span>{{applicationCardCtrl.app.sessionEndDate | timezoneDate:'MMM d, y' }}
+					</span>
+				</div>
+			</div>
+			<div class="hidden-xs hidden-sm col-md-5">
+				<span class="pull-right app-date">
+					{{applicationCardCtrl.app.sessionStartDate | timezoneDate:'MMM d, y':'bar' }} <span ng-hide="applicationCardCtrl.app.sessionStartDate == null">- </span>{{applicationCardCtrl.app.sessionEndDate | timezoneDate:'MMM d, y' }}
+				</span>
+			</div>
+			<div class="col-xs-12">
+				<div class="spacer"></div>
+			</div>
+		</div>
+		<div class="row app-additional">
+			<div class="col-xs-6 view-more-btn margin-top-3" ng-if="applicationCardCtrl.viewMore">
+				<button id="read-more" class="btn btn-default btn-sm" ng-click="applicationCardCtrl.loadMoreDetails()">{{'HISTORY.MORE_BUTTON' | translate}}</button>
+			</div>
+			<div class="col-xs-6 view-more-btn margin-top-3" ng-if="!applicationCardCtrl.viewMore">
+				<button id="read-less" class="btn btn-default btn-sm" ng-click="applicationCardCtrl.loadMoreDetails()">{{'HISTORY.LESS_BUTTON' | translate}}</button>
+			</div>
+			<div class="hidden-xs hidden-sm col-md-6 margin-top-4 margin-bottom-4" ng-show="applicationCardCtrl.viewMore">
+				<div class="pull-right">
+					{{'COURSES.TOTAL' | translate}} <span class="pad-left-3 app-amount">{{applicationCardCtrl.app.totalRequestedAmount - applicationCardCtrl.app.totalRefunds | currency}}</span>
+				</div>
+			</div>
+			<!-- Desktop expanded area -->
+			<div class="hidden-xs hidden-sm application-expanded" ng-hide="applicationCardCtrl.viewMore">
+				<div ng-repeat="course in applicationCardCtrl.app.courses" class="course-block row-area">
+					<div class="course-name">
+						<div class="col-md-8"><span>{{course.name | uppercase}} <span ng-show="course.name"> - </span>{{course.number}}</span></div>
+						<div class="col-md-4"><span class="pull-right">{{course.tuitionAmount | currency}}</span></div>
+					</div>
+					<div ng-repeat="expense in course.relatedExpenses" class="expense">
+						<div class="col-md-8">
+							<span>{{ expense.name || 'HISTORY.UNKNOWN_EXPENSE' | translate}}</span>
+							<span ng-if="expense.numberOfBooks">&nbsp;({{expense.numberOfBooks}})</span>
+						</div>
+						<div class="col-md-4"><span class="pull-right">{{expense.feesAmount | currency}}</span></div>
+					</div>
+				</div>
+				<div ng-repeat="expense in applicationCardCtrl.app.nonCourseRelatedExpenses" class="other-expense-block row-area">
+					<div class="col-md-8"><span>{{ expense.name || 'HISTORY.UNKNOWN_EXPENSE' | translate}}</span></div>
+					<div class="col-md-4"><span class="pull-right">{{expense.feesAmount | currency}}</span></div>
+				</div>
+				<div class="payment-info-block row-area">
+					<div class="course-status">
+						<div class="col-md-5 col-lg-6"><span ng-show="app.paymentDate">
+							{{'HISTORY.PAYMENT_PROCESSED' | translate}}</span> <span>{{applicationCardCtrl.app.paymentDate | timezoneDate:'MMM d, y' }}</span>
+						</div>
+					</div>
+					<div class="payment-amount">
+						<div class="col-md-5 col-lg-4"><span class="pull-right">{{'HISTORY.REQUESTED_AMOUNT' | translate}}</span></div>
+						<div class="col-md-2"><span class="pull-right">{{applicationCardCtrl.app.totalRequestedAmount | currency}}</span></div>
+					</div>
+					<div class="adjustment-amount">
+						<div class="col-md-10"><span class="pull-right">{{'HISTORY.ADJUSTMENT' | translate}}</span></div>
+						<div class="col-md-2"><span class="pull-right">({{applicationCardCtrl.app.totalRefunds | currency}})</span></div>
+					</div>
+				</div>
+				<div class="total-view">
+					<div class="col-md-6 view-application">
+						<button type="button" class="btn btn-default btn-sm" ng-if="applicationCardCtrl.app.isFullAppEnabled" ng-click="applicationCardCtrl.navigateToFullApp()">
+							{{'HISTORY.VIEW_FULL_APPLICATION_BUTTON' | translate}}
+						</button>
+						<button type="button" class="btn btn-default btn-sm" ng-if="!applicationCardCtrl.app.isFullAppEnabled" ng-click="applicationCardCtrl.navigateToFullApp()">
+							{{'HISTORY.VIEW_APPROVE_OR_DENY_BUTTON' | translate}}
+						</button>
+					</div>
+					<div class="total-amount">
+						<div class="col-md-4"><span class="pull-right">{{'HISTORY.TOTAL' | translate}}</span></div>
+						<div class="col-md-2"><span class="pull-right">{{applicationCardCtrl.app.totalRequestedAmount - applicationCardCtrl.app.totalRefunds | currency}}</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Mobile expanded area -->
+	<div class="hidden-md hidden-lg application-expanded" ng-hide="applicationCardCtrl.viewMore">
+		<div ng-repeat="course in applicationCardCtrl.app.courses" class="course-block row-area">
+			<div class="course-name">
+				<div class="col-xs-8"><span>{{course.name | uppercase}} <span ng-show="course.name"> - </span>{{course.number}}</span></div>
+				<div class="col-xs-4"><span class="pull-right">{{course.tuitionAmount | currency}}</span></div>
+			</div>
+			<div  ng-repeat="expense in course.relatedExpenses" class="expense">
+				<div class="col-xs-8">
+					<span>{{ expense.name || 'HISTORY.UNKNOWN_EXPENSE' | translate}}</span>
+					<span ng-if="expense.numberOfBooks">&nbsp;({{expense.numberOfBooks}})</span>
+				</div>
+				<div class="col-xs-4"><span class="pull-right">{{expense.feesAmount | currency}}</span></div>
+			</div>
+		</div>
+		<div ng-repeat="expense in applicationCardCtrl.app.nonCourseRelatedExpenses" class="other-expense-block row-area">
+			<div class="col-xs-8"><span>{{ expense.name || 'HISTORY.UNKNOWN_EXPENSE' | translate}}</span></div>
+			<div class="col-xs-4"><span class="pull-right">{{expense.feesAmount | currency}}</span></div>
+		</div>
+		<div class="payment-info-block row-area">
+			<div class="course-status">
+				<div ng-show="app.paymentDate" class="col-xs-8">
+					<span class="pull-right">{{'HISTORY.PAYMENT_PROCESSED' | translate}}</span>
+					</br>
+					<span class="pull-right">{{applicationCardCtrl.app.paymentDate | timezoneDate:'MMM d, y' }}</span>
+				</div>
+			</div>
+			<div class="payment-amount">
+				<div class="col-xs-8"><span class="pull-right">{{'HISTORY.REQUESTED_AMOUNT' | translate}}</span></div>
+				<div class="col-xs-4"><span class="pull-right">{{applicationCardCtrl.app.totalRequestedAmount | currency}}</span></div>
+			</div>
+			<div class="adjustment-amount">
+				<div class="col-xs-8"><span class="pull-right">{{'HISTORY.ADJUSTMENT' | translate}}</span></div>
+				<div class="col-xs-4"><span class="pull-right">({{applicationCardCtrl.app.totalRefunds | currency}})</span></div>
+			</div>
+		</div>
+		<div class="total-view">
+			<div class="total-amount">
+				<div class="col-xs-8"><span class="pull-right">{{'HISTORY.TOTAL' | translate}}</span></div>
+				<div class="col-xs-4"><span class="pull-right">{{applicationCardCtrl.app.totalRequestedAmount - applicationCardCtrl.app.totalRefunds | currency}}</span></div>
+			</div>
+			<div class="col-xs-8 view-application">
+				<button type="button" class="btn btn-default btn-sm" ng-if="applicationCardCtrl.app.isFullAppEnabled" ng-click="applicationCardCtrl.navigateToFullApp()">
+					{{'HISTORY.VIEW_FULL_APPLICATION_BUTTON' | translate}}
+				</button>
+				<button type="button" class="btn btn-default btn-sm" ng-if="!applicationCardCtrl.app.isFullAppEnabled" ng-click="applicationCardCtrl.navigateToFullApp()">
+					{{'HISTORY.VIEW_APPROVE_OR_DENY_BUTTON' | translate}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

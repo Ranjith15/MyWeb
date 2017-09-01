@@ -1,0 +1,59 @@
+.drop-zone {
+  border: dotted 3px $c-blue-light-1;
+  min-height : 6rem;
+  
+  & div {
+    padding-left : 2rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+    & div.input-row{
+      padding-top : 1.4rem;
+    }
+  }
+}
+
+.drop-zone-progress-bar {
+  border: solid 1px $c-gray-1;
+  background-color : $c-gray-1;
+  color : $c-white;
+  height : 6rem;
+  margin-left : 0;
+
+  & .progress-fill {
+    height : 100%;
+    background-color : $c-yellow;
+    margin-left : 0;
+  }
+
+  & .progress-complete {
+    background-color : $c-green-1;
+  }
+
+  & .progress-status-section {
+    position : absolute;
+    left : 2.7rem;
+    top: 1rem;
+
+    & .input-row {
+      padding-top : 1rem;
+      padding-left : 4rem;
+    }
+  }
+}
+
+.drop-zone-ready {
+  border: solid 1px $c-green-1;
+  background-color : $c-green-1;
+  color : $c-white;
+
+  & div {
+    padding-left : 2rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+    & div.input-row{
+      padding-top : 1.4rem;
+    }
+  }
+}

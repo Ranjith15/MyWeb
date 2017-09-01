@@ -1,0 +1,97 @@
+/* Checkbox Dropdown Styling */
+
+//Checkbox Dropdown
+//
+// The checkbox dropdown contains  
+// custom CSS created to access elements 
+// inside the dropdown
+//
+//Markup: <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 checkbox-dropdown"><label for="benefitPeriod" >Text here</label><div class="form-group"><div id="benefitPeriod" class="multiselect-form-control form-control" ng-dropdown-multiselect options="historyCtrl.filters.options.benefitPeriod" selected-model="historyCtrl.selectedBenefitPeriods" extra-settings="historyCtrl.multiselectSettings" events="historyCtrl.benefitPeriodEvents" checkboxes="true"></div></div></div>
+//
+//Styleguide 3.0
+
+
+.checkbox-dropdown {
+  padding: 0 0.5rem 0 0.5rem;
+  .dropdown-menu {
+    min-width: initial;
+    > li {
+      > a {
+        padding-left: 1rem;
+      }
+      + li > a {
+        padding: 0 1rem;
+      }
+    }
+    .divider {
+      margin: 0.4rem 0 0.4rem;
+    }
+  }
+  input[type="checkbox"] {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0.2rem 0.4rem 0;
+    vertical-align: middle;
+  }
+  input[type=checkbox] {
+    &:checked {
+      &:after {
+        position: relative;
+        content: '';
+        display: block;
+        visibility: visible;
+        border: 1px solid $c-blue-light-1;
+        transition: background-color 0.40s;
+        border-radius: .2rem;
+        @include checkbox-markup;
+        background-color: $c-blue-light-1;
+        border-color: $c-blue-light-1;
+      }
+      &:focus:after {
+        border: 1px solid $c-blue-dark-3;
+      }
+    }
+    &:after {
+      width: 2rem;
+      height: 2rem;
+      top: 0;
+      left: 0;
+      position: relative;
+      background-color: $c-white;
+      content: '';
+      display: block;
+      visibility: visible;
+      border: 1px solid $c-blue-light-1;
+      border-radius: 0.2rem;
+    }
+    &:focus:after {
+      border: 1px solid $c-gray-dark-1;
+    }
+  }
+  .form-group .dropdown-menu label {
+    padding-left: 0;
+  }
+  label > input[type=checkbox] {
+    opacity: 1;
+    position: relative;
+  }
+  ul.dropdown-menu {
+    display: block;
+    height: auto;
+    overflow: auto;
+    max-height: 25rem;
+  }
+}
+/* Checkbox Dropdown Responsive Styling */
+
+@media(min-width: $screen-md-min) {
+  .checkbox-dropdown {
+    padding: 0 0 0 1.5rem;
+    #benefitPeriod {
+      min-width: 14rem !important;
+    }
+  }
+}
+.benefitPeriodGroup .multiselect-form-control label {
+  margin-top: 0;
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>circleProfile</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="30" cy="30" r="30"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="60" height="60" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="SVG" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="circleProfile">
+            <use id="Oval-2-Copy-6" stroke="#A1B6E0" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+            <g id="Group-9" transform="translate(18.000000, 14.000000)">
+                <polygon id="Fill-1" stroke="#A1B6E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="3 31 3 36 6.00219138 33.5493759 9 36 9 31"></polygon>
+                <polygon id="Fill-3" stroke="#A1B6E0" stroke-width="2" points="0 31 24 31 24 0 0 0"></polygon>
+                <polygon id="Fill-5" fill="#A1B6E0" points="3 7 21 7 21 4 3 4"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

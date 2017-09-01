@@ -1,0 +1,140 @@
+<div class="submitted-application">
+	<div class="title row">
+		<div class="application-title col-xs-12 col-sm-5">
+			<h1><span class="thin">{{'SUBMITTED_APPLICATION.APPLICATION_TYPE' | translate}} <sup>#</sup></span>{{submittedAppCtrl.submittedApplication.applicationNumber}}</h1>
+		</div>
+		<div class="col-xs-12 col-sm-7 hide-print">
+			<div class="button-container flex-container">
+				<a href="" ng-if="submittedAppCtrl.isEditStatus && submittedAppCtrl.isCurrentParticipantApplication()" role="button" class="btn btn-default btn-sm pull-right margin-top-1" ng-click="submittedAppCtrl.editApplication()">{{ 'SUBMITTED_APPLICATION.EDIT_APPLICATION' | translate }}</a>
+				<a href="" ng-if="submittedAppCtrl.isCancelStatus" role="button" class="btn btn-default btn-sm pull-right margin-top-1" ng-click="submittedAppCtrl.confirmCancelApp()">{{ 'APPLICATION.REVIEW.CANCEL_APPLICATION' | translate }}</a>
+			</div>
+		</div>
+	</div>
+	<div ng-class="{'loading': submittedAppCtrl.status === 'loading'}" class="hide-print"></div>
+	<div class="tile" ng-if="submittedAppCtrl.status !== 'loading'">
+		<div class="header appBlockWrap">
+			<div class="status-container">
+				<div class="status status-block-left" ng-class="submittedAppCtrl.isSupervisor ? submittedAppCtrl.applicationStatus.adminColor : submittedAppCtrl.applicationStatus.color">
+					<span ng-class="submittedAppCtrl.applicationStatus.icon"></span>
+				</div>
+				<div class="details col-xs-12">
+					<div class="row">
+						<div class="col-xs-12 col-sm-5">
+							<div class="application-status">{{submittedAppCtrl.submittedApplication.applicationStatus.applicationStatus | uppercase}}</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<div>{{'SUBMITTED_APPLICATION.EMPLOYEE' | translate}}</div>
+							<div class="data-item">{{submittedAppCtrl.submittedApplication.participant.user.firstName}} {{submittedAppCtrl.submittedApplication.participant.user.lastName}}</div>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<div class="modified text-right">
+								{{ 'HOME.TASKLIST.LAST_MODIFIED' | translate }}
+							</div> 
+							<div class="date">
+								{{submittedAppCtrl.application.dateModified | timezoneDate:"mediumDate"}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="error" ng-if="submittedAppCtrl.status === 'error'"><span class="icon-error"></span>
+			<span>{{submittedAppCtrl.message}}</span>
+		</div>
+		<div action="submittedAppCtrl.confirmCancel" template="cancel-confirmation.template" data="submittedAppCtrl.appData" generic-modal></div>
+		<div class="status-history row major-row content-container">
+			<section-header section-icon="icon-circleHistory" section-title="{{'APPLICATION.REVIEW.STATUS_HISTORY' | translate }}"></section-header>
+			<div class="major-row">
+				<div class="col-xs-12 col-sm-12 col-md-10">
+					<div ng-if="submittedAppCtrl.applicationStatusHistory.length > 0">
+						<div class="appBlockWrap">
+							<application-status-block ng-show="$index <= (submittedAppCtrl.statusHistory.limit - 1)" is-supervisor="submittedAppCtrl.isSupervisor" application-status="statusHistory" ng-repeat="statusHistory in submittedAppCtrl.applicationStatusHistory">
+							</application-status-block>
+						</div>
+						<a href="" ng-if="!submittedAppCtrl.showStatusHistory && submittedAppCtrl.applicationStatusHistory.length > submittedAppCtrl.statusHistory.limit" ng-click="submittedAppCtrl.toggleStatusHistoryView()" class="btn btn-default btn-sm hide-print">{{ 'APPLICATION.REVIEW.VIEW_ALL_STATUS_HISTORY' | translate }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row major-row content-container" ng-if="!submittedAppCtrl.isSupervisorReviewApp">
+			<section-header section-icon="icon-circleComment" section-title="{{ 'SUBMITTED_APPLICATION.COMMENTS.HEADER' | translate }}"></section-header>
+			<application-comments comments="submittedAppCtrl.submittedApplication.applicationComments" hide-add-new-comment="submittedAppCtrl.hideAddNewComment"></application-comments>
+		</div>
+		<div class="row major-row content-container">
+			<div class="col-md-1 hidden-xs hidden-sm">
+				<span class="icon-circleDocument"></span>
+			</div>
+			<div class="row col-xs-12 col-sm-12 col-md-10">
+				<div class="col-xs-6">
+					<h2>{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.HEADER' | translate }}</h2>
+				</div>
+				<div class="hidden-xs hidden-sm col-md-6 supported-types">
+					<span class="pull-right">
+						<a href="" ng-click="submittedAppCtrl.showSupportedDocsModal()" aria-label="{{ 'SUPPORT.TICKET.DOCUMENT_TYPES_VIEW' | translate }}" title="{{ 'SUPPORT.TICKET.DOCUMENT_TYPES_VIEW' | translate }}">{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.SUPPORTED_DOCS_INFO' | translate }}</a>
+						<a href="" ng-click="submittedAppCtrl.showSupportedDocsModal()" data-toggle="modal" class="icon-moreInfo" aria-hidden="true" title="{{ 'SUPPORT.TICKET.DOCUMENT_TYPES_VIEW' | translate }}"></a>
+					</span>
+				</div>
+				<div class="hidden-xs hidden-sm" action="submittedAppCtrl.supportedDocsModalState" template="file-upload-supported-docs.template" data="submittedAppCtrl.supportedDocsModal.data" generic-modal></div>
+				<form name="supportDocumentationForm" ng-submit="" class="col-xs-12">
+					<div class="hidden-xs hidden-sm" ng-if="!submittedAppCtrl.isSupervisorReviewApp">
+						<div class="input-row" ng-bind-html="submittedAppCtrl.submitDocsAdditionalInfo | trustHtml"></div>
+						<div class="spacer"></div>
+						<div ng-class="{'loading': model.status === 'loading'}"></div>
+						<file-upload model="submittedAppCtrl.fileUploadModel"></file-upload>
+					</div>
+					<div class="hidden-md hidden-lg hide-print">
+						<p>{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MOBILE' | translate }}</p>
+					</div>
+					<div class="spacer col-xs-12 hide-print"></div>
+					<application-documents-table application-id="submittedAppCtrl.submittedApplication.id" documents="submittedAppCtrl.submittedApplication.applicationDocuments"></application-documents-table>
+				</form>
+			</div>
+		</div>
+		<div class="row major-row content-container">
+			<section-header section-icon="icon-circlePayment" section-title="{{'SUBMITTED_APPLICATION.GRANTS_SCHOLARSHIP_HEADER' | translate }}"></section-header>
+			<div class="col-xs-12 col-sm-6">
+				<label>{{ 'AGREEMENT.GRANTS_SCHOLARSHIP' | translate }}</label>
+				<div class="data-item"><span class="uneditable"></span>{{submittedAppCtrl.submittedApplication.financialAidSourceId.financialAidDescription}} ${{submittedAppCtrl.submittedApplication.financialAidAmount}}</div>
+			</div>
+		</div>
+		<div class="row major-row content-container">
+			<section-header section-icon="icon-circleSchool" section-title="{{'SUBMITTED_APPLICATION.EDUCATION_HEADER' | translate }}"></section-header>
+			<submitted-education-information model="submittedAppCtrl.application"></submitted-education-information>
+		</div>
+		<div class="row major-row content-container">
+			<section-header section-icon="icon-circleClass" section-title="{{'SUBMITTED_APPLICATION.COURSES.HEADER' | translate }}"></section-header>
+			<course-list application-program-Id="submittedAppCtrl.applicationProgramId" course-application="submittedAppCtrl.submittedApplication" application-courses="submittedAppCtrl.submittedApplication.courses" application-snap-shot="submittedAppCtrl.applicationSnapShot"></course-list>
+		</div>
+		<div class="row major-row content-container">
+			<section-header section-icon="icon-circleProfile" section-title="{{'SUBMITTED_APPLICATION.CONTACT_INFORMATION_HEADER' | translate }}"></section-header>
+			<div class="col-xs-12 col-md-11">
+				<submitted-profile preferred-address="submittedAppCtrl.preferredAddress" preferred-phone="submittedAppCtrl.preferredPhone" preferred-email="submittedAppCtrl.preferredEmail"></submitted-profile>
+			</div>
+		</div>
+		<div class="row major-row">
+			<section-header section-icon="icon-circleDocument" section-title="{{'SUBMITTED_APPLICATION.AGREEMENT_HEADER' | translate }}"></section-header>
+			<div class="col-xs-12 col-md-11">
+				<label>{{ 'SUBMITTED_APPLICATION.AGREEMENT_SIGNED' | translate }}</label>
+				<div class="data-item"><span class="uneditable"></span>{{submittedAppCtrl.application.agreementsDate | timezoneDate:"MMM dd yyyy"}}</div>
+				<div class="spacer"></div>
+				<div ng-class="{'loading': submittedAppCtrl.agreementStatus === 'loading'}"></div>
+				<div class="error" ng-if="submittedAppCtrl.agreementStatus === 'error'"><span class="icon-error"></span>
+					<span>{{submittedAppCtrl.agreementMessage}}</span>
+				</div>
+				<div ng-show="submittedAppCtrl.showAgreements">
+					<div ng-repeat="content in submittedAppCtrl.agreementContent">
+						<div class="panel panel-default margin-vertical-1">
+							<div class="panel-body agreement">
+								<span><strong><p ng-bind-html="content.title"></p></strong></span>
+								<span><p ng-bind-html="content.text"></p></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<a class="btn btn-default btn-sm hide-print" role="button" href="" ng-if="!submittedAppCtrl.showAgreements" ng-click="submittedAppCtrl.showAgreements = true">{{ 'SUBMITTED_APPLICATION.VIEW_AGREEMENTS' | translate }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

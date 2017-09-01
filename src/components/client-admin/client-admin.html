@@ -1,0 +1,123 @@
+<div class="header">
+	<h1>{{ 'CLIENT_ADMIN.HEADER' | translate }}</h1>
+</div>
+<div class="tile">
+	<div class="header">
+		<h2>{{ 'CLIENT_ADMIN.ADMIN_SEARCH' | translate }}</h2>
+	</div>
+	<div class="error" ng-show="clientAdminCtrl.missingField">
+		<span class="icon-error"></span>
+		<span>{{ 'CLIENT_ADMIN.ERROR_MISSING_ONE_FIELD' | translate }}</span>
+	</div>
+	<form name="adminSearchForm" ng-submit="clientAdminCtrl.adminSearchClick()">
+		<div class="row input-row">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-class="{ 'field-error' : adminSearchForm.firstName.$invalid}">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.FIRST_NAME' | translate }}</label>					
+					<input type="text" name="firstName" placeholder="{{ 'CLIENT_ADMIN.PLACEHOLDERS.FIRST_NAME' | translate }}" class="form-control"ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.firstName"  ng-pattern="global.constants.patterns.alphanumeric">
+					<span class="help-block" ng-show="adminSearchForm.firstName.$invalid && adminSearchForm.firstName.$dirty" ng-messages="adminSearchForm.firstName.$error">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-class="{ 'field-error' : adminSearchForm.lastName.$invalid}">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.LAST_NAME' | translate }}</label>
+					<input type="text" name="lastName" placeholder="{{ 'CLIENT_ADMIN.PLACEHOLDERS.LAST_NAME' | translate }}" class="form-control" ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.lastName"  ng-pattern="global.constants.patterns.alphanumeric"/>
+					<span class="help-block" ng-show="adminSearchForm.lastName.$invalid && 	adminSearchForm.lastName.$dirty" ng-messages="adminSearchForm.lastName.$error">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-class="{ 'field-error' : adminSearchForm.employeeId.$invalid}">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.EMPLOYEE_ID' | translate }}</label>
+					<input type="text" name="employeeId" placeholder="{{ 'CLIENT_ADMIN.PLACEHOLDERS.EMPLOYEE_ID' | translate }}" class="form-control" ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.employeeId" ng-pattern="global.constants.patterns.alphanumeric"/>
+					<span class="help-block" ng-show="adminSearchForm.employeeId.$invalid && adminSearchForm.employeeId.$dirty" ng-messages="adminSearchForm.employeeId.$error">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row input-row">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-show="clientAdminCtrl.adminSearchModel.isAdvancedSearch" ng-class="{ 'field-error' : adminSearchForm.applicationNum.$invalid}">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.APPLICATION_NUMBER' | translate }}</label>
+					<input type="text" name="applicationNum" placeholder="{{ 'CLIENT_ADMIN.PLACEHOLDERS.APPLICATION_NUMBER' | translate }}" class="form-control" ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.applicationNum"  ng-pattern="global.constants.patterns.numeric"/>
+					<span class="help-block" ng-show="adminSearchForm.applicationNum.$invalid && adminSearchForm.applicationNum.$dirty" ng-messages="adminSearchForm.applicationNum.$error">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-show="clientAdminCtrl.adminSearchModel.isAdvancedSearch">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.APPLICATION_STATUS' | translate }}</label>
+					<div>
+						<select class="form-control" ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.applicationStatus" name="applicationStatus" id="applicationStatus" ng-options="status.applicationStatusID as status.applicationStatus for status in clientAdminCtrl.appStatusList | filter :{applicationStatusID : '!' + global.constants.applicationStatus.void}">
+							<option value=""><label>Select</label></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-show="clientAdminCtrl.adminSearchModel.isAdvancedSearch">
+					<label class="pull-left">{{ 'CLIENT_ADMIN.BENEFIT_PERIOD' | translate }}</label>
+					<div>
+						<select class="form-control" ng-model="clientAdminCtrl.adminSearchModel.adminSearchCriteria.benefitPeriod" name="benefitPeriodName" id="benefitPeriodName" ng-options="period.display as period.display for period in clientAdminCtrl.benefitperiodList">
+							<option value=""><label>Select</label></option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="spacer col-xs-12"></div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 pull-right">
+				<a href="" ng-click="clientAdminCtrl.advancedSearch()" class="pull-right">
+					<span>{{clientAdminCtrl.advancedSearchIcon}}</span> {{ 'CLIENT_ADMIN.ADVANCED_SEARCH' | translate }}
+				</a>
+			</div>
+		</div>
+		<div class="spacer col-xs-12"></div>
+		<div class="section-footer">
+			<button type="submit" class="btn btn-primary btn-sm" ng-disabled="adminSearchForm.$invalid || clientAdminCtrl.searchInProgress">{{ 'GENERAL.SEARCH' | translate }}</button>
+			<button type="button" class="btn btn-default btn-sm" ng-click="clientAdminCtrl.clearAdminSearch()" ng-disabled="clientAdminCtrl.searchInProgress">{{ 'GENERAL.CLEAR' | translate }}</button>
+		</div>
+	<form>
+</div>
+
+<div>
+	<!-- Client Admin Participant List -->
+	<div ng-class="{'loading': clientAdminCtrl.participantLoadStatus === 'loading'}"></div>
+	<div ng-show="clientAdminCtrl.participantLoadStatus !== 'loading' && clientAdminCtrl.clientAdminResults.length > 0">
+		<div class="row col-xs-12 col-md-4">
+			<label class="col-xs-12 col-md-12 col-md-3"><strong>{{ 'CLIENT_ADMIN.SORT_BY' | translate }}:</strong></label>
+			<div class="col-xs-12 col-sm-12 col-md-9">
+				<select class="form-control" ng-model="clientAdminCtrl.sortBy" name="sortBy" ng-options="sortBy as sortBy.display for sortBy in clientAdminCtrl.sortByList" ng-change="clientAdminCtrl.adminSearchClick()" required>
+					<option value="">None</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="spacer col-xs-12"></div>
+		</div>
+		<div>
+			<participant-action-block ng-repeat="participant in clientAdminCtrl.clientAdminResults | limitTo:5" participant="participant" on-ticket-click="clientAdminCtrl.adminTicketSearch(participant)" sort-by="clientAdminCtrl.sortBy">
+			</participant-action-block>
+		</div>
+
+		<div class="text-center" ng-show="clientAdminCtrl.totalItems > clientAdminCtrl.recordsPerPage">
+
+			<nav aria-label="Page navigation">
+				<ul uib-pagination total-items="clientAdminCtrl.totalItems" ng-model="clientAdminCtrl.currentPage" items-per-page="clientAdminCtrl.recordsPerPage" ng-change="clientAdminCtrl.adminSearchClick()" class="pagination-sm" boundary-link-numbers="true" max-size="1" previous-text="&lsaquo;" next-text="&rsaquo;"></ul>
+			</nav>
+		</div>
+
+	</div>
+	<div ng-show="clientAdminCtrl.participantLoadStatus !== 'loading' && clientAdminCtrl.clientAdminResults.length === 0">
+		<div class="tile">
+			<label>{{ 'CLIENT_ADMIN.NO_RESULTS' | translate }}</label>
+		</div>
+	</div>
+	<div action='clientAdminCtrl.participantTicketsFound' template='no-tickets-found.template' generic-modal></div>
+</div>

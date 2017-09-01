@@ -1,0 +1,21 @@
+.document-list {
+  padding: 0;
+  .list-label {
+    position: relative;
+    padding: 2rem;
+    font-weight: normal;
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: initial;
+  }
+  a, .no-documents {
+    display: block;
+    padding: 1.1rem 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    font-weight: normal;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $c-gray-light-3;
+  }
+}

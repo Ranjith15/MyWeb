@@ -1,0 +1,105 @@
+<div class="modal-header">
+	<button data-dismiss="modal" aria-label="{{ 'GENERAL.CLOSE' | translate }}" class="icon-close" ng-click="cancel()"></button>
+</div>
+<ng-form name="editContentForm">
+	<div class="modal-body admin-body-container">
+		<div id="modal-title" class="heading-extra-small">{{ data.model.content.name }}</div>
+		<div class="row">
+			<div class="form-group col-xs-12 col-sm-6">
+				<label class="pull-left" for="editContentName">{{ 'ADMIN.CONTENT_NAME' | translate }}</label>
+				<input id="editContentName" type="text" name="name" class="form-control" ng-model="data.model.content.name" ng-disabled="data.model.isSuperAdmin" maxlength="50" />
+			</div>
+			<div class="form-group col-xs-12 col-sm-6">
+				<div class="flex-container">
+					<div class="datepicker-block" role="alert">
+						<label for="editContentStartDate">{{ 'ADMIN.CONTENT_START_DATE' | translate }}</label>
+						<div class="input-group">
+							<input
+								uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+								datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+								is-open="startDateOpen"
+								type="text"
+								id="editContentStartDate"
+								name="startDate"
+								placeholder="{{ 'ADMIN.CONTENT_START_DATE' | translate}}"
+								class="form-control"
+								ng-model="data.model.content.startDate"
+								ng-click="startDateOpen = true"
+								ng-pattern="global.constants.patterns.date"
+								adjust-timezone />
+							<a href="" class="input-group-addon" ng-click="startDateOpen = true"><i class="fa fa-calendar"></i></a>
+						</div>
+						<span class="help-block" ng-messages="editContentForm.startDate.$error" ng-show="editContentForm.startDate.$invalid">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+					<div class="datepicker-block" role="alert">
+						<label for="editContentEndDate">{{ 'ADMIN.CONTENT_END_DATE' | translate }}</label>
+						<div class="input-group">
+							<input
+								uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+								datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+								is-open="endDateOpen"
+								type="text" id="editContentEndDate"
+								name="endDate"
+								placeholder="{{ 'ADMIN.CONTENT_END_DATE' | translate}}"
+								class="form-control"
+								ng-model="data.model.content.endDate"
+								ng-click="endDateOpen = true"
+								ng-pattern="global.constants.patterns.date"
+								adjust-timezone />
+							<a href="" class="input-group-addon" ng-click="startDateOpen = true"><i class="fa fa-calendar"></i></a>
+						</div>
+						<span class="help-block" ng-messages="editContentForm.endDate.$error" ng-show="editContentForm.endDate.$invalid">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12"><hr></div>
+		<div class="row" ng-if="data.model.content.component === data.model.component.message">
+			<div class="form-group col-xs-12 col-md-6">
+				<label for="editContentTitle" class="pull-left">{{ 'ADMIN.MESSAGE_TITLE' | translate }}</label>
+				<input id="editContentTitle" type="text" name="title" class="form-control" ng-model="data.model.content.title" maxlength="20" />
+			</div>
+		</div>
+		<div class="row" ng-if="data.model.content.type === data.model.contentType.email">
+			<div class="form-group col-xs-12 col-md-6">
+				<label for="editContentSubject" class="pull-left">{{ 'ADMIN.CONTENT_SUBJECT' | translate }}</label>
+				<input id="editContentSubject" type="text" name="subject" class="form-control" ng-model="data.model.content.subject" maxlength="100" />
+			</div>
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="editContentCcEmail" class="pull-left">{{ 'ADMIN.CONTENT_CCEMAIL' | translate }}</label>
+				<input id="editContentCcEmail" type="text" name="ccEmail" class="form-control" ng-model="data.model.content.ccEmailId" maxlength="50" />
+			</div>
+			<div class="form-group col-xs-12 col-md-3">
+				<label for="editContentBccEmail" class="pull-left">{{ 'ADMIN.CONTENT_BCCEMAIL' | translate }}</label>
+				<input id="editContentBccEmail" type="text" name="bccEmail" class="form-control" ng-model="data.model.content.bccEmailId" maxlength="50" />
+			</div>
+		</div>
+		<div class="row margin-top-4" ng-if = "data.model.content.component !== data.model.component.clientDocuments && !(data.model.content.name === data.model.webLogo || data.model.content.name === data.model.mobileLogo)">
+			<div class="col-xs-12">
+				<text-angular ta-toolbar="data.model.toolbarOptions" ta-text-editor-class="form-control text-angular" ta-html-editor-class="form-control text-angular" ng-if="data.model.content.type !== data.model.contentType.email" name="editContentFormData" ng-model="data.model.content.data"></text-angular>
+				<text-angular ta-toolbar="data.model.toolbarOptions" ta-text-editor-class="form-control text-angular" ta-html-editor-class="form-control text-angular" ng-if="data.model.content.type === data.model.contentType.email" name="editContentFormData" ng-model="data.model.content.body"></text-angular>
+			</div>
+		</div>
+		<div class="row" ng-if="data.model.content.name === data.model.webLogo || data.model.content.name === data.model.mobileLogo">
+			<div class="col-xs-12">
+				<label class="pull-left" for="filePathId">{{ 'ADMIN.CONTENT_FILEPATH' | translate }}</label>
+				<input type="text" id="filePathId" name="filePath" class="form-control" ng-model="data.model.content.filePath"/>
+			</div>
+		</div>
+		<div ng-if="data.model.content.component === data.model.component.clientDocuments" class="row margin-top-2">
+			<div class="col-xs-12">
+				<span><document-download content="data.model.content"><document-download></span>
+				<file-upload model="data.model.fileUploadModel" mode="create"></file-upload>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="" ng-if="data.model.content.component === data.model.component.clientDocuments" class="btn btn-primary btn-sm" role="button" ng-click="cancel()">{{'DONE' | translate}}</a>
+		<a href="" ng-if="data.model.content.component !== data.model.component.clientDocuments" class="btn btn-primary btn-sm" role="button" ng-disabled="editContentForm.$invalid" ng-click="data.updateContent(data.model.content)">{{ 'GENERAL.SAVE' | translate }}</a>
+		<a href="" class="btn btn-default btn-sm" ng-disabled="!data.model.updateAccess" role="button" ng-click="data.model.updateAccess && data.deleteContent(data.model.content.id)">{{ 'ADMIN.DELETE_CONTENT' | translate }}</a>
+	</div>
+</ng-form>

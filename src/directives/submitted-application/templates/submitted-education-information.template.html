@@ -1,0 +1,41 @@
+<div class="col-xs-12 col-md-11">
+	<div class="row" ng-show="model.benefitPeriodID">
+		<div class="col-xs-12 col-sm-6">
+			<label>{{ 'EDUCATION.EMPLOYEE_ASSISTANCE_PROGRAM' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.benefitPeriodID.programID.programName}}
+				<a ng-if="model.programDescription.data" href="" ng-click="showProgramDetailsModal()" data-target="#modalInformation{{model.benefitPeriodID.programID.programID}}" data-toggle="modal" class="icon-moreInfo hide-print"></a>
+			</div>
+			<div action="modalShowing" template="program-details.template" data="model" modal-title="model.benefitPeriodID.programID.programName" generic-modal></div>
+		</div>
+	</div>
+	<div class="row input-row" ng-show="model.educationalProvider">
+		<div class="col-xs-12 col-sm-4">
+			<label>{{ 'EDUCATION.NAME' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.educationalProvider.providerName}}</div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<label>{{ 'EDUCATION.PROVIDER_CODE' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.educationalProvider.providerCode}}</div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<label>{{ 'EDUCATION.ADDRESS' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.educationalProvider.providerAddress1}} <br> {{model.educationalProvider.providerAddress2}} <br> {{model.educationalProvider.providerCity}}, {{model.educationalProvider.providerState}} {{model.educationalProvider.providerZip}} </div>
+		</div>
+	</div>
+	<div class="row input-row" ng-show="model">
+		<div class="col-xs-12">
+			<label>{{ 'EDUCATION.STUDENT_ID' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.studentID}}</div>
+		</div>
+	</div>
+	<div class="row input-row" ng-show="model">
+		<div class="col-xs-12 col-sm-4">
+			<label>{{ 'EDUCATION.EDUCATION_PROGRAM' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.degreeObjectiveID.degree}}</div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<label>{{ 'EDUCATION.FIELD_OF_STUDY' | translate }}</label>
+			<div class="data-item"><span class="uneditable"></span>{{model.courseOfStudyID.courseOfStudy}}</div>
+		</div>
+	</div>
+</div>

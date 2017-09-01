@@ -1,0 +1,47 @@
+<div class="row major-row" ng-hide="reviewAndSubmitAppointmentCtrl.hideEmploymentEducation">
+	<div class="col-md-2 hidden-xs hidden-sm"></div>
+	<div class="col-xs-12 col-md-11">
+		<div>
+			<div class="row">
+				<div class="col-xs-8 col-md-4">
+					<h2>{{ 'ADVISING.SUBMIT_REVIEW_APPOINTMENT.EMPLOYMENT_EDUCATION' | translate }}</h2>
+				</div>
+				<div class="col-xs-4 col-md-8 margin-top-4">
+					<a ng-click="editEmploymentEducation(reviewAndSubmitAppointmentCtrl.advisingAppointment)" href="" title="{{ 'ADVISING.SUBMIT_REVIEW_APPOINTMENT.EMPLOYMENT_EDUCATION_TOOLTIP_TITLE' | translate }}" role="button"><span class="icon-edit small"/>{{ 'GENERAL.EDIT' | translate }}</a>
+				</div>
+			</div>
+			<submitted-employment-education  model="reviewAndSubmitAppointmentCtrl.advisingAppointment"></submitted-employment-education>
+		</div>
+	</div>
+</div>
+<div class="row major-row">
+	<div class="col-md-2 hidden-xs hidden-sm"></div>
+	<div class="col-xs-12 col-md-11">
+		<div>
+			<div class="row">
+				<div class="col-xs-8 col-md-3">
+					<h2>{{ 'ADVISING.SUBMIT_REVIEW_APPOINTMENT.CONTACT_INFORMATION' | translate }}</h2>
+				</div>
+			</div>
+			<submitted-contact-information model="reviewAndSubmitAppointmentCtrl.advisingAppointment"></submitted-contact-information>
+		</div>
+	</div>
+</div>
+<div class="row major-row">
+	<div class="col-md-2 hidden-xs hidden-sm"></div>
+	<div class="col-xs-12 col-md-11">
+		<div>
+			<div class="row">
+				<div class="col-xs-8 col-md-3">
+					<h2>{{ 'ADVISING.SUBMIT_REVIEW_APPOINTMENT.APPOINTMENT' | translate }}</h2>
+				</div>
+				<div class="col-xs-4 col-md-9 margin-top-4">
+					<a ng-click="editAppointmentSlot(reviewAndSubmitAppointmentCtrl.advisingAppointment)" href="" title="{{ 'ADVISING.SUBMIT_REVIEW_APPOINTMENT.APPOINTMENT_TOOLTIP_TITLE' | translate }}" role="button"><span class="icon-edit small"/>{{ 'GENERAL.EDIT' | translate }}</a>
+				</div>
+			</div>
+			<submitted-appointment model="reviewAndSubmitAppointmentCtrl.advisingAppointment.selectedSlot"></submitted-appointment>
+		</div>
+	</div>
+</div>
+
+

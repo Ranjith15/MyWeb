@@ -1,0 +1,27 @@
+<div class="error" ng-if="teamListCtrl.supervisedParticipantStatus === 'error'"><span class="icon-error"></span>
+	<span>{{teamListCtrl.message}}</span>
+</div>
+<div class="row">
+	<div ng-class="{'loading': teamListCtrl.supervisedParticipantStatus === 'loading'}"></div>
+	<div class="panel-body zebra" ng-show="teamListCtrl.supervisedParticipants">
+		<row>
+			<div class="col-xs-5 col-sm-3 heading-extra-small">{{ 'PROFILE.SUPERVISED_PARTICIPANTS.NAME' | translate }}</div>
+			<div class="col-xs-4 col-sm-2 heading-extra-small">{{ 'PROFILE.SUPERVISED_PARTICIPANTS.EMPLOYEE_ID' | translate }}</div>
+			<div class="hidden-xs col-sm-2 heading-extra-small">{{ 'PROFILE.SUPERVISED_PARTICIPANTS.APPROVAL_LEVEL' | translate }}</div>
+			<div class="col-xs-3 col-sm-2 heading-extra-small">{{ 'PROFILE.SUPERVISED_PARTICIPANTS.STATUS' | translate }}</div>
+			<div class="hidden-xs col-sm-3 heading-extra-small">{{ 'PROFILE.SUPERVISED_PARTICIPANTS.ROLE' | translate }}</div>
+		</row>
+		<div ng-repeat= "participant in teamListCtrl.supervisedParticipants | limitTo : teamListCtrl.recordsPerPage">
+			<row>
+				<cell class="col-xs-5 col-sm-3">{{participant.lastName}}, {{participant.firstName}}</cell>
+				<cell class="col-xs-4 col-sm-2">{{participant.employeeId}}</cell>
+				<cell class="hidden-xs col-sm-2">{{participant.approvalLevel}}</cell>
+				<cell class="col-xs-3 col-sm-2">{{participant.status}}</cell>
+				<cell class="hidden-xs col-sm-3 overflow-hidden">{{participant.role}}</cell>
+			</row>
+		</div>
+		<a id="team-list-toggle" ng-click="teamListCtrl.showAll()" href="" class="btn btn-default col-sm-2 margin-top-4" ng-if="teamListCtrl.recordsPerPage < teamListCtrl.supervisedParticipants.length">
+			<span ng-show="!teamListCtrl.viewAll">{{'PROFILE.SUPERVISED_PARTICIPANTS.VIEW_ALL' | translate}}</span>
+		</a>
+	</div>
+</div>

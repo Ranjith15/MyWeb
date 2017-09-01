@@ -1,0 +1,24 @@
+<label class="custom-radio col-xs-12" for="{{radioCtrl.id}}" ng-class="{'col-sm-6 col-md-4' : radioCtrl.parentComp.isVertical !== true}">
+  <input type="radio"
+    id="{{radioCtrl.id}}"
+    name="{{radioCtrl.parentComp.name}}"
+    ng-value="radioCtrl.value"
+    ng-model="radioCtrl.parentComp.selectedValue"
+    ng-required="{{radioCtrl.parentComp.required}}"
+    ng-change="radioCtrl.handleChange()" />
+  <div class="radio-label">
+    <div>
+      <span>{{radioCtrl.label}}</span>
+      <a href=""
+        ng-click="radioCtrl.showModal()"
+        ng-if="radioCtrl.hasTooltip"
+        data-target="{{radioCtrl.modalTarget}}"
+        data-toggle="modal"
+        class="icon-moreInfo"
+        aria-label="{{'GENERAL.MORE_INFO' | translate}}"
+        title="{{'GENERAL.MORE_INFO' | translate}}"></a>
+    </div>
+    <ng-transclude></ng-transclude>
+    <div generic-modal action="radioCtrl.modalState" template="{{radioCtrl.modalTemplate}}" data="radioCtrl.modalData" modal-title="radioCtrl.modalTitle"></div>
+  </div>
+</label>

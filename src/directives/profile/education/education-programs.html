@@ -1,0 +1,31 @@
+<div class="row content-container">
+	<section-header section-icon="icon-circleDocument" section-title="{{ (model.participantProgramData.programs.length !== 1 ? 'PROFILE.EDUCATION.PROGRAMS.HEADER' : 'PROFILE.EDUCATION.PROGRAMS.HEADER_SINGLE') | translate }}">
+		<p class="explanation" ng-bind-html="model.programInformation | trustHtml"></p>
+		<div ng-class="{'loading': model.participantProgramData.status === 'loading'}"></div>
+
+		<radio-group name="programRadioGroup" model="model.educationProfile.programID" item-model="programID" is-vertical="true" >
+			<radio-button ng-repeat="program in model.participantProgramData.programs"
+				label="{{program.programName}}"
+				value="program.programId"
+				onselect="model.showConfirmModal($event)"
+				has-tooltip="program.programDescription.data"
+				modal-template="program-details.template"
+				modal-title="{{program.programName}}"
+				modal-data="program"
+				model-target="#modalInformation{{program.programId}}"
+				>
+				<div class="certification-expenses-wrapper" ng-if="program.referenceProgramSubTypeCollection.length > 0" ng-show="model.educationProfile.programTypeID.programTypeID === program.programTypeID.programTypeID">
+					<h4>{{ 'PROFILE.EDUCATION.PROGRAMS.CERTIFICATE_EXPENSES.HEADER_TYPE_' + model.educationProfile.programTypeID.programTypeID | translate}}</h4>
+					<div class="row">
+						<checkbox ng-repeat="subtype in program.referenceProgramSubTypeCollection" name="program-subtype-{{subtype.programSubType.programSubTypeId}}" label="{{subtype.programSubType.programSubTypeName}}" />
+					</div>
+				</div>
+			</radio-button>
+		</radio-group>
+
+		<div ng-show="model.participantProgramData.programs.length === 0 && model.participantProgramData.status === 'success'">
+			<p class="explination">{{ 'PROFILE.EDUCATION.PROGRAMS.NO_PROGRAMS' | translate }}</p>
+		</div>
+
+	</section-header>
+</div>

@@ -1,0 +1,122 @@
+<h1>{{ 'PROFILE.HEADER' | translate }}</h1>
+<div class="tile" ng-if="global.isClientAdmin() && profileCtrl.eligiblityStatus === 'success'">
+	<div class="header">
+		<h2>{{ 'CLIENT_ADMIN.PROFILE.ELIGIBILITY' | translate }}</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-sm-12" ng-if="profileCtrl.isSelectedUserSupervisor()">
+			<div class="form-inline pull-left-full-screen">
+				<a href="" role="button" ng-click="profileCtrl.backToSearchResults()">{{'HISTORY.BACK_TO_SEARCH_RESULTS' | translate}}</a>
+			</div>
+		</div>
+	</div>
+	<profile-Eligibility model="profileCtrl.profileData"></profile-Eligibility>
+	<profile-Programs model="profileCtrl.rules"></profile-Programs>
+	<profile-Rules-Exceptions model="profileCtrl"></profile-Rules-Exceptions>
+</div>
+<button type="submit" class="btn btn-primary btn-sm" ng-click="profileCtrl.isExpanded = true" ng-if="global.isClientAdmin() && !profileCtrl.isExpanded">{{'GENERAL.MORE_BUTTON' | translate }}</button>
+<div ng-if="profileCtrl.isExpanded">
+	<div class="tile">
+		<div class="header">
+			<h2>{{ 'PROFILE.ACCOUNT.HEADER' | translate }}</h2>
+		</div>
+		<div ng-bind-html="profileCtrl.profileIntro | trustHtml"></div>
+		<div class="spacer"></div>
+		<div ng-class="{'loading': profileCtrl.profileData.status === 'loading'}"></div>
+		<div ng-show="profileCtrl.profileData.status !== 'loading'">
+			<div class="row">
+				<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleProfile"></span></div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="heading-medium">{{ 'PROFILE.PERSONAL_INFORMATION' | translate }}</div>
+				</div>
+				<div class="col-xs-12 col-sm-5 margin-top-4 hidden-xs">
+					<div class="flex-container pull-right">
+						<a ui-sref="changePassword({userId : profileCtrl.userDetails.userId})" class="btn btn-default btn-sm" role="button" ng-if="!profileCtrl.ssoEnabled || profileCtrl.nonSsoOveride">{{ 'GENERAL.CHANGE_PASSWORD' | translate }}</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-11 pull-right">
+					<div class="form-group row">
+						<div class="col-xs-12 col-sm-4 margin-bottom-2">
+							<div class="col-xs-12 pull-left">{{ 'PROFILE.NAME' | translate }}</div>
+							<div class="col-xs-12  data-item">
+								<span class="uneditable">{{profileCtrl.profileData.user.firstName}} {{profileCtrl.profileData.user.lastName}}</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 margin-bottom-2">
+							<div class="col-xs-12 pull-left">{{ 'PROFILE.USERNAME' | translate }}</div>
+							<div class="col-xs-12 data-item">
+								<span class="uneditable">{{profileCtrl.profileData.user.userName}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+				<div class="flex-container">
+					<a ui-sref="changePassword({userId : profileCtrl.userDetails.userId})" class="btn btn-default btn-sm" role="button">{{ 'GENERAL.CHANGE_PASSWORD' | translate }}</a>
+				</div>
+			</div>
+			<div class="spacer"></div>
+		</div>
+	</div>
+	<div class="tile">
+		<div class="header">
+			<h2>{{ 'PROFILE.CONTACT.HEADER' | translate }}</h2>
+		</div>
+		<div class="error" ng-if="profileCtrl.profileData.status === 'error'"><span class="icon-error"></span>
+			<span>{{profileCtrl.profileData.message}}</span>
+		</div>
+		<form name="profileContactForm" ng-submit="submitProfileForm(profileContactForm)">
+			<div ng-class="{'loading': profileCtrl.profileData.status === 'loading'}"></div>
+			<div ng-show="profileCtrl.profileData.status !== 'loading'">
+				<profile-contact ng-model="profileCtrl.profileData"></profile-contact>
+				<div class="section-footer">
+					<button type="submit" class="btn btn-primary btn-sm" aria-label="{{ 'PROFILE.SAVE_CONTACT_INFO' | translate }}" ng-class="{working: profileCtrl.profileData.status === 'saving', disabled: profileContactForm.$invalid}" ng-disabled="profileContactForm.$invalid">{{'GENERAL.SAVE' | translate }}<span></span></button>
+					<a href="" ng-click="resetContactForm(profileContactForm)" aria-label="{{ 'PROFILE.CANCEL_CONTACT_INFO' | translate }}" class="btn btn-default btn-sm" role="button">{{ 'GENERAL.CANCEL' | translate }}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="educationHeader" class="tile">
+		<div class="header">
+			<h2>{{ 'PROFILE.EDUCATION.HEADER' | translate }}</h2>
+		</div>
+		<div class="error" ng-if="profileCtrl.participantProgramData.status === 'error'"><span class="icon-error"></span>
+			<span>{{profileCtrl.participantProgramData.message}}</span>
+		</div>
+		<form name="profileForm" ng-submit="submitEducationForm(profileForm)">
+			<div ng-class="{'loading': profileCtrl.participantProgramData.status === 'loading'}"></div>
+			<div ng-show="profileCtrl.participantProgramData.status !== 'loading'">
+				<education-programs model="profileCtrl"></education-programs>
+				<provider-information model="profileCtrl" title="{{'PROFILE.EDUCATION.PROVIDER.HEADER' | translate}}"></provider-information>
+				<provider-search model="profileCtrl"></provider-search>
+				<degree-information model="profileCtrl"></degree-information>
+				<div class="section-footer">
+					<button type="submit" class="btn btn-primary btn-sm" aria-label="{{ 'PROFILE.SAVE_EDUCATION_INFO' | translate }}" ng-class="{working: profileCtrl.educationProfile.status === 'saving'}" ng-disabled="profileForm.$invalid || profileForm.$pristine">{{ 'GENERAL.SAVE' | translate }}<span></span></button>
+					<button type="button" class="btn btn-default btn-sm" ng-click="resetEducationForm(profileForm)" aria-label="{{ 'PROFILE.CANCEL_EDUCATION_INFO' | translate }}" ng-disabled="profileForm.$pristine">{{ 'GENERAL.CANCEL' | translate }}</button>
+					<span ng-show="profileCtrl.educationProfile.status === 'saveSuccess' && profileForm.$pristine" class="success-block" aria-live="polite" aria-atomic="true">{{ 'GENERAL.SAVED' | translate }}</span>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="tile" ng-if="profileCtrl.isSelectedUserSupervisor()">
+		<div class="header">
+			<h2>{{ 'PROFILE.SUPERVISED_PARTICIPANTS.HEADER' | translate }}</h2>
+		</div>
+		<team-list participant-id="profileCtrl.participantId"></team-list>
+	</div>
+	<div class="tile">
+		<div class="header">
+			<h2>{{ 'PROFILE.APPROVER.HEADER' | translate }}</h2>
+		</div>
+		<div ng-show="profileCtrl.supervisorsResponse.levelOneSupervisor">
+			<profile-approver approver-model="profileCtrl.supervisorsResponse.levelOneSupervisor" approver-icon="icon-circleOne" approver-level="PROFILE.APPROVER.FIRST"></profile-approver>
+		</div>
+		<div class="spacer"></div>
+		<div ng-show="profileCtrl.supervisorsResponse.levelTwoSupervisor">
+			<profile-approver approver-model="profileCtrl.supervisorsResponse.levelTwoSupervisor" approver-icon="icon-circleTwo" approver-level="PROFILE.APPROVER.SECOND"></profile-approver>
+		</div>
+	</div>
+</div>

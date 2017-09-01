@@ -1,0 +1,111 @@
+<h1 class="sr-only">{{ 'FAX_COVERSHEET.HEADING' | translate }}</h1>
+<div class="modal-content col-xs-12 text-center document-fax">
+	<div class="modal-header col-xs-12">
+		<button data-dismiss="modal" class="icon-close" aria-label="{{'GENERAL.CLOSE' | translate}} {{'
+SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MODAL.MODAL' | translate}}" ng-click="cancel()"></button>
+	</div>
+	
+	<div id="faxCoverSheet" class="document-fax">
+		<section-header class="text-center" section-title="{{'FAX_COVERSHEET.OCR_BOX_SUGGESTION' | translate }}"></section-header>
+		<div id="ocr" class="col-xs-12 fax-cover-sheet-ocr">
+			<div class="row margin-top-5 margin-bottom-5">
+				<div class="col-xs-3 text-left">
+					<span class="print-text-ocr application-number">AN#{{data.applicationNumber}}</span>
+				</div>
+				<div class="col-xs-9 print-text-ocr text-right document-item-container">
+					<span class="document-item" ng-repeat="selDocType in data.documentTypes" ng-show="selDocType.selected"><font class="document-item" ng-show="!$first">,&nbsp;</font>DT#{{selDocType.defaultDocumentsID}}</span><span class="document-item" ng-show="data.SelectedDocType.Other">,&nbsp;DT#999</span>
+				</div>
+			</div>
+		</div>
+		<div id="faxCoverSheetBody" class="col-xs-12 fax-cover-sheet-body">
+			<h2 class="text-center" id="modal-title">{{ 'FAX_COVERSHEET.HEADER' | translate }}</h2>
+			<div class="col-xs-12 print-text">
+				<div class="row">
+					<div class="col-xs-6">
+						<span class="col-xs-6">{{ 'FAX_COVERSHEET.APPLICATION_NUMBER' | translate }}:</span>
+						<span class="col-xs-6">{{data.applicationNumber}}</span>
+					</div>
+					<div class="col-xs-6">
+						<span class="col-xs-3">{{ 'FAX_COVERSHEET.FAX' | translate }}:</span>
+						<span class="col-xs-9">{{data.fax | formatTelephone}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<span class="col-xs-6">{{ 'FAX_COVERSHEET.APPLICANT_NAME' | translate }}:</span>
+						<span class="col-xs-6">{{data.name}}</span>
+					</div>
+					<div class="col-xs-6">
+						<span class="col-xs-3">{{ 'FAX_COVERSHEET.DATE' | translate }}:</span>
+						<span class="col-xs-9">{{data.date | timezoneDate:"MMM dd yyyy"}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<span class="col-xs-6">{{ 'FAX_COVERSHEET.EMPLOYEE_ID' | translate }}:</span>
+						<span class="col-xs-6">{{data.employeeId}}</span>
+					</div>
+					<div class="col-xs-6">
+						<span class="col-xs-3">{{ 'FAX_COVERSHEET.SUBJECT' | translate }}:</span>
+						<span class="col-xs-9">{{ 'FAX_COVERSHEET.SUBJECT_NAME' | translate }}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<span class="col-xs-6">{{ 'FAX_COVERSHEET.PAGES' | translate }}:</span>
+						<span class="col-xs-4 hide-print">
+							<input class="half-width" type="number" ng-model="data.pageCount" name="pageCount" aria-label="{{ 'FAX_COVERSHEET.PAGES_NUMBER' | translate }}"/>
+						</span>
+						<span class="col-xs-4 show-print">{{data.pageCount}}</span>
+					</div>
+				</div>			
+				<div class="row margin-top-1">
+					<div class="col-xs-2 show-print" ng-show="data.faxComments" ng-bind-html="data.instructions | trustHtml"></div>
+					<div class="col-xs-2 hide-print" ng-bind-html="data.instructions | trustHtml"></div>
+					<div class="col-xs-11 hide-print margin-top-1">
+						<textarea type="textarea" class="full-width" ng-model="data.faxComments" name="comments" rows="5" id="CommentsTextArea" aria-label="{{ 'FAX_COVERSHEET.FAX_COVERSHEET_COMMENTS' | translate }}"/>
+					</div>
+					<div class="col-xs-11 show-print margin-top-1" ng-show="data.faxComments">
+						{{data.faxComments}}
+					</div>
+				</div>
+
+				<h2 class="text-center">{{ 'FAX_COVERSHEET.ATTACHED_DOCUMENTS' | translate }}</h2>
+				
+				<div class="row hide-print">
+					<div class="text-center col-xs-12">{{ 'FAX_COVERSHEET.PRINT_SUGGESTION' | translate }}:</div>
+				</div>
+
+				<div class="margin-top-2 margin-bottom-4">
+					<div class="row hide-print" ng-repeat="docType in data.documentTypes">
+						<div class="col-xs-4 col-xs-offset-4">
+							<input type="checkbox" name="{{docType.documentName}}" aria-label="{{docType.documentName}}" ng-model="docType.selected" /> {{docType.documentName}}
+						</div>
+					</div>
+					<div class="row hide-print">
+						<div class="col-xs-4 col-xs-offset-4">
+							<input type="checkbox" ng-model="data.SelectedDocType.Other" name="Other" aria-label="{{ 'FAX_COVERSHEET.OTHER_DOCS' | translate }}"/> {{ 'FAX_COVERSHEET.OTHER_DOCS' | translate }}
+						</div>
+					</div>
+					<div class="row text-center hide-print" ng-show="data.SelectedDocType.Other">
+						<input class="margin-top-2" type="textarea" ng-model="data.otherDocType" name="otherDocType" rows="5" cols="30" id="OtherDocTypeTextArea" />
+					</div>
+					<div class="row text-center show-print" ng-repeat="selDocType in data.documentTypes">
+						<div class="col-xs-12 print-text-lg margin-top-2" ng-show="selDocType.selected">
+							{{selDocType.documentName}}
+						</div>
+					</div>
+					<div class="row text-center show-print" ng-show="data.SelectedDocType.Other">
+						<div class="print-text-lg col-xs-12 margin-top-2">
+							{{data.otherDocType}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer col-xs-12">
+		<button class="btn btn-primary btn-sm" ng-print print-element-id="faxCoverSheet">{{ 'FAX_COVERSHEET.PRINT' | translate }}</button>
+		<a href="" data-dismiss="modal" class="btn btn-primary btn-sm" role="button" ng-click="cancel()">{{ 'GENERAL.CLOSE' | translate }}</a>
+	</div>
+</div>

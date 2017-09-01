@@ -1,0 +1,58 @@
+<div class="row input-row">
+	<div class="col-xs-12 col-sm-12">
+		<label>{{ 'ADVISING.APPOINTMENT.REASON_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.isReasonForAdvisingDescription}}</strong></div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.EDUCATION_LEVEL_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.highestLevelOfEducationDescription}}</strong></div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.EDUCATION_TYPE_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.typeOfDegreeDescription}}</strong></div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.ENROLLMENT_PROCESS_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.whereAreYouInProcessDescription}}</strong></div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.CURRENT_POSTION_YEARS_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.noOfYearsInCurrentPositionDescription}}</strong></div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.CURRENT_ENROLLED_QUESTION' | translate }}</label>
+		<div ng-if="model.currentlyEnrolledInUnivProgram === 'true'">
+			<span class="uneditable"></span><strong>{{'GENERAL.YES' | translate}}</strong>
+		</div>
+		<div ng-if="model.currentlyEnrolledInUnivProgram === 'false'">
+			<span class="uneditable"></span><strong>{{'GENERAL.NO' | translate}}</strong>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.PROCESS_OF_PAYING_BACK_QUESTION' | translate }}</label>
+		<div ng-if="model.currentlyInProcessOfPayingBackStudentLoans === 'true'">
+			<span class="uneditable"></span><strong>{{'GENERAL.YES' | translate}}</strong>
+		</div> 
+		<div ng-if="model.currentlyInProcessOfPayingBackStudentLoans === 'false'">
+			<span class="uneditable"></span><strong>{{'GENERAL.NO' | translate}}</strong>
+		</div>
+	</div>
+</div>
+<div class="row input-row">
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.TOTAL_EXPERIENCE_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.yearsOfProfessionalExpDescription}}</strong></div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.YEARS_CURRENT_EMPLOYER_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.yearsWithCurrentEmployerDescription}}</strong></div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<label>{{ 'ADVISING.APPOINTMENT.CURRENT_EMPLOYEE_STATUS_QUESTION' | translate }}</label>
+		<div><span class="uneditable"></span><strong>{{model.currentEmpStatusDescription}}</strong></div>
+	</div>
+</div>

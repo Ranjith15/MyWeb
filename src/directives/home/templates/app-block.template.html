@@ -1,0 +1,19 @@
+<a class="appBlock" href="">
+	<div class="status" ng-class="appBlockCtrl.isSupervisor || appBlockCtrl.appView === 'taskList' ? appBlockCtrl.status.adminColor : appBlockCtrl.status.color">
+		<span ng-class="appBlockCtrl.status.icon"></span>
+		<ng-transclude ng-transclude-slot="labelSlot"></ng-transclude>
+	</div>
+	<div class="details">
+		<div class="row">
+			<div class="text-left" ng-class="colLeftClass ? colLeftClass : 'col-xs-7'" ng-transclude="leftSlot">
+			</div>
+			<div class="text-right" ng-class="colRightClass ? colRightClass : 'col-xs-5'">
+				<div ng-transclude="rightSlot">
+				</div>
+				<div ng-if="appBlockCtrl.appView === 'taskList'">
+					<span class='bottom link'>{{appBlockCtrl.status.linkMessage | translate}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</a>

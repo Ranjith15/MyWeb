@@ -1,0 +1,28 @@
+<div class="row input-row"></div>
+<div class="appointment-block">
+<div class="application-action-block"><!--TODO: need to change this css class -->
+	<div class="status green">
+		<span class = "icon-statusApproved">
+		</span>
+	</div>
+	<div class="details">
+		<div class="row">
+			<div ng-if="model.statusDesc" class="col-xs-12 col-md-2 details-item detail-status">
+				<strong>{{model.statusDesc | uppercase}}</strong>
+			</div>
+			<div class="col-xs-6 col-md-2 details-item detail-date">
+				<strong>{{model.scheduledStart | date}}</strong>
+			</div>
+			<div class="col-xs-6 col-md-2 details-item detail-time">
+				<strong>{{model.scheduledStart | date : 'h:mm a'}}</strong>
+			</div>
+			<div ng-if="model.category" class="col-xs-6 col-md-3 details-item detail-category">
+				<span>{{model.category}}</span>
+			</div>
+			<div class="col-xs-6 col-md-3 details-item detail-name">
+				<span>{{model.advisor}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

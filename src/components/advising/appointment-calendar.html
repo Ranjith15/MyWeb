@@ -1,0 +1,43 @@
+<div class="row input-row">
+	<div class="col-xs-12 ">
+		<div class="error" ng-if="appointmentCalendarCtrl.status === 'error'" role="alert">
+			<span class="icon-error"></span>
+			<span>{{appointmentCalendarCtrl.appointmentSlotErrorMessage}}</span>
+		</div>
+	</div>
+</div>
+
+<div class="col-xs-12 calender-content-wrapper">
+	<div class="calendar-wrap">
+		<div class="appointment-calendar inline-calendar">
+			<div
+				uib-datepicker
+				ng-model="appointmentCalendarCtrl.dt"
+				ng-change="appointmentCalendarCtrl.reloadSlots()"
+				ng-model-options="{ debounce: 1000 }"
+				datepicker-options="appointmentCalendarCtrl.datePickerOptions"
+				adjust-timezone>
+			</div>
+		</div>
+	</div>
+	<div class="times-wrap">
+		<div class="time-slots" ng-repeat="slot in appointmentCalendarCtrl.slots track by $index">
+			<label for="{{$index}}" class="custom-radio"
+				ng-class="{'selected': $index === appointmentCalendarCtrl.index}"
+				ng-click="appointmentCalendarCtrl.data = slot">
+				<input id="{{$index}}" type="radio" name="slots" ng-value="{{$index}}"
+				ng-model="appointmentCalendarCtrl.index"/>
+				<div class="radio-label">{{ slot.formattedStart }} - {{ slot.formattedEnd }}</div>
+			</label>
+		</div>
+		<div ng-show="appointmentCalendarCtrl.index >= 0" class="alert alert-info" role="alert">
+			<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> You selected:
+				{{appointmentCalendarCtrl.data.formattedStart}} - {{appointmentCalendarCtrl.data.formattedEnd}}
+			<div>{{ 'ADVISING.APPOINTMENT.ADVISOR' | translate }}
+				{{appointmentCalendarCtrl.data.advisor}}, {{appointmentCalendarCtrl.data.service}}
+			</div>
+		</div>
+		<div ng-show="appointmentCalendarCtrl.status === 'loading'" class="loading"></div>
+		<div ng-show="appointmentCalendarCtrl.status === 'empty'" class="alert alert-warning" role="alert">{{ 'ADVISING.APPOINTMENT.NO_TIMESLOTS_AVAILABLE' | translate }}</div>
+	</div>
+</div>

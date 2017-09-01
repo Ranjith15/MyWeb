@@ -1,0 +1,10 @@
+<div class="modal-header">
+	<button data-dismiss="modal" aria-label="{{ 'GENERAL.CLOSE' | translate }}" class="icon-close" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<div class="heading-extra-small" id="modal-title">{{'MODALS.PARTICIPANT_ELIGIBILITY.DENIED_BEFORE' | translate}}</div>
+	<p><span ng-repeat="rule in data">{{rule.ruleMessage}}</span> {{'MODALS.PARTICIPANT_ELIGIBILITY.DENIED_AFTER' | translate}}</p>
+</div>
+<div class="modal-footer">
+	<button data-dismiss="modal" class="btn btn-primary btn-sm" ng-click="cancel()">{{'GENERAL.OK' | translate}}</button>
+</div>

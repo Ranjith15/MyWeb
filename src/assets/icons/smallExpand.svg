@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43 (38999) - http://www.bohemiancoding.com/sketch -->
+    <title>smallExpand</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Small-Expand-Icon" transform="translate(4.000000, 9.060660) rotate(45.000000) translate(-4.000000, -9.060660) translate(-1.500000, 2.560660)" stroke="#5876B3" stroke-width="2">
+            <path d="M5,0.263157895 L10,5.26315789" id="Path-2"></path>
+            <path d="M5,5.13157895 L10,0.131578947" id="Path-2-Copy"></path>
+        </g>
+    </g>
+</svg>

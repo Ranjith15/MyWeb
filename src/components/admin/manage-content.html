@@ -1,0 +1,229 @@
+<h1>{{ 'ADMIN.MANAGE_CONTENT' | translate }}</h1>
+<ng-form name="addContentForm">
+	<div class="tile">
+		<div class="header admin-header-container">
+			<fieldset>
+				<div class="row" ng-if="manageContentCtrl.addContentStatus !== 'loading'">
+					<div class="col-xs-12 col-sm-6 form-group">
+						<label for="addContentFormClient" class="col-xs-3 col-sm-2">{{ 'ADMIN.CONTENT_CLIENT' | translate }}</label>
+						<div class="col-xs-9 col-sm-10">
+							<select
+								id="addContentFormClient"
+								class="form-control"
+								name="addContentFormClient"
+								ng-options="client.clientId as client.clientName for client in manageContentCtrl.clients"
+								ng-model="manageContentCtrl.addContentForm.client"
+								ng-change="manageContentCtrl.onClientChange()"
+								required>
+							</select>
+							<span class="help-block" ng-messages="addContentForm.addContentFormClient.$error" ng-show="addContentForm.addContentFormClient.$invalid && addContentForm.$submitted">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 form-group">
+						<label for="program" class="col-xs-3 col-sm-2">{{ 'ADMIN.CONTENT_PROGRAM' | translate }}</label>
+						<div class="col-xs-9 col-sm-10">
+							<select
+								id="program"
+								class="form-control"
+								name="program"
+								ng-options="program.programID as program.programName for program in manageContentCtrl.programs"
+								ng-model="manageContentCtrl.addContentForm.program"
+								ng-disabled="manageContentCtrl.addContentForm.client === 'global'"
+								ng-required='manageContentCtrl.addContentForm.client !== manageContentCtrl.globalClient'>
+							</select>
+							<span class="help-block" ng-messages="addContentForm.program.$error" ng-show="addContentForm.program.$invalid && addContentForm.$submitted">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		<div ng-class="{'loading': manageContentCtrl.addContentStatus === 'loading'}"></div>
+		<div ng-if="manageContentCtrl.addContentStatus !== 'loading'" class="row admin-body-container">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="addContentFormContentType" class="pull-left">{{ 'ADMIN.CONTENT_TYPE' | translate }}</label>
+					<select
+						class="form-control"
+						id="addContentFormContentType"
+						name="contentType"
+						ng-options="contentType.type.id as contentType.type.value for contentType in manageContentCtrl.types | orderBy: 'type.value'"
+						ng-model="manageContentCtrl.addContentForm.type"
+						required>
+					</select>
+					<span class="help-block" ng-messages="addContentForm.contentType.$error" ng-show="addContentForm.contentType.$invalid && addContentForm.$submitted">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="contentComponent" class="pull-left">{{ 'ADMIN.CONTENT_COMPONENT' | translate }}</label>
+					<select
+						id="contentComponent"
+						name="contentComponent"
+						class="form-control"
+						ng-disabled="!manageContentCtrl.addContentForm.type"
+						ng-options="category.cat.id as category.cat.value for category in ((manageContentCtrl.types | filter:{'type': {'id': manageContentCtrl.addContentForm.type}})[0].categories) | orderBy: 'cat.value'"
+						ng-model="manageContentCtrl.addContentForm.component"
+						required>
+					</select>
+					<span class="help-block" ng-messages="addContentForm.contentComponent.$error" ng-show="addContentForm.contentComponent.$invalid && addContentForm.$submitted">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="name" class="pull-left">{{ 'ADMIN.CONTENT_NAME' | translate }}</label>
+					<select
+						id="name"
+						name="name"
+						class="form-control"
+						ng-disabled="!manageContentCtrl.addContentForm.component"
+						ng-options="name.id as name.value for name in (((manageContentCtrl.types | filter:{'type': {'id': manageContentCtrl.addContentForm.type}})[0].categories | filter:{'cat': {'id': manageContentCtrl.addContentForm.component}})[0].names) | orderBy: 'value'"
+						ng-model="manageContentCtrl.addContentForm.name"
+						ng-change="manageContentCtrl.onContentNameChange()"
+						required>
+					</select>
+					<span class="help-block" ng-messages="addContentForm.name.$error" ng-show="addContentForm.name.$invalid && addContentForm.$submitted">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+					<span class="warning-block" ng-show="!manageContentCtrl.isContentNameValid">
+						<span>{{ 'ADMIN.CONTENT_NAME_WARNING' | translate }}</span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4" ng-if="manageContentCtrl.addContentForm.component === manageContentCtrl.component.message">
+				<div class="form-group">
+					<label for="title" class="pull-left">{{ 'ADMIN.MESSAGE_TITLE' | translate }}</label>
+					<input ng-if="manageContentCtrl.isSuperAdmin || manageContentCtrl.isAdmin" type="text" id="title" name="title" class="form-control" ng-model="manageContentCtrl.addContentForm.title" maxlength="20" ng-required="manageContentCtrl.addContentForm.component === manageContentCtrl.component.message"/>
+					<span class="help-block" ng-messages="addContentForm.title.$error" ng-show="addContentForm.title.$invalid && addContentForm.$submitted">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6" ng-if="manageContentCtrl.addContentForm.type !== manageContentCtrl.contentType.email">
+				<div class="form-group" ng-class="{ 'field-error' : addContentForm.id.$invalid && addContentForm.$submitted}">
+					<div class="flex-container">
+						<div class="datepicker-block" role="alert">
+							<label>{{ 'ADMIN.CONTENT_START_DATE' | translate }}</label>
+							<div class="input-group">
+								<input
+									uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+									datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+									is-open="startDateOpen"
+									type="text"
+									id="startDate"
+									name="startDate"
+									placeholder="{{ 'ADMIN.CONTENT_START_DATE' | translate}}"
+									class="form-control"
+									ng-model="manageContentCtrl.addContentForm.startDate"
+									ng-click="startDateOpen = true"
+									ng-pattern="global.constants.patterns.date"
+									ng-change="manageContentCtrl.startDateChange()"
+									adjust-timezone
+									required />
+								<a href="" class="input-group-addon" ng-click="startDateOpen = true"><i class="fa fa-calendar"></i></a>
+							</div>
+							<span class="help-block" ng-messages="addContentForm.startDate.$error" ng-show="addContentForm.startDate.$invalid && addContentForm.$submitted">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+						<div class="datepicker-block" role="alert">
+							<label>{{ 'ADMIN.CONTENT_END_DATE' | translate }}</label>
+							<div class="input-group">
+								<input
+									uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+									datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+									is-open="endDateOpen"
+									type="text"
+									id="endDate"
+									name="endDate"
+									placeholder="{{ 'ADMIN.CONTENT_END_DATE' | translate}}"
+									class="form-control"
+									ng-model="manageContentCtrl.addContentForm.endDate"
+									datepicker-options="manageContentCtrl.endDateOptions"
+									ng-click="endDateOpen = true"
+									ng-pattern="global.constants.patterns.date"
+									ng-change="manageContentCtrl.endDateChange()"
+									adjust-timezone />
+								<a href="" class="input-group-addon" ng-click="endDateOpen = true"><i class="fa fa-calendar"></i></a>
+							</div>
+							<span class="help-block" ng-show="!manageContentCtrl.isEndDateValid">
+								<span>{{ 'ADMIN.ERROR_ENDDATE_INVALID' | translate }}</span>
+							</span>
+							<span class="help-block" ng-messages="addContentForm.endDate.$error" ng-show="addContentForm.endDate.$invalid && addContentForm.$submitted">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12"><hr></div>
+
+			<div class="col-xs-12 col-sm-6">
+				<button class="btn btn-primary btn-sm margin-top-2" ng-if="manageContentCtrl.addContentForm.component === manageContentCtrl.component.clientDocuments" ng-click="manageContentCtrl.addContent(addContentForm)" ng-disabled="manageContentCtrl.enableDocumentUpload">{{ 'ADMIN.ENABLE_DOCUMENT_UPLOAD' | translate }}</button>
+			</div>
+
+			<div class="col-xs-12"><hr></div>
+
+			<div ng-if="manageContentCtrl.addContentForm.type === manageContentCtrl.contentType.email && manageContentCtrl.noContent">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="subject" class="pull-left">{{ 'ADMIN.EMAIL_SUBJECT' | translate }}</label>
+						<input type="text" id="subject" name="subject" class="form-control" ng-model="manageContentCtrl.addContentForm.subject" maxlength="100" ng-required="manageContentCtrl.addContentForm.type === manageContentCtrl.contentType.email"/>
+						<span class="help-block" ng-messages="addContentForm.subject.$error" ng-show="addContentForm.subject.$invalid && addContentForm.$submitted">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="form-group">
+						<label for="ccEmailId" class="pull-left">{{ 'ADMIN.CC_EMAIL_ID' | translate }}</label>
+						<input type="email" id="ccEmailId" name="ccEmailId" class="form-control" ng-model="manageContentCtrl.addContentForm.ccEmailId" maxlength="50"/>
+						<span class="help-block" ng-messages="addContentForm.ccEmailId.$error" ng-show="addContentForm.ccEmailId.$invalid && addContentForm.$submitted">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<div class="form-group">
+						<label for="bcc" class="pull-left">{{ 'ADMIN.BCC' | translate }}</label>
+						<input type="email" id="bcc" name="bcc" class="form-control" ng-model="manageContentCtrl.addContentForm.bccEmailId" maxlength="50"/>
+						<span class="help-block" ng-messages="addContentForm.bcc.$error" ng-show="addContentForm.bcc.$invalid && addContentForm.$submitted">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div ng-if = "manageContentCtrl.enableDocumentUpload && manageContentCtrl.addContentForm.component === manageContentCtrl.component.clientDocuments" class="col-xs-12">
+				<span><document-download content="manageContentCtrl.addContentForm"><document-download></span>
+				<file-upload model="manageContentCtrl.fileUploadModel" mode="create"></file-upload>
+			</div>
+			<div class="col-xs-12">
+				<div class="form-group">
+					<text-angular ta-toolbar="manageContentCtrl.toolbarOptions" ng-if="manageContentCtrl.addContentForm.type !== manageContentCtrl.contentType.email && manageContentCtrl.addContentForm.component !== manageContentCtrl.component.clientDocuments && !(manageContentCtrl.addContentForm.name === manageContentCtrl.webLogo || manageContentCtrl.addContentForm.name === manageContentCtrl.mobileLogo) && manageContentCtrl.noContent" ta-text-editor-class="form-control text-angular" ta-html-editor-class="form-control text-angular" name="addContentFormData" ng-model="manageContentCtrl.addContentForm.data" required></text-angular>
+					<text-angular ta-toolbar="manageContentCtrl.toolbarOptions" ng-if="manageContentCtrl.addContentForm.type === manageContentCtrl.contentType.email && manageContentCtrl.noContent" ta-text-editor-class="form-control text-angular" ta-html-editor-class="form-control text-angular" name="addContentEmailData" ng-model="manageContentCtrl.addContentForm.body" required></text-angular>
+					<p ng-if="!manageContentCtrl.noContent">{{manageContentCtrl.contentExistsMsg}}</p>
+				</div>
+			</div>
+			<div class="col-xs-12" ng-if="manageContentCtrl.noContent && (manageContentCtrl.addContentForm.name === manageContentCtrl.webLogo || manageContentCtrl.addContentForm.name === manageContentCtrl.mobileLogo)">
+				<div class="form-group">
+					<label for="filePathId" class="pull-left">{{ 'ADMIN.CONTENT_FILEPATH' | translate }}</label>
+					<input type="text" id="filePathId" name="filePath" class="form-control" ng-model="manageContentCtrl.addContentForm.filePath" required/>
+				</div>
+			</div>
+		</div>
+		<div class="spacer col-xs-12"></div>
+		<div class="section-footer">
+			<button class="btn btn-primary btn-sm margin-top-2" ng-if="manageContentCtrl.noContent && manageContentCtrl.addContentForm.component !== manageContentCtrl.component.clientDocuments" ng-click="addContentForm.$setSubmitted(); manageContentCtrl.addContent(addContentForm)" ng-disabled="!addContentForm.$valid">{{ 'ADMIN.ADD_CONTENT' | translate }}</button>
+			<a ui-sref="{{manageContentCtrl.adminRoute}}" role="button" ng-if="manageContentCtrl.addContentForm.component !== manageContentCtrl.component.clientDocuments" class="btn btn-primary btn-sm margin-top-2">{{'CANCEL' | translate}}</a>
+			<a ui-sref="{{manageContentCtrl.adminRoute}}" role="button" ng-if="manageContentCtrl.enableDocumentUpload && manageContentCtrl.addContentForm.component === manageContentCtrl.component.clientDocuments" class="btn btn-primary btn-sm">{{'DONE' | translate}}</a>
+		</div>
+	</div>
+</ng-form>

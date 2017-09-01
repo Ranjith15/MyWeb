@@ -1,0 +1,77 @@
+body.print-fax-view {
+  & * {
+    @media print {
+      display :none;
+    }
+  }
+}
+
+#printSection,
+#printSection * {
+  @media print {
+    display: block;
+  }
+}
+
+#printSection {
+  @media print {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+
+.print-text {
+  text-align: left;
+  padding-top: 10px;
+  @extend .trim-padding;
+
+  & span {
+    text-align: left;
+    padding-top: 10px;
+    @extend .trim-padding;
+
+    @media print {
+      font-size: $fs-large;
+      padding-top: 10px;
+    }
+  }
+
+  @media print {
+    font-size: $fs-large;
+    padding-top: 10px;
+  }
+}
+
+.print-text-ocr {
+  & span {
+    @media print {
+      font-size: $fs-large;
+    }
+  }
+
+  @media print {
+    font-size: $fs-large;
+  }
+}
+
+.print-text-lg {
+  @media print {
+    font-size: $fs-xlarge;
+    padding-top: 10px;
+  }
+}
+
+.show-print {
+  display: none;
+
+  @media print {
+    display: block !important;
+  }
+}
+
+.hide-print {
+  @media print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,14 @@
+<div uib-dropdown is-open="vm.menu.isopen" class="dropdown-select" keyboard-nav="true">
+	<ul uib-dropdown-menu class="dropdown-select-menu" role="menu">
+		<li ng-repeat="option in vm.menu.options" role="menuitem" 
+			ng-class="{'selected': option.label === vm.menu.selected.label}">
+			<a href="" ng-click="vm.change(option)">{{option.label}}</a>
+		</li>
+	</ul>
+	<button type="button" uib-dropdown-toggle 
+		ng-disabled="vm.menu.options.length < 1 || vm.menu.loading || vm.menu.disabled">
+		<span class="button-text">{{vm.menu.selected.label || 'GENERAL.DROPDOWN_DEFAULT' | translate}}</span>
+		<span class="icon-dropdown"></span>
+	</button>
+	<div class="loading" ng-if="vm.menu.loading"></div>
+</div>

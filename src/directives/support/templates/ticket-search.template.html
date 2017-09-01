@@ -1,0 +1,117 @@
+<div class="tile">
+	<div class="header">
+		<h2>{{'SUPPORT.SEARCH.HEADER' | translate}}</h2>
+	</div>
+	<div class="error" ng-show="ticketSearchCtrl.missingField">
+		<span class="icon-error"></span>
+		<span>{{'SUPPORT.TICKET.ERROR_MISSING_ONE_FIELD' | translate}}</span>
+	</div>
+	<ng-form name="ticketSearchForm">
+		<div class="row">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.TICKET_NUMBER' | translate }}</label>
+					<input type="text" name="ticketNumber" id="ticketNumber" placeholder="Ticket Number" class="form-control" ng-model="ticketSearchCtrl.ticketSearchModel.ticketNumber"  ng-pattern="global.constants.patterns.alphanumeric"/>
+				</div>
+			</div>
+		</div>
+		<div class="spacer col-xs-12"></div>
+		<div class="row">
+			<div class="col-xs-12 flex-container">
+				<div>{{'SUPPORT.SEARCH.SEARCH_SELECTION_TEXT' | translate }}</div>
+				<div class="col-xs-12"><hr></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.FIRST_NAME' | translate }}</label>
+					<input type="text" name="firstName" id="firstName" placeholder="First name" class="form-control" ng-model="ticketSearchCtrl.ticketSearchModel.firstName"  ng-pattern="global.constants.patterns.alphanumeric"/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.LAST_NAME' | translate }}</label>
+					<input type="text" name="lastName" id="lastName" placeholder="Last name" class="form-control" ng-model="ticketSearchCtrl.ticketSearchModel.lastName"  ng-pattern="global.constants.patterns.alphan"/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.ID' | translate }}</label>
+					<input type="text" name="id" id="id" placeholder="ID" class="form-control" ng-model="ticketSearchCtrl.ticketSearchModel.id"  ng-pattern="global.constants.patterns.alphanumeric"/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.TICKET_STATUS' | translate }}</label>
+					<select id="ticketStatus" class="form-control" name="ticketStatus" ng-options="ticketStatus.Value as ticketStatus.Name for ticketStatus in ticketSearchCtrl.ticketStatuses" ng-model="ticketSearchCtrl.ticketSearchModel.statusId">
+						<option selected="selected" value ></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group" ng-class="{ 'field-error' : ticketSearchForm.id.$invalid && ticketSearchForm.$submitted}">
+					<label class="pull-left">{{ 'SUPPORT.SEARCH.CREATE_DATE' | translate }}</label>
+					<div class="flex-container  pull-left">
+						<div class="datepicker-block" role="alert">
+							<div class="input-group">
+								<input
+									uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+									datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+									is-open="createdFromOpen"
+									type="text"
+									id="createdFrom"
+									name="createdFrom"
+									placeholder="{{ 'SUPPORT.SEARCH.PLACEHOLDERS.START_DATE' | translate}}"
+									class="form-control"
+									ng-model="ticketSearchCtrl.ticketSearchModel.createdFrom"
+									ng-click="createdFromOpen = true"
+									ng-pattern="global.constants.patterns.date"
+									ng-change="ticketSearchCtrl.fromDateChange()"
+									ng-required="ticketSearchCtrl.ticketSearchModel.createdTo"
+									adjust-timezone />
+								<a href="" class="input-group-addon" ng-click="createdFromOpen = true"><i class="fa fa-calendar"></i></a>
+							</div>
+							<span class="help-block" ng-messages="ticketSearchForm.createdFrom.$error" ng-show="ticketSearchForm.createdFrom.$invalid && ticketSearchForm.$submitted">
+								<span><div ng-message="required"><span class="sr-only">{{'SUPPORT.SEARCH.CREATED_FROM' | translate}}</span> {{ 'SUPPORT.SEARCH.ERROR_CREATED_FROM' | translate }}</div></span>
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+						<div>{{'SUPPORT.SEARCH.RANGE_TEXT' | translate}}</div>
+						<div class="datepicker-block" role="alert">
+							<div class="input-group">
+								<input
+									uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+									datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+									is-open="createdToOpen"
+									type="text"
+									id="createdTo"
+									name="createdTo"
+									placeholder="{{ 'SUPPORT.SEARCH.PLACEHOLDERS.START_DATE' | translate}}"
+									class="form-control"
+									ng-model="ticketSearchCtrl.ticketSearchModel.createdTo"
+									datepicker-options="ticketSearchCtrl.createdToOptions"
+									ng-click="createdToOpen = true"
+									ng-pattern="global.constants.patterns.date"
+									ng-change="ticketSearchCtrl.toDateChange()"
+									adjust-timezone />
+								<a href="" class="input-group-addon" ng-click="createdToOpen = true"><i class="fa fa-calendar"></i></a>
+							</div>
+							<span class="help-block" ng-show="!ticketSearchCtrl.isToDateValid">
+								<span><div><span class="sr-only">{{'SUPPORT.SEARCH.ERROR_FROMDATE_INVALID' | translate}}</span> {{ 'SUPPORT.SEARCH.ERROR_FROMDATE_INVALID' | translate }}</div></span>
+							</span>
+							<span class="help-block" ng-messages="ticketSearchForm.createdTo.$error" ng-show="ticketSearchForm.createdTo.$invalid && ticketSearchForm.$submitted">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-form>
+	<div class="spacer col-xs-12"></div>
+	<div class="section-footer">
+		<button type="button" class="btn btn-primary btn-sm" ng-click="ticketSearchCtrl.ticketSearch(ticketSearchForm)">{{ 'SUPPORT.SEARCH.SEARCH' | translate }}</button>
+		<a type="button" class="btn btn-default btn-sm" ng-click="ticketSearchCtrl.clearTicketSearch()">{{ 'GENERAL.CLEAR' | translate }}</a>
+	</div>
+</div>

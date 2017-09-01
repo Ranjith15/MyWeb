@@ -1,0 +1,42 @@
+footer {
+  font-size: $fs-xsmall;
+  color: $c-gray-1;
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  & .footer-container {
+    width: 100%;
+    
+    & a {
+      color: $c-gray-1;
+      text-decoration: underline;
+      font-weight: $fw-normal;
+      
+      &.poweredBy {
+        text-decoration: none;
+      
+        &:hover .icon-logoEdAssist {
+          @include icon-color($c-blue-dark);
+        }
+      }
+    }
+
+    & .links {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      
+      & span,
+      & a {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  @media print {
+    display: none;
+  }
+}

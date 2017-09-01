@@ -1,0 +1,28 @@
+<div class="form-group col-xs-12 col-sm-4">
+  <label>{{datePickerCtrl.label}}</label>
+  <div class="datepicker-block" role="alert">
+    <div class="input-group">
+      <input
+        uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+        datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+        is-open="datePickerCtrl.isDialogOpen"
+        type="text"
+        id="{{datePickerCtrl.name}}"
+        name="{{datePickerCtrl.name}}"
+        placeholder="{{ 'APPLICATION.COURSES.PLACEHOLDERS.CHOOSE_DATE' | translate}}"
+        class="form-control"
+        ng-model="datePickerCtrl.model"
+        ng-click="datePickerCtrl.openDialog()"
+        ng-pattern="global.constants.patterns.date"
+        datepicker-options="dateOptions"
+        adjust-timezone
+        required
+        ng-required="{{datePickerCtrl.required}}" />
+      <a href="#{{datePickerCtrl.name}}" class="input-group-addon" ng-click="datePickerCtrl.openDialog()"><i class="fa fa-calendar"></i></a>
+    </div>
+    <span class="help-block" ng-messages="sessionInformationForm.courseStartDate.$error" ng-show="datePickerCtrl.isShowHelp">
+      <span><div ng-message="required">{{datePickerCtrl.errorText}}</div></span>
+      <span ng-messages-include="src/components/errors/general.html"></span>
+    </span>
+  </div>
+</div>

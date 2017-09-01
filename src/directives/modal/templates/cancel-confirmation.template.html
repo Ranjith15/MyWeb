@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<button data-dismiss="modal" aria-label="{{ 'GENERAL.CLOSE' | translate }}" class="icon-close" ng-click="cancel()"></button>
+</div>
+<ng-form name="confirmCancelForm">
+	<div class="modal-body">
+		<div class="heading-extra-small" id="modal-title">{{'APPLICATION.REVIEW.CANCEL' | translate }}</div>
+		<p>{{'MODALS.CANCEL_APPLICATION.CANCEL_QUESTION' | translate}}</p>
+		<div class="spacer"></div>
+		<div class="row">
+			<div class="col-xs-12">
+				<textarea id="comments" name="comments" rows="4" maxlength="100" class="form-control" ng-model="comments" required></textarea>
+			</div>
+		</div>
+		<span class="help-block" ng-show="confirmCancelForm.comments.$invalid && !confirmCancelForm.comments.$pristine">
+		<div ng-messages="confirmCancelForm.comments.$error">
+			<div ng-messages-include src="../src/components/errors/general.html"></div>
+		</div>
+	</span>
+	</div>
+	<div class="modal-footer">
+		<button data-dismiss="modal" class="btn btn-danger btn-sm" ng-disabled="confirmCancelForm.$invalid" ng-click="data.cancelApplication(comments)">{{ 'GENERAL.YES' | translate }}</button>
+		<button data-dismiss="modal" class="btn btn-primary btn-sm" ng-click="cancel()">{{ 'GENERAL.NO' | translate }}</button>
+	</div>
+</ng-form>

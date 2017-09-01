@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-xs-12 col-md-11 pull-right" ng-bind-html="educationInformationCtrl.step2Intro | trustHtml"></div>
+</div>
+<education-programs model="educationInformationCtrl"></education-programs>
+
+<div ng-if="educationInformationCtrl.educationProfile.programID.programID">
+	<div class="loading" ng-show="educationInformationCtrl.status === 'loading'"></div>
+	<div ng-hide="educationInformationCtrl.status === 'loading'">
+		<degree-information model="educationInformationCtrl"></degree-information>
+		<provider-information model="educationInformationCtrl"></provider-information>
+	</div>
+</div>
+<div action='educationInformationCtrl.showChangeProgram' template='change-program-confirmation.template' data='educationInformationCtrl.programModalFunctions' generic-modal></div>

@@ -1,0 +1,37 @@
+.network-tile-wrapper {
+  .loading {
+    margin-top: 4rem;
+  }
+  a {
+    display: block;
+  }
+}
+.network-tile-border-wrapper {
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+.network-tile-body {
+  height: 9.2rem;
+  background-color: $c-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.network-tile-body-wrapper {
+  text-align: center;
+  margin-top: 0.5rem;
+  p {
+    margin: 0;
+  }
+}
+div.network-tile-footer {
+  height: 5rem;
+  background-color: $c-blue-dark;
+  color: $c-white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.network-tile-footer.current-appointment {
+  background-color: $c-green-1;
+}

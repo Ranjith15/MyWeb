@@ -1,0 +1,35 @@
+fieldset {
+  & legend {
+    color: $c-blue-light-1;
+    font-size: 2rem;
+    font-weight: $fw-semibold;
+    letter-spacing: $letter-spacing;
+    border-bottom: none;
+    
+    & > [class^="icon-"] {
+      width: 8.5rem;
+    }
+  }
+}
+
+@media(min-width: $screen-md-min) {
+  .participant-wrapper {
+    padding: 0 6.2rem 0 6.2rem;
+    .data-item p {
+      min-height: 4.5rem;
+    }
+  }
+  legend span {
+    margin-left: initial;
+    &:first-child {
+      display: inline-block;
+    }
+  }
+}
+legend span {
+  vertical-align: middle;
+  margin-left: 0;
+  &:first-child {
+    display: none;
+  }
+}

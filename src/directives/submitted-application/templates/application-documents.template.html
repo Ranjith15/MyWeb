@@ -1,0 +1,37 @@
+<div class="document-table-container row">
+	<div ng-repeat="appDoc in applicationDocumentsCtrl.uploadedDocuments" class="col-xs-12 document-table-item">
+		<div class="status status-block-left gray">
+			<i class="fa fa-file-text-o fa-white"></i>
+		</div>
+		<div class="document-label heading-extra-small hidden-xs show-print">{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.DOCUMENT_TITLE' | translate }}</div>
+		<div class="details col-xs-12">
+			<div class="document-label-container hide-print">
+				<div class="col-xs-12 document-label heading-extra-small hidden-sm hidden-md hidden-lg">{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.DOCUMENT_TITLE' | translate }}</div>
+			</div>
+			<div class="document-data-container">
+				<div class="row">
+					<div class="col-xs-12 document-name"><application-document-download content="appDoc" app-id="applicationDocumentsCtrl.applicationId"></application-document-download></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 flex-container">
+						<span>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.UPLOADED_DATE' | translate }}</span>
+						<span class="date">{{appDoc.dateReceived | timezoneDate: 'M/dd/yy'}}</span>
+					</div>
+					<div class="col-xs-12 col-sm-4 flex-container">
+						<span>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.STATUS' | translate }}</span>
+						<span ng-if="!appDoc.idcverified && !appDoc.incomplete && !appDoc.received" class="data-item"><strong>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.STATUSES.PENDING' | translate }}</strong></span>
+						<span ng-if="appDoc.received && !appDoc.idcverified && !appDoc.incomplete" class="data-item"><strong>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.STATUSES.REVIEWED' | translate }}</strong></span>
+						<span ng-if="appDoc.incomplete" class="data-item"><strong>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.STATUSES.INCOMPLETE' | translate }}</strong></span>
+					</div>
+					<div class="col-xs-12 col-sm-4 flex-container">
+						<span>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.REVIEWED_DATE' | translate }}</span>
+						<span class="date">{{appDoc.modifiedDate ? (appDoc.modifiedDate | timezoneDate: 'M/dd/yy') : 'N/A'}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-if="!applicationDocumentsCtrl.showDocumentsTable" class="trim-padding">
+	<p>{{ 'SUBMITTED_APPLICATION.APPLICATION_DOCS.NO_DOCUMENTS' | translate }}</p> 
+</div>

@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<button data-dismiss="modal" aria-label="{{ 'GENERAL.CLOSE' | translate }}" class="icon-close" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<!-- h4 is used for the main question-->
+	<div class="heading-extra-small" id="modal-title">{{'MODALS.UNSAVED_CHANGES.UNSAVED_HEADER' | translate}}</div>
+	<p>{{'MODALS.UNSAVED_CHANGES.UNSAVED_MESSAGE' | translate}}</p>
+</div>
+<div class="modal-footer">
+	<a href="" data-dismiss="modal" role="button" class="btn btn-primary btn-sm" ng-click="cancel()">{{'MODALS.UNSAVED_CHANGES.UNSAVED_COMPLETE' | translate}}</a>
+	<a href="#" data-dismiss="modal" role="button" class="btn btn-danger btn-sm">{{'MODALS.UNSAVED_CHANGES.UNSAVED_DISCARD' | translate}}</a>
+</div>

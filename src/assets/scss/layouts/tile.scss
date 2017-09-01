@@ -1,0 +1,124 @@
+.tile {
+  background: $c-gray-light-1;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+  padding: $pad-sm $pad-sm $pad-md $pad-sm;
+  margin-bottom: $margin-bottom;
+
+  & .tile-sub-nav {
+    margin: -2rem -2rem 3rem -2rem;
+
+    @media (min-width: $screen-md-min) {
+      margin: -3rem -3rem 4rem -3rem;
+    }
+  }
+
+  & .header {
+    position: relative;
+    right: -$pad-sm;
+    top: -$pad-sm;
+    margin-left: -$pad-sm * 2;
+    // margin-bottom: -$pad-sm * 1.5;
+    padding: $pad-md;
+    background: $c-white;
+    min-height: 6rem;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,0.15);
+
+    &.appBlockWrap {
+      border: none;
+      margin-bottom: 0;
+
+      & .appBlock {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+
+        & h1,
+        & .heading-large {
+          margin: 0;
+          & .thin {
+            font-weight: $fw-normal;
+          }
+        }
+
+        .modified {
+          color: $c-gray-1;
+        }
+      }
+    }
+
+    & h2,
+    & .heading-medium {
+      margin: 0;
+      display: inline;
+    }
+
+    @media (min-width: $screen-md-min) {
+      right: -$pad-md;
+      margin-left: -$pad-md * 2;
+      padding: 2rem $pad-md;
+      top: -$pad-md;
+    }
+  }
+
+  & .content-container {
+    margin-top: 0px;
+    border-bottom: 0.1rem solid #C4C4C4;
+    padding: 3rem 0;
+  }
+
+  // header section footer and error/success positioning
+  & .error, .success {
+    position: relative;
+    right: -$pad-sm;
+    margin-left: -$pad-sm * 2;
+    padding: 2rem $pad-sm;
+
+    & h2 {
+      margin: 0;
+    }
+  }
+
+  & .error {
+    display: flex;
+    background: $c-red;
+    color: $c-white;
+    padding: 1rem 1.5rem;
+
+    & a {
+      color: $c-white;
+      text-decoration: underline;
+      font-weight: $fw-normal;
+    }
+  }
+
+  & .success {
+    display: flex;
+    background: $c-green-1;
+    color: $c-white;
+    padding: 1rem 1.5rem;
+
+    & a {
+      color: $c-white;
+      text-decoration: underline;
+      font-weight: $fw-normal;
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    padding: $pad-md;
+
+    & .error,
+    & .success {
+      right: -$pad-md;
+      margin-left: -$pad-md * 2;
+      padding: 2rem $pad-md;
+    }
+  }
+
+  @media print {
+    background: transparent;
+    box-shadow: none;
+  }
+ }

@@ -1,0 +1,72 @@
+<div class="modal-header">
+	<div id="modal-title" class="row modal-title">
+		<div class="col-xs-8">
+			<div class="heading-extra-small">Ticket Summary</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="flex-container pull-right">
+				<button data-dismiss="modal" class="icon-close" aria-label="{{'GENERAL.CLOSE' | translate}}" ng-click="cancel()"></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="spacer"></div>
+<div class="modal-body">
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.TICKET_NUMBER' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.ticketNumber}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.CREATED_BY' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.createdBy}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.CREATED_ON' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.createdOn | timezoneDate:'MM/dd/yyyy'}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.UPDATED_BY' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.updatedBy}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.TOPIC_LABEL' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.topic}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.SUBTOPIC_LABEL' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.subTopic}}</p>
+		</div>
+	</div>
+	<div class="row" ng-if="data.applicationNumber">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.APPLICATION_NUMBER' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.applicationNumber}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.STATUS' | translate }}</strong></label>
+		<div class="col-xs-12 col-sm-9">
+			<span class="uneditable"></span><p>{{data.status}}</p>
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<div class="row">
+		<label class="col-xs-12 col-sm-3"><strong>{{ 'SUPPORT.TICKET.RESOLUTION' | translate }}</strong></label>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<span class="uneditable"></span><p>{{data.resolution}}</p>
+		</div>
+	</div>
+</div>

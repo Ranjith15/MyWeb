@@ -1,0 +1,41 @@
+<div class="application-action-block">
+	<div class="status status-block-left" ng-class="appActionBlockCtrl.isSupervisor ? appActionBlockCtrl.status.adminColor : appActionBlockCtrl.status.color">
+		<span ng-class="appActionBlockCtrl.status.icon"></span>
+	</div>
+	<div class="details">
+		<div class="row">
+			<div class="col-xs-8 col-sm-6 col-md-3 details-item">
+				<span class="application-status">{{application.applicationStatus.applicationStatus | uppercase}}</span>
+			</div>
+			<div class="col-xs-4 col-sm-6 hidden-md hidden-lg details-item">
+				<div class="application-item pull-right">
+					<strong>#{{application.applicationNumber}}</strong>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-5 details-item">
+				<div class="application-item hidden-xs hidden-sm">
+					<strong>#{{application.applicationNumber}}</strong>
+				</div>
+				<div class="application-item" ng-show="appActionBlockCtrl.showApplicantName">
+					<strong>{{application.lastName}}, {{application.firstName}}</strong>
+				</div>
+				<div class="application-item program-name">{{application.programName}}</div>
+				<div class="application-item">{{application.providerName}}</div>
+			</div>
+			<div class="hidden-xs hidden-sm col-md-5 col-lg-4 application-action">
+				<a href="" id="btnViewApplication" class="btn btn-default btn-sm pull-right" ng-click="applicationActionClick({ application: application })" role="button">{{appActionBlockCtrl.status.linkMessage | translate }}</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-9 col-lg-6 details-item">
+				<div class="application-item">
+					<div class="application-item" ng-if="application.sessionStartDate">{{ 'APPLICATION_ACTION_BLOCK.SESSION_DATE' | translate}}: <span class="application-item-date">{{application.sessionStartDate | timezoneDate:'MMMM d, y' }} - {{application.sessionEndDate | timezoneDate:'MMMM d, y' }}</span></div>
+					<div ng-if="application.submittedDate">{{ 'APPLICATION_ACTION_BLOCK.SUBMIT_DATE' | translate}}: <span class="application-item-date">{{application.submittedDate | timezoneDate:'MMMM d, y' }}</span></div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 hidden-md hidden-lg application-action">
+				<a href="" id="btnViewApplication" class="btn btn-default btn-sm" ng-click="appActionBlockCtrl.appClicked()" role="button">{{appActionBlockCtrl.status.linkMessage | translate }}</a>
+			</div>
+		</div>
+	</div>
+<div>

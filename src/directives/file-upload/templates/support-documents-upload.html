@@ -1,0 +1,49 @@
+<div nv-file-drop="" uploader="model.fileUploadModel.uploader" filters="queueLimit, customFilter">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-md-9">
+			<div nv-file-drop="" uploader="model.fileUploadModel.uploader">
+				<div nv-file-over="" uploader="model.fileUploadModel.uploader" class="drop-zone hidden-xs hidden-sm col-md-9 pad-left-3" ng-show="!model.fileUploadModel.uploader.isUploading && !uploadSupportDocumentsCtrl.isFileSelected()">
+					<div class="row">
+						<div class="col-md-1">
+							<span class="icon-docUpload double pad-left-4"></span>
+						</div>
+						<div class="col-sm-10 input-row" >
+							<span>
+								<strong>{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DROP_ZONE' | translate }}</strong>
+								<a href="" onclick="$('#uploadAppDocsInput').trigger('click')" title="{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MANUAL_FILE_SELECT_UPLOAD' | translate }}">{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MANUAL_FILE_SELECT' | translate }}<span class="sr-only"> {{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.TO_UPLOAD' | translate }}</span></a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div ng-show="!model.fileUploadModel.uploader.isUploading && uploadSupportDocumentsCtrl.isFileSelected()">
+					<div nv-file-over="" uploader="model.fileUploadModel.uploader" class="drop-zone-ready col-xs-12 col-sm-10 col-md-9 trim-padding" >
+						<div class="row" >
+							<div class="col-md-1">
+								<span class="icon-docUploadWhite double"></span>
+							</div>
+							<div class="col-xs-10 input-row trim-padding trim-margin" ng-show="uploadSupportDocumentsCtrl.isFileSelected()">
+								<span>{{ 'SUPPORT.TICKET.UPLOAD.PREFIX' | translate }}<strong>{{uploadSupportDocumentsCtrl.getFileName()}}</strong> {{ 'SUPPORT.TICKET.UPLOAD.POSTFIX' | translate }}{{ 'SUPPORT.TICKET.UPLOAD.SUBMIT_INFO' | translate }}</span>
+							</div>
+							<input id="uploadAppDocsInput" class="hidden" type="file" nv-file-select uploader="model.fileUploadModel.uploader" multiple>
+						</div>
+					</div>
+				</div>
+				<div class="row drop-zone-progress-bar col-xs-12 col-sm-10 col-md-9 trim-padding trim-margin" ng-show="model.fileUploadModeluploader.isUploading">
+					<div class="progress-fill col-xs-12 col-sm-10 col-md-9 trim-padding trim-margin" role="progressbar" ng-style="{ 'width' : uploadSupportDocumentsCtrl.getProgressWidth()}"></div>
+					<div class="row progress-status-section">
+						<div class="col-md-2 ">
+							<span class="icon-docUploadWhite double"></span>
+						</div>
+						<div class="col-xs-10 input-row trim-padding trim-margin">
+							<span>Uploading <strong>{{uploadSupportDocumentsCtrl.getFileName()}}</strong></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Hidden Upload/Select file link for screen readers only(ADA Compliance) -->
+		<div class="col-md-12">
+			<a href="" class="sr-only sr-only-focusable" onclick="$('#uploadAppDocsInput').trigger('click')" title="{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MANUAL_FILE_SELECT_UPLOAD' | translate }}">{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.UPLOAD_SUPPORTING_DOCUMENTATION' | translate }}</a>
+		</div>
+	</div>
+</div>

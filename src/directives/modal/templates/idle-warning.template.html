@@ -1,0 +1,25 @@
+<div class="modal-header">
+	<button class="icon-close" aria-label="{{ 'GENERAL.CLOSE' | translate }}" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<div class="heading-extra-small" id="modal-title">{{'MODALS.IDLE_WARNING.LOGOUT_TITLE' | translate}}</div>
+	<p>
+		<span>{{'MODALS.IDLE_WARNING.LOGOUT_MESSAGE' | translate}} {{data.countdown | time}}</span>
+
+		<span ng-if="data.countdown >= 60">
+			<ng-pluralize count="data.countdown"
+				ng-init="singular='MODALS.IDLE_WARNING.MINUTES_SINGULAR'; plural='MODALS.IDLE_WARNING.MINUTES_PLURAL'"
+				when="{'60': '{{singular | translate}}', 'other': '{{plural | translate}}' }">
+			</ng-pluralize>.
+		</span>
+
+		<span ng-if="data.countdown < 60">
+			<ng-pluralize count="data.countdown"
+				ng-init="singular='MODALS.IDLE_WARNING.SECONDS_SINGULAR'; plural='MODALS.IDLE_WARNING.SECONDS_PLURAL'"
+				when="{'1': '{{singular | translate}}', 'other': '{{plural | translate}}'}">
+			</ng-pluralize>.
+		</span>
+		
+		<span>{{'MODALS.IDLE_WARNING.CONTINUE_MESSAGE' | translate}}</span>
+	</p>
+</div>

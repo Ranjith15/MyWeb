@@ -1,0 +1,13 @@
+<div class="row input-row form-group" ng-class="{'field-error' : form.studentId.$invalid && !form.$pristine}">
+	<label for="studentId" class="col-xs-12 col-sm-6 col-md-2">
+		{{ 'EDUCATION.PROVIDER.STUDENT_ID' | translate }}
+	</label>
+	<div class="col-xs-12 col-sm-4">
+		<!-- TODO: add length and pattern limits -->
+		<input type="text" name="studentId" class="form-control" ng-pattern="studentIdRegex" ng-model="model.educationProfile.studentID" maxlength="15" />
+		<!-- TODO: fix styling here, modal button is inside input box -->
+		<a href="" ng-click="toggleStudentIdModal()" data-target="#modalInformation" data-toggle="modal" class="icon-moreInfo"></a>
+		<div template="student-id.template"  action="studentIdModalState" generic-modal></div>
+		<span class="help-block" ng-show="form.studentId.$invalid && !form.$pristine">Please enter a valid Student ID.</span>
+	</div>
+</div>

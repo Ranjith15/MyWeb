@@ -1,0 +1,120 @@
+<div class="margin-bottom-3">
+	<div class="pull-right">
+		<a href="" class="btn btn-default btn-sm pull-right" role="button" ng-click="adminCtrl.updateAccess && adminCtrl.manageContent()">{{ 'ADMIN.ADD_CONTENT' | translate }}</a>
+	</div>
+	<h1>{{ 'ADMIN.HEADER' | translate }}</h1>
+</div>
+
+<div class="tile">
+	<div class="header admin-header-container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="error margin-top-2" ng-show="adminCtrl.missingField">
+					<span class="icon-error"></span>
+					<span>{{ 'ADMIN.ERROR_MISSING_ONE_FIELD' | translate }}</span>
+				</div>
+			</div>
+		</div>
+
+		<fieldset>
+			<div class="row" ng-if="adminCtrl.adminStatus !== 'loading'">
+				<div class="col-xs-12 col-xs-offset-0 col-sm-5">
+					<label for="client">{{ 'ADMIN.CONTENT_CLIENT' | translate }}</label>
+					<select
+						id="client"
+						class="form-control"
+						name="contentClient"
+						ng-change="adminCtrl.onClientChange()"
+						ng-options="client.clientId as client.clientName for client in adminCtrl.clients"
+						ng-model="adminCtrl.contentSearch.client">
+					</select>
+				</div>
+				<div class="col-xs-12 col-xs-offset-0 col-sm-5 col-sm-offset-2">
+					<label for="program">{{ 'ADMIN.CONTENT_PROGRAM' | translate }}</label>
+					<select
+						id="program"
+						class="form-control"
+						name="contentProgram"
+						ng-options="program.programID as program.programName for program in adminCtrl.programs"
+						ng-model="adminCtrl.contentSearch.program"
+						ng-disabled="adminCtrl.contentSearch.client === 'global'">
+					</select>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="row secondary-dropdown-wrapper">
+		<div ng-class="{'loading': adminCtrl.adminStatus === 'loading'}"></div>
+		<ng-form name="adminSearchForm" ng-show="adminCtrl.adminStatus !== 'loading'">
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="type" class="pull-left">{{ 'ADMIN.CONTENT_TYPE' | translate }}</label>
+					<select
+						id="type"
+						name="type"
+						class="form-control"
+						ng-change="adminCtrl.onTypeChange()"
+						ng-options="type as type for type in adminCtrl.types | orderBy"
+						ng-model="adminCtrl.contentSearch.type">
+					</select>
+					<span class="help-block" ng-messages="adminSearchForm.type.$error" ng-show="adminSearchForm.type.$invalid && adminSearchForm.$submitted">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="component" class="pull-left">{{ 'ADMIN.CONTENT_COMPONENT' | translate }}</label>
+					<select
+						id="component"
+						class="form-control"
+						name="component"
+						ng-change="adminCtrl.onComponentChange()"
+						ng-options="component for component in adminCtrl.components | orderBy"
+						ng-model="adminCtrl.contentSearch.component">
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<div class="form-group">
+					<label for="name" class="pull-left">{{ 'ADMIN.CONTENT_NAME' | translate }}</label>
+					<select
+						id="name"
+						class="form-control"
+						name="name"
+						ng-options="name for name in adminCtrl.names | orderBy"
+						ng-model="adminCtrl.contentSearch.name">
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-4 admin-search-btn-group">
+				<div class="form-group">
+					<button href="" class="btn btn-primary btn-sm" ng-click="adminSearchForm.$setSubmitted(); adminCtrl.onSearchClick()" ng-disabled="adminCtrl.isSearchInProgress">{{ 'ADMIN.SEARCH_CONTENT' | translate }}</button>
+					<a href="" class="btn btn-default btn-sm" ng-click="adminSearchForm.$setPristine(); adminCtrl.clearSearch()">{{ 'GENERAL.CLEAR' | translate }}</a>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div uib-alert ng-if="adminCtrl.saveSuccess" class="alert alert-success flex-container" close="adminCtrl.closeSuccessAlert()" dismiss-on-timeout="5000">
+					<span>{{ 'ADMIN.SAVE_SUCCESS' | translate }}</span>
+				</div>
+				<div uib-alert ng-if="adminCtrl.deleteSuccess" class="alert alert-success flex-container" close="adminCtrl.closeDeleteAlert()" dismiss-on-timeout="5000">
+					<span>{{ 'ADMIN.DELETE_SUCCESS' | translate }}</span>
+				</div>
+				<div uib-alert ng-if="adminCtrl.addSuccess" class="alert alert-success flex-container" close="adminCtrl.closeAddAlert()" dismiss-on-timeout="5000">
+					<span>{{ 'ADMIN.ADD_SUCCESS' | translate }}</span>
+				</div>
+				<div ng-class="{'loading': adminCtrl.contentSearchStatus === 'loading'}"></div>
+				<admin-table ng-show="adminCtrl.contentSearchStatus !== 'loading' || adminCtrl.contentSearchStatus === 'error'" content-type="adminCtrl.contentSearch.type" content-list="adminCtrl.generalContents" program-list="adminCtrl.programs" client-list="adminCtrl.clients" on-delete-click="adminCtrl.deleteClick(content)" on-edit-click="adminCtrl.editContent(content, type)" on-propagate-click="adminCtrl.propagateClick(content)" selected-Page-Count="adminCtrl.selectedPageCount"></admin-table>
+			</div>
+		</ng-form>
+	</div>
+	<div class="spacer col-xs-12"></div>
+
+	<div class="section-footer">
+		<button class="btn btn-primary btn-sm margin-top-2" ng-click="adminCtrl.isSuperAdmin && adminCtrl.propagateClientContentClick()" ng-class="{working: adminCtrl.propagationStatus === 'loading'}">{{ 'ADMIN.PUSH_CONTENT' | translate }} ({{adminCtrl.contentPropagationCount}})</button>
+	</div>
+
+	<div action="adminCtrl.showEditPanel" template="edit-content.template" size="lg" data="adminCtrl.selectedContentData" generic-modal></div>
+	<div action="adminCtrl.showDeletePanel" template="delete-confirmation.template" data="adminCtrl.selectedContentData" generic-modal></div>
+	<div action="adminCtrl.showPropagatePanel" template="delete-confirmation.template" size="lg" data="adminCtrl.selectedContentData" generic-modal></div>
+</div>

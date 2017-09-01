@@ -1,0 +1,9 @@
+<div class="tile">
+	<div class="header">
+		<h2>{{footerDetailsCtrl.detailsHeader}}</h2>
+	</div>
+	<div ng-class="{'loading': footerDetailsCtrl.footerDetailsStatus === 'submitting'}"></div>
+	<div class="row">
+		<span><ng-bind-html ng-bind-html="footerDetailsCtrl.detailsContent"/></span>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+<!-- TODO: this whole search box needs style updates -->
+<form name="searchProviderForm">
+	<div id="searchProvider" ng-keyup="escKey($event.keyCode)" ng-if="providerSearchCtrl.isEditing()">
+		<div class="row">
+			<div class="col-xs-12 col-md-10 col-md-offset-1">
+				<div class="panel">
+					<div class="panel-heading">
+						<div class="heading-extra-small panel-header" aria-live="polite" aria-atomic="true">{{ 'EDUCATION.PROVIDER.SEARCH' | translate }}</div>
+					</div>
+					<div class="pad-left-2 pad-right-2" ng-bind-html="providerSearchCtrl.ApplEducationProvSearch"></div>
+					<div class="panel-body">
+						<div class="row form-group">
+							<label for="providerName" class="col-xs-12 col-sm-6 col-md-2">{{ 'EDUCATION.PROVIDER.NAME' | translate }}</label>
+							<div class="col-xs-12 col-sm-5">
+								<input type="text" form-focus="true" name="providerName" class="form-control" ng-model="providerSearchCtrl.searchParams.providerName" ng-keyup="$event.keyCode == 13 && searchProviders()">
+							</div>
+							<div class="col-xs-12 col-sm-6 col-sm-offset-2">
+								<p class="explination">{{ 'EDUCATION.PROVIDER.NARROW_RESULTS' | translate }}</p>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label for="providerCity" class="col-xs-12 col-sm-6 col-md-2">{{ 'EDUCATION.PROVIDER.CITY' | translate }}</label>
+							<div class="col-xs-12 col-sm-4">
+								<input type="text" name="providerCity" class="form-control" ng-model="providerSearchCtrl.searchParams.providerCity" ng-keyup="$event.keyCode == 13 && searchProviders()">
+							</div>
+							<label for="providerState" class="col-xs-12 col-sm-6 col-md-1">{{ 'EDUCATION.PROVIDER.STATE' | translate }}</label>
+							<div class="col-xs-12 col-sm-4 col-md-2">
+								<state-dropdown ng-model="providerSearchCtrl.searchParams.providerState" name="sytate" id="selectState"></state-dropdown>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label for="providerAccred" class="col-xs-12 col-sm-6 col-md-2">
+								{{ 'EDUCATION.PROVIDER.ACCREDITATION' | translate }}
+							</label>
+							<div class="col-xs-12 col-sm-5">
+								<select id="providerAccred" value="Select" class="form-control" ng-model="providerSearchCtrl.searchParams.accreditationBodyId" ng-options="programAccreditation.accreditingBody.accreditingBodyID as programAccreditation.accreditingBody.accreditingBodyName for programAccreditation in providerSearchCtrl.programAccreditations">
+									<option selected="selected" value ></option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-offset-2">
+								<label class="custom-checkbox">
+									<input type="checkbox" ng-model="providerSearchCtrl.searchParams.featuredProvider">
+									<span></span>
+									{{ 'EDUCATION.PROVIDER.NETWORK_DISCOUNT' | translate }}
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary btn-sm" ng-click="searchProviders()" ng-disabled="searchProviderForm.$invalid">{{ 'GENERAL.SEARCH' | translate }}</button>
+							<button type="button" class="btn btn-default btn-sm ng-binding" ng-click="providerSearchCtrl.cancelSearch()">{{ 'GENERAL.CANCEL' | translate }}</button>
+						</div>
+						<div class="zebra" ng-if="providerSearchCtrl.hasSearched">
+							<heading>
+								<h4 class="col-xs-12 col-sm-6 col-md-5">{{ 'EDUCATION.PROVIDER.RESULTS_NAME' | translate }}</h4>
+								<h4 class="col-xs-12 col-sm-6 col-md-4">{{ 'EDUCATION.PROVIDER.RESULTS_ADDRESS' | translate }}</h4>
+								<h4 class="col-xs-12 col-sm-6 col-md-3">{{ 'EDUCATION.PROVIDER.RESULTS_NETWORK' | translate }}</h4>
+							</heading>
+							<div ng-show="providerSearchCtrl.hasNoResults()">
+								<h3 class="col-xs-12 col-sm-6 col-md-4 col-md-offset-4">{{ ' EDUCATION.PROVIDER.NO_RESULTS' | translate }}</h3>
+							</div>
+							<div ng-show="providerSearchCtrl.status === 'error'">
+								<h3 class="col-xs-12 col-sm-6 col-md-4 col-md-offset-4">{{providerSearchCtrl.message}}</h3>
+							</div>
+							<row ng-show="providerSearchCtrl.status !== 'submitting'" 
+								ng-repeat="provider in providerSearchCtrl.educationProviders | limitTo: providerSearchCtrl.resultLimit" 
+								ng-click="providerSearchCtrl.setSelectedProvider(provider)">
+								<div class="left col-xs-12 col-sm-6 col-md-5">
+									<cell><a href="">{{provider.providerName}}</a></cell>
+								</div>
+								<div class="left col-xs-12 col-sm-6 col-md-4">
+									<cell>{{provider.providerAddress1}}, {{provider.providerAddress2}}<span ng-if="provider.providerAddress2">,</span> {{provider.providerCity}}, {{provider.providerState}}</cell>
+								</div>
+								<div class="left col-xs-12 col-sm-6 col-md-3">
+									<cell>{{provider.enhancedEdAssistNetwork ? 'Yes' : 'No'}}</cell>
+								</div>
+							</row>
+							<row-footer ng-show="providerSearchCtrl.shouldShowMoreResultsLink()" ng-click="providerSearchCtrl.showMoreResults()">
+								<a href="">{{ 'EDUCATION.PROVIDER.SHOW_MORE' | translate }}</a>
+							</row-footer>
+						</div>
+						<div ng-class="{'loading': providerSearchCtrl.status === 'submitting'}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div action="providerSearchCtrl.accredModalState" template="accred-ineligible.template" data="providerSearchCtrl.selectedProvider" generic-modal></div>
+</form>

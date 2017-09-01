@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<button class="icon-close" aria-label="{{ 'GENERAL.CLOSE' | translate }}" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<div class="heading-extra-small" id="modal-title">{{ data.modalHeader }}</div>
+	<p ng-bind-html="data.modalBody"></p>
+</div>
+<div class="modal-footer">
+	<a href="" class="btn btn-primary btn-sm" ng-hide="data.model.applicationId" data-dismiss="modal" role="button" ng-click="cancel()">{{ data.modalCancelText }}</a>
+	<a href="" class="btn btn-primary btn-sm" ng-show="data.model.applicationId" data-dismiss="modal" role="button" ng-click="data.onSaveForLater(data.model)">{{ data.modalCancelText }}</a>
+	<a href="" class="btn btn-danger btn-sm" data-dismiss="modal" role="button" ng-click="data.onDeleteClicked(data.model)">{{ data.modalSaveText }}</a>
+</div>

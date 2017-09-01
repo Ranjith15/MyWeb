@@ -1,0 +1,138 @@
+<div class="tile">
+	<div class="header">
+		<h2>{{'SUPPORT.TICKET.HISTORY' | translate}}</h2>
+	</div>
+	<div class="error" ng-if="supportTicketCtrl.historyStatus === 'error'">
+		<span class="icon-error"></span>
+		<span>{{supportTicketCtrl.message}}</span>
+	</div>
+	<div ng-show="supportTicketCtrl.supportTicketHistory.length <= 0 && supportTicketCtrl.historyStatus !== 'loading'">
+		<span>{{'SUPPORT.TICKET.NO_TICKETS' | translate}}</span>
+	</div>
+	<div ng-class="{'loading': supportTicketCtrl.historyStatus === 'loading'}"></div>
+	<div ng-show="supportTicketCtrl.historyStatus !== 'loading' && supportTicketCtrl.supportTicketHistory.length > 0">
+		<uib-accordion close-others="supportTicketCtrl.commmentsOneAtATime">
+			<div st-safe-src="supportTicketCtrl.supportTicketHistory" st-table="supportTicketCtrl.supportTicketHistoryDisplay">
+				<div ng-repeat="ticket in supportTicketCtrl.supportTicketHistoryDisplay | orderBy: 'ModifiedOn' : true">
+					<div class="row major-row accordion-list-border">
+						<div uib-accordion-group class="{{!ctrl.valid?'notValid':'valid'}}" is-open="status.open" href="" ng-click= "supportTicketCtrl.getTicketDetails(ticket.TicketId)">
+							<div uib-accordion-heading>
+								<div class="row">
+									<div class="text-left col-xs-6">
+										<span><label>{{'SUPPORT.TICKET.TICKET_NUMBER' | translate}}: 
+										<strong><a href="">{{ticket.TicketNumber}}</a></strong></label></span>
+									</div>
+									<div class="text-right col-xs-6">
+										<label>{{'SUPPORT.TICKET.LAST_UPDATED' | translate}}: <i><b>{{ticket.ModifiedOn | timezoneDate:'longDate'}}</b></i></label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-left col-xs-6">
+										<span><label>{{'SUPPORT.TICKET.TOPIC_LABEL' | translate}}: 
+										<strong>{{ticket.topicName}}</strong></label> </span>
+									</div>
+									<div class="text-right col-xs-6">
+										<label>{{'SUPPORT.TICKET.SUBTOPIC_LABEL' | translate}}: <strong>{{ticket.subTopicName}}</strong></label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="text-left col-xs-6">
+										<div>
+											<label>{{'SUPPORT.TICKET.STATUS' | translate}}: <strong>{{ticket.Status}}</strong></label>
+										</div>
+									</div>
+									<div class="text-right col-xs-6">
+										<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+									</div>
+								</div>
+							</div>
+							<div ng-click="$event.stopPropagation();">
+								<!-- add New comment Box -->
+								<div class="error" ng-if="supportTicketCtrl.editStatus === 'error'">
+									<span class="icon-error"></span>
+									<span>{{supportTicketCtrl.message}}</span>
+								</div>
+								<div ng-show="supportTicketCtrl.fileSizeInValid || supportTicketCtrl.fileTypeInValid">
+									<div class="col-xs-12" ng-show="supportTicketCtrl.fileSizeInValid">
+										<span class="help-block col-xs-12">
+											{{ 'SUPPORT.TICKET.UPLOAD.INVALID_FILE_SIZE' | translate }}
+										</span>
+									</div>
+									<div class="col-xs-12" ng-show="supportTicketCtrl.fileTypeInValid">
+										<span class="help-block col-xs-12">
+											{{ 'SUPPORT.TICKET.UPLOAD.INVALID_FILE_TYPE' | translate }}
+										</span>
+									</div>
+									<div class="spacer col-xs-12"></div>
+									<div class="spacer col-xs-12"></div>
+								</div>
+								<div ng-if="supportTicketCtrl.editTicketLink">
+									<div class="col-xs-12 col-sm-4 col-md-4">
+										<div ng-click="supportTicketCtrl.toggleEditCommentBox(ticket.TicketId)">
+											<span class="icon-docComment"></span>
+											<a href="">{{'SUPPORT.TICKET.Add_NEW_COMMENT' | translate}}</a>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div ng-include="templates.url">Content from blocks goes here</div>
+								</div>
+								<!-- End of add New comment Box -->
+								<div class="spacer col-xs-12"></div>
+								<div ng-class="{'loading': supportTicketCtrl.ticketDetailStatus === 'loading'}"></div>
+								<div ng-show="supportTicketCtrl.ticketDetailStatus !== 'loading'">
+									<div ng-repeat="note in ticket.ticketDetails.notes | orderBy: 'AddedOn' : true">
+										<div ng-show="$index !== 0" class="row notes-list-border"></div>
+										<div class="row">
+											<div class="text-left col-xs-8">
+												<strong>
+													<div ng-if="supportTicketCtrl.loggedInUserName === note.AddedBy">
+														<span><label><strong>{{'SUPPORT.TICKET.YOUR_MESSAGE' | translate}}</strong></label></span>
+													</div>
+													<div ng-if="supportTicketCtrl.loggedInUserName !== note.AddedBy">
+														{{note.AddedBy}}
+													</div>
+												</strong>
+											</div>
+											<div class="text-right col-xs-4">
+												<i>{{note.AddedOn | timezoneDate:'longDate'}}</i>
+											</div>
+										</div>
+										<div class="row pad-bottom-2">
+											<div class="text-left col-xs-10">
+												{{note.Comments}}
+											</div>
+										</div>
+										<div ng-show="note.CaseAttachments.length > 0">
+											<div class="row notes-list-border">
+												<div class="text-left col-xs-8">
+													<strong><span>{{'SUPPORT.TICKET.DOCUMENT' | translate}}</span></strong>
+												</div>
+												<div class="text-right col-xs-4">
+													<strong><span>{{'SUPPORT.TICKET.UPLOADED' | translate}}</span></strong>
+												</div>
+											</div>
+											<div ng-repeat="document in note.CaseAttachments">
+												<div class="row notes-list-border">
+													<div class="text-left col-xs-10">
+														<a href="" ng-click="supportTicketCtrl.downloadDocument(ticket.TicketId, note.NoteId, document.AnnotationId, document.FileName)"><strong><span>{{document.FileName}}</span></strong></a>
+													</div>
+													<div class="text-right col-xs-2">
+														{{note.AddedOn | timezoneDate:'shortDate'}}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<div st-pagination="" st-items-by-page="supportTicketCtrl.recordsPerPage" st-displayed-pages="supportTicketCtrl.displayPages" st-template="/src/partials/smart-table-pager.html"></div>
+				</div>
+			</div>
+		</uib-accordion>
+	</div>
+</div>

@@ -1,0 +1,69 @@
+.inbox {
+  background-color: $c-white; 
+  padding: 0;
+  .btn {
+    display: block;
+    margin: 1.8rem 0;
+    font-weight: normal;
+  }
+  .date {
+    font-weight: bold;
+    color: $c-gray-1;
+  }
+  .inbox-title {
+    color: $c-blue-dark;
+    font-size: larger;
+  }
+  .inbox-title::before {
+    content: attr(sign);
+    display: inline-block;
+    font-size: larger;
+    width: 1.6rem;
+  }  
+}
+
+.inbox-header {
+  position: relative;
+  padding: 2rem;
+  cursor:pointer;
+}
+.inbox-body {
+  max-height: 50rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+}
+.inbox-new-total {
+  position:absolute;
+  right: 2rem;
+  margin-top: 0.4rem;
+  padding: 0.2rem 0.5rem;
+  background-color: $c-yellow;
+  border-radius: 0.2rem;		
+  font-size: smaller;
+  font-style: italic;
+  color: $c-gray-1;
+}
+.inbox-new-total.zero {
+  background-color: $c-gray-light-2;
+}
+.inbox-news-title {
+  font-style: italic;
+  font-weight: bold;
+  color: $c-gray-1;
+}
+
+.inbox-msg-body {
+  margin: 1rem 0;
+  color: $c-gray-1;
+}
+.inbox-message {
+  border-top: 1px solid $c-gray-light-3;
+  padding: 2rem 2rem 0 2rem;
+}
+.inbox-message.new {
+  @include box-shadow(0, 3px, 0, 0, $c-yellow, true);
+}
+a.inbox-header-wrapper {
+  text-decoration: none;
+  font-weight: initial;
+}

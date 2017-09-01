@@ -1,0 +1,32 @@
+<h1>{{ 'ADVISING.HEADER' | translate }}</h1>
+<div ng-show="advisingCtrl.advisingIntroContent">
+	<div class="tile">
+		<div class="header">
+			<h2>{{'ADVISING.CONTENT.TITLE' | translate}}</h2>
+		</div>
+		<div class="row">
+			<div ng-class="{'loading': advisingCtrl.advisingIntroStatus === 'loading'}"></div>
+			<div class="col-xs-12" ng-bind-html="advisingCtrl.advisingIntroContent | trustHtml"></div>
+		</div>
+	</div>
+</div>
+<div ng-show="advisingCtrl.appointments.length || advisingCtrl.status === 'loading'">
+	<div class="tile">
+		<div class="header">
+			<h2>{{'ADVISING.HISTORY.TITLE' | translate}}</h2>
+		</div>
+		<div ng-class="{'loading': advisingCtrl.status === 'loading'}"></div>
+		<div class="appBlockWrap" ng-show="advisingCtrl.status !== 'loading'">
+			<appointment-block ng-repeat="appointment in advisingCtrl.appointments" appointment="appointment">
+			</appointment-block>
+		</div>
+	</div>
+</div>
+<div id="appointmentHeader" class="tile">
+	<div class="header">
+		<h2>{{'ADVISING.APPOINTMENT.TITLE' | translate}}</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" ui-view="scheduleAppointmentView" autoscroll="true"></div>
+	</div>
+</div>

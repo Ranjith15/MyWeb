@@ -1,0 +1,100 @@
+<h1>{{ 'ADMIN.SYSTEM_ADMIN.HEADER' | translate }}</h1>
+<div class="tile" ng-if="global.isSuperAdmin()">
+	<div class="header">
+		<h2>{{ 'ADMIN.SYSTEM_ADMIN.MIGRATE_CONTENT' | translate }}</h2>
+	</div>
+	<div class="error" ng-if="systemAdminCtrl.status === 'error'"><span class="icon-error"></span>
+		<span>{{systemAdminCtrl.errorMessage}}</span>
+	</div>
+	<div class="success" ng-if="systemAdminCtrl.status === 'success'"><span class="icon-statusApproved"></span>
+		<span>{{'ADMIN.SYSTEM_ADMIN.SUCCESS' | translate }}</span>
+	</div>
+	<label class="pull-left">{{ 'ADMIN.SYSTEM_ADMIN.V4_CLIENT_LABEL' | translate }}</label>
+	<select
+			class="form-control"
+			ng-options="client.clientCode as client.clientName for client in systemAdminCtrl.clients | orderBy: 'clientName'"
+			ng-model="systemAdminCtrl.selectedClient"
+			required>
+	</select>
+	<div class="section-footer">
+		<button class="btn btn-primary btn-sm" ng-class="{working: systemAdminCtrl.status === 'migrating'}" ng-disabled="!systemAdminCtrl.selectedClient" ng-click="systemAdminCtrl.migrateClick()">
+			{{'ADMIN.SYSTEM_ADMIN.MIGRATE_BUTTON' | translate }}<span></span></button>
+	</div>
+</div>
+<div class="tile">
+	<div class="header">
+		<h2>{{ 'ADMIN.SYSTEM_ADMIN.PARTICIPANT.HEADER' | translate }}</h2>
+	</div>
+	<div class="error" ng-if="systemAdminCtrl.statusSearch === 'error'"><span class="icon-error"></span>
+		<span>{{systemAdminCtrl.errorMessage}}</span>
+	</div>
+	<div uib-alert ng-if="systemAdminCtrl.updateSuccess" class="alert alert-success flex-container" close="systemAdminCtrl.closeSuccessAlert()" dismiss-on-timeout="5000">
+		<span>{{ 'ADMIN.UPDATE_USER_ROLE_SUCCESS' | translate }}</span>
+	</div>
+	<div class="form-group">
+		<div class="row form-group">
+			<div class="col-xs-12 col-sm-4 margin-bottom-2">
+				<div class="col-xs-12 pull-left">{{ 'ADMIN.CONTENT_CLIENT' | translate }}</div>
+				<div class="col-xs-12  data-item">
+					<select
+							id="client"
+							class="form-control"
+							name="contentClient"
+							ng-options="client.clientCode as client.clientName for client in systemAdminCtrl.clients | orderBy: 'clientName'"
+							ng-model="systemAdminCtrl.searchUser.clientId">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-xs-12 col-sm-4 margin-bottom-2">
+				<div class="col-xs-12 pull-left">{{ 'ADMIN.SYSTEM_ADMIN.PARTICIPANT.FIRST_NAME' | translate }}</div>
+				<div class="col-xs-12  data-item">
+					<input type="text" class="form-control" maxlength="30" ng-model="systemAdminCtrl.searchUser.firstName"/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 margin-bottom-2">
+				<div class="col-xs-12 pull-left">{{ 'ADMIN.SYSTEM_ADMIN.PARTICIPANT.LAST_NAME' | translate }}</div>
+				<div class="col-xs-12  data-item">
+					<input type="text" class="form-control" maxlength="30" ng-model="systemAdminCtrl.searchUser.lastName"/>
+				</div>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-xs-12 col-sm-4 margin-bottom-2">
+				<div class="col-xs-12 pull-left">{{ 'ADMIN.SYSTEM_ADMIN.PARTICIPANT.EMPLOYEE_ID' | translate }}</div>
+				<div class="col-xs-12  data-item">
+					<input type="text" class="form-control" maxlength="16" ng-model="systemAdminCtrl.searchUser.employeeId"/>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 margin-bottom-2">
+				<div class="col-xs-12 pull-left">{{ 'ADMIN.SYSTEM_ADMIN.PARTICIPANT.TAMS_UNIQUE_ID' | translate }}</div>
+				<div class="col-xs-12  data-item">
+					<input type="text" class="form-control" maxlength="16" ng-model="systemAdminCtrl.searchUser.tamsUniqueId"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="systemAdminCtrl.users" class="table-responsive">
+		<table class="table">
+			<tr>
+				<th class="col-xs-3">Name</th>
+				<th class="col-xs-3">EmployeeId</th>
+				<th class="col-xs-3">UniqueId</th>
+				<th class="col-xs-3">User Role</th>
+			</tr>
+			<tr ng-if="systemAdminCtrl.users" ng-repeat="user in systemAdminCtrl.users" ng-click="systemAdminCtrl.editUser(user.user, systemAdminCtrl.userTypes)">
+				<td>{{user.user.lastName}}, {{user.user.firstName}}</td>
+				<td>{{user.employeeId}}</td>
+				<td>{{user.uniqueId}}</td>
+				<td>{{user.user.userType.description}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="section-footer">
+		<button class="btn btn-primary btn-sm" ng-class="{working: systemAdminCtrl.statusSearch === 'searching'}" ng-disabled="!systemAdminCtrl.searchUser.clientId"
+				ng-click="systemAdminCtrl.search()">{{'GENERAL.SEARCH' | translate }}<span></span></button>
+	</div>
+</div>
+<div action="systemAdminCtrl.showMigrateConfirm" template="delete-confirmation.template" data="systemAdminCtrl.selectedContentData" generic-modal></div>
+<div action="systemAdminCtrl.showEditPanel" template="edit-user.template" size="lg" data="systemAdminCtrl.selectedUserData" generic-modal></div>

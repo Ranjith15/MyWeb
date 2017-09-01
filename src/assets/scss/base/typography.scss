@@ -1,0 +1,95 @@
+// Define global type styles
+.heading-large {
+  font-size: $font-size-h1;
+}
+
+.heading-medium {
+  font-size: $font-size-h2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.heading-small {
+  font-size: $font-size-h3;
+}
+
+.heading-extra-small {
+  font-size: $font-size-h4
+}
+
+h1, 
+.heading-large {
+  color: $c-gray-1;
+  font-weight: $fw-semibold;
+}
+
+h2, 
+.heading-medium {
+  color: $c-blue-light-1;
+  font-weight: $fw-semibold;
+  letter-spacing: $letter-spacing;
+}
+
+h3, 
+.heading-small {
+  color: $c-gray-1;
+  font-weight: $fw-bold;
+  letter-spacing: $letter-spacing;
+}
+
+h4, 
+.heading-extra-small {
+  color: $c-blue-dark-2;
+  font-weight: $fw-bold;
+  letter-spacing: $letter-spacing;
+  margin-bottom: 0;
+}
+
+.modal { 
+  & h4, 
+  & .heading-extra-small {
+    font-size: $fs-medium;
+    margin-bottom: .5rem;
+  }
+
+  & .modal-lg, 
+  & .heading-extra-small h4 {
+    margin-bottom: 1rem;
+  }
+}
+
+a,
+.link {
+  font-weight: $fw-semibold;
+  cursor: pointer;
+}
+
+// faux link style (mostly used for nested links in the appBlocks
+.link {
+  color: $c-blue-dark;
+}
+
+p {
+  &.explination {
+    font-size: $fs-xsmall;
+    color: $c-gray-1;
+  }
+
+  &.margin-0 {
+    margin: 0;
+  }
+}
+
+.data-item {
+  font-weight: $fw-bold;
+}
+
+.date {
+  font-size: $fs-body;
+  float: right;
+  font-style: italic;
+
+  &.x-small {
+    font-size: $fs-xsmall;
+  }
+}

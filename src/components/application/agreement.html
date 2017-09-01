@@ -1,0 +1,141 @@
+<div ng-bind-html="agreementCtrl.step4Intro | trustHtml"></div>
+<div class="row major-row">
+	<div class="col-xs-12 col-md-11">
+		<div class="col-md-1 hidden-xs hidden-sm">
+			<span class="icon-circlePayment"></span>
+		</div>
+		<h2>{{'AGREEMENT.QUESTION' | translate}}</h2>
+		<div class="row input-row">
+			<div class="col-xs-12 col-sm-10 col-md-9">
+				<div ng-bind-html="agreementCtrl.applGrantsScholars" class="row col-xs-12 col-sm-10 col-md-9"></div>
+				<div class="row input-row col-xs-12 col-sm-10 col-md-9 inline-radio-group" role="radiogroup">
+					<label class="custom-radio" aria-label="{{'AGREEMENT.QUESTION' | translate}}">
+						<input type="radio" name="grantsEligibleRadioGroup" ng-model="agreementCtrl.agreementForm.grantsEligible" value="Y" required />
+						<div class="radio-label">{{'GENERAL.YES' | translate}}</div>
+					</label>
+					<label class="custom-radio" aria-label="{{'AGREEMENT.QUESTION' | translate}}">
+						<input type="radio" ng-click="agreementCtrl.clearGrants()" name="grantsEligibleRadioGroup" ng-model="agreementCtrl.agreementForm.grantsEligible" value="N" required/>
+						<div class="radio-label">{{'GENERAL.NO' | translate}}</div>
+					</label>
+				</div>
+			</div>
+ 			<div class="col-xs-12 help-block-slim" ng-show="agreementForm.grantsEligibleRadioGroup.$invalid  && (!agreementForm.grantsEligibleRadioGroup.$pristine || agreementForm.submitted)">
+				<span class="hidden-xs col-lg-1"></span>
+				<span class="col-xs-12 col-lg-5">{{ 'AGREEMENT.SCHOLARSHIP_GRANT_TYPE' | translate }}</span>
+			</div>
+		</div>
+
+		<div ng-show="agreementCtrl.agreementForm.grantsEligible === 'Y'">
+			<div ng-class="{'loading': agreementCtrl.grantsStatus === 'submitting'}"></div>
+			<div class="row input-row">
+				<div class="form-group" ng-class="{'field-error': agreementForm.financialAidSourceId.$invalid && agreementForm.submitted}" aria-live="polite" aria-atomic="true">
+					<label for="financialAidSourceId" class="col-xs-12 col-sm-2">{{'AGREEMENT.GRANT_TYPE' | translate}}</label>
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<select id="financialAidSourceId" class="form-control" role="listbox" name="financialAidSourceId" ng-options="type.financialAidSourceId as type.financialAidDescription for type in agreementCtrl.grantTypes | grantTypesFilter" ng-model="agreementCtrl.agreementForm.financialAidSourceId.financialAidSourceId" ng-required="agreementCtrl.agreementForm.grantsEligible === 'Y'" aria-label="{{'AGREEMENT.GRANT_TYPE' | translate}}"></select>
+						<span class="help-block" ng-show="agreementForm.financialAidSourceId.$invalid && (!agreementForm.financialAidSourceId.$pristine || agreementForm.submitted)">
+							<div ng-messages="agreementForm.financialAidSourceId.$error" role="alert">
+								<span class="sr-only">{{'AGREEMENT.SCHOLARSHIP_GRANT_TYPE' | translate}}</span>
+								<div ng-messages-include src="../src/components/errors/general.html">
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div ng-show="agreementCtrl.agreementForm.financialAidSourceId.financialAidSourceId === 5">
+				<div class="row input-row">
+					<div class="form-group" ng-class="{'field-error': agreementForm.otherFinancialAid.$invalid && (!agreementForm.otherFinancialAid.$pristine || agreementForm.submitted)}">
+						<label for="otherFinancialAid" class="col-xs-12 col-sm-2">{{'AGREEMENT.OTHER_AID' | translate}}</label>
+						<div class="col-xs-12 col-sm-4 col-md-3">
+							<input type="text" id="otherFinancialAid" name="otherFinancialAid" ng-model="agreementCtrl.agreementForm.otherFinancialAid" class="form-control" ng-required="agreementCtrl.agreementForm.financialAidSourceId.financialAidSourceId === 5">
+							<span class="help-block" ng-show="agreementForm.otherFinancialAid.$invalid && (!agreementForm.otherFinancialAid.$pristine || agreementForm.submitted)">
+								<div ng-messages="agreementForm.otherFinancialAid.$error">
+									<div ng-messages-include src="../src/components/errors/general.html">
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row input-row">
+				<div class="form-group" ng-class="{'field-error': agreementForm.financialAidAmount.$invalid && (!agreementForm.financialAidAmount.$pristine || agreementForm.submitted)}">
+					<label for="financialAid" class="col-xs-12 col-sm-2">{{'AGREEMENT.GRANT_AMOUNT' | translate}}</label>
+					<div class="col-xs-12 col-sm-4 col-md-3" aria-live="polite" aria-atomic="true">
+						<label for="financialAid" class="sr-only">{{'AGREEMENT.GRANT_AMOUNT' | translate}}</label>
+						<input type="text" name="financialAidAmount" id="financialAid" ng-model="agreementCtrl.agreementForm.financialAidAmount" class="form-control" ng-pattern="global.constants.patterns.currency" ng-required="agreementCtrl.agreementForm.grantsEligible === 'Y'" aria-label="{{'AGREEMENT.GRANT_AMOUNT' | translate}}">
+						<span class="help-block" ng-show="agreementForm.financialAidAmount.$invalid && (!agreementForm.financialAidAmount.$pristine || agreementForm.submitted)">
+							<div ng-messages="agreementForm.financialAidAmount.$error">
+								<div ng-messages-include src="../src/components/errors/general.html">
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1 hidden-xs hidden-sm">
+			<span class="icon-circleTerms"></span>
+		</div>
+		<h2>{{'AGREEMENT.HEADER' | translate}}</h2>
+		<div class="row input-row">
+			<div class="col-xs-12 col-sm-10 col-md-9">
+				<div ng-repeat="content in agreementCtrl.agreementContent track by $index">
+					<div class="panel panel-default margin-vertical-1">
+						<div class="panel-body">
+							<span><strong><p ng-bind-html="content.title"></p></strong></span>
+							<span><p ng-bind-html="content.text"></p></span>
+						</div>
+					</div>
+					<div class="row" role="alert">
+						<div class="col-xs-12">
+							<label class="custom-checkbox">
+								<input type="checkbox" id="{{content.name}}" name="{{content.name}}" ng-model="agreementCtrl[content.name]" required><span></span><div class="checkbox-label" ng-bind-html="content.verification"></div>
+							</label>
+						</div>
+						<div class="col-xs-12 help-block-slim" ng-show="agreementForm.{{content.name}}.$invalid  && (!agreementForm.{{content.name}}.$pristine || agreementForm.submitted)">
+							<span class="sr-only">{{content.verification}}</span>
+							<span class="col-xs-12 col-lg-5">{{ 'AGREEMENT.REQUIRED_RESPONSE' | translate }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-class="{'loading': agreementCtrl.agreementStatus === 'submitting'}"></div>
+		<div class="row input-row">
+			<div class="col-xs-12 col-sm-11 pull-right">
+				<span><ng-bind-html ng-bind-html="agreementCtrl.agreementSignInstruction"></ng-bind-html></span>
+			</div>
+		</div>
+		<div class="row input-row">
+			<div class="col-xs-12 col-sm-11 pull-right">
+				<span>{{'AGREEMENT.NAME' | translate}} <strong>{{agreementCtrl.userSignature}}</strong></span>
+			</div>
+		</div>
+		<div class="row input-row">
+			<div class="col-xs-12 col-sm-11">
+				<div class="form-group" ng-class="{'field-error': agreementForm.signature.$invalid && (!agreementForm.signature.$pristine || agreementForm.submitted)}" aria-live="polite" aria-atomic="true">
+					<label for="signature" class="col-xs-12 col-sm-3">{{'AGREEMENT.TYPE_NAME' | translate}}</label>
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<input type="text" id="signature" name="signature" ng-model="agreementCtrl.agreementForm.signature" class="form-control" compare-inputs="agreementCtrl.userSignature" required>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row input-row" ng-show="agreementForm.signature.$error && (agreementForm.signature.$dirty || agreementForm.submitted)" aria-live="polite" >
+			<div class="col-xs-12 col-sm-11 pull-right" aria-live="polite">
+				<span class = "help-block field-error" ng-messages="agreementForm.signature.$error">
+					<span class="sr-only">{{'AGREEMENT.NAME_ENTER' | translate}}</span>
+					<span ng-messages-include="src/components/errors/agreement.html"></span>
+					<span ng-messages-include="src/components/errors/general.html"></span>
+				</span>
+			</div>
+		</div>
+		<div class="row input-row" ng-if="agreementCtrl.status === 'error'" aria-live="polite" >
+			<div class="col-xs-12 col-sm-11 pull-right">
+				<span class="help-block">{{agreementCtrl.message}}</span>
+			</div>
+		</div>
+		<div action='agreementCtrl.unsavedState' template='unsaved-changes.template' generic-modal></div>
+	</div>
+</div>

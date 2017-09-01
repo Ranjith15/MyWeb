@@ -1,0 +1,27 @@
+<h1 class="sr-only">{{ 'SUPPORT.TICKET.APP_STATUS' | translate }}</h1>
+<div class="tile">
+	<div class="header">
+		<h2>{{submissionConfirmationCtrl.applicationStatus}}</h2>
+	</div>
+	<div class="row">
+		<div class="left col-xs-12 col-md-3">
+			<div ng-class="submissionConfirmationCtrl.submittedSuccesfully() ? 'icon-appSuccess huge' : 'icon-appFailure huge'"></div>
+		</div>
+		<div class="col-xs-12 col-md-9">
+			<div class="row input-row" ng-if="submissionConfirmationCtrl.submittedSuccesfully()" aria-live="polite">
+				<span>{{ 'APPLICATION.SUMMARY.SUCCESS_CONFIRMATION_START' | translate }} <strong>{{submissionConfirmationCtrl.applicationNumber}}</strong>{{ 'APPLICATION.SUMMARY.SUCCESS_CONFIRMATION_END' | translate }}</span>
+			</div>
+			<div class="row input-row" aria-live="polite">
+				<span><strong>{{ 'APPLICATION.SUMMARY.APPLICATION_STATUS' | translate }} {{submissionConfirmationCtrl.applicationStatus}}</strong></span>
+			</div>
+			<div class="row input-row" ng-if="submissionConfirmationCtrl.submittedText" ng-bind-html="submissionConfirmationCtrl.submittedText.data | trustHtml"></div>
+			<div class="row input-row" ng-repeat="rule in submissionConfirmationCtrl.submissionResponse.rules" ng-hide="submissionConfirmationCtrl.submittedSuccesfully()">
+				<span>{{rule.ruleMessage}}</span>
+			</div>
+			<div class="row input-row">
+				<a ui-sref="{{global.constants.routes.contactInformation}}({participantId: submissionConfirmationCtrl.participantId})" class="btn btn-primary">{{ 'HOME.APPLICATION.NEW_APPLICATION' | translate}}<span class="icon-plus"></span></a>
+				<a ui-sref="{{global.constants.routes.home}}" class="btn btn-default">{{ 'GENERAL.HOME' | translate }}</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,125 @@
+<!-- Don't remove H1 tag - It's not visible to normal end-user and necessary for ADA Compliance/Header Hierarchy -->
+<h1 class="sr-only">{{ 'HOME.DASHBOARD.HOMEPAGE_DASHBOARD' | translate }}</h1>
+
+<div class="row">
+	<div class="col-xs-12 col-md-4">
+		<inbox data="homeCtrl.inbox"></inbox>
+
+		<!-- Network Tile Blocks -->
+		<div class="row margin-bottom-4 network-tile-wrapper">
+			<!-- Advising Tile Block -->
+			<a href="" ng-click="homeCtrl.onAdvisingClick()" ng-show="homeCtrl.advisingEnabled" role="button" aria-label="{{ 'HOME.NETWORK_TILE.SCHEDULE_APPOINTMENT' | translate }}">
+				<div class="col-xs-6" ng-class="{'col-xs-6': homeCtrl.advisingEnabled, 'col-xs-12': !homeCtrl.clientNetworkUrlEnabled}">
+					<div ng-class="{'loading': homeCtrl.appointmentLoaded === 'loading'}"></div>
+					<div ng-show="homeCtrl.appointmentLoaded !== 'loading'" class="network-tile-border-wrapper">
+						<div class="network-tile-body">
+							<div class="network-tile-body-wrapper">
+								<span ng-class="{'icon-greenCalendar': homeCtrl.nextAppointment , 'icon-purpleCalendar': !homeCtrl.nextAppointment}" class="triple"></span>
+								<p ng-show="homeCtrl.nextAppointment.appointment" class="explination">{{homeCtrl.nextAppointment.appointment | timezoneDate : 'M/d/yyyy | h:mm a'}}</p>
+							</div>
+						</div> 
+						<div class="network-tile-footer text-center" ng-class="{'current-appointment': homeCtrl.nextAppointment}"><span>{{ 'HOME.NETWORK_TILE.SCHEDULE_APPOINTMENT' | translate }}</span></div>
+					</div>
+				</div>
+			</a>
+			<!-- Discounts Tile Block -->
+			<a ng-href="{{homeCtrl.clientNetworkUrl}}" target="_blank" ng-show="homeCtrl.clientNetworkUrlEnabled" role="button" aria-label="{{ 'HOME.NETWORK_TILE.VIEW_BENEFITS' | translate }}">
+				<div class="col-xs-6" ng-class="{'col-xs-6': homeCtrl.clientNetworkUrlEnabled, 'col-xs-12': !homeCtrl.advisingEnabled}">
+					<div class="network-tile-border-wrapper">
+						<div class="network-tile-body">
+							<div class="network-tile-body-wrapper">
+								<span class="icon-purpleSchoolHouse triple"></span>
+							</div>
+						</div>
+						<div class="network-tile-footer text-center" ><span>{{ 'HOME.NETWORK_TILE.VIEW_BENEFITS' | translate }}</span></div>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<document-list data="homeCtrl.policyDocuments"></document-list>
+		<div class="error" ng-if="homeCtrl.statusMessages === 'error'" role="alert">
+			<span class="icon-error"></span>
+			<span>{{homeCtrl.messageMessages}}</span>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-8">
+		<div class="tile benefits">
+			<div class="header">
+				<h2>{{ 'HOME.BENEFITS_TILE.TITLE' | translate }}</h2>
+				<div ng-if="homeCtrl.dashboardAppTotal" class="pull-right application-total">
+					<span ng-show="homeCtrl.dashboardAppTotal == 1">{{homeCtrl.dashboardAppTotal}} {{'GENERAL.APPLICATION' | translate}}</span>
+					<span ng-show="homeCtrl.dashboardAppTotal > 1">{{homeCtrl.dashboardAppTotal}} {{'HISTORY.APPLICATIONS' | translate}}</span>
+				</div>
+			</div>
+			<div ng-bind-html="homeCtrl.programBenefitsDescription | trustHtml"></div>
+			<div ng-if="homeCtrl.programBenefitsDescription" class="margin-bottom-4"></div>
+			<div class="row">
+				<div class="col-sm-4 programs">
+					<label>{{ 'HOME.BENEFITS_TILE.PROGRAM' | translate }}</label>
+					<dropdown-select data="homeCtrl.benefits.programs" onchange="homeCtrl.reloadBenefits"></dropdown-select>
+				</div>
+				<div class="col-sm-4 degrees">
+					<label>{{ 'HOME.BENEFITS_TILE.DEGREE' | translate }}</label>
+					<dropdown-select data="homeCtrl.benefits.degrees" onchange="homeCtrl.repaintChart"></dropdown-select>
+				</div>
+				<div class="col-sm-4 periods">
+					<label>{{ 'HOME.BENEFITS_TILE.BENEFIT' | translate }}</label>
+					<dropdown-select data="homeCtrl.benefits.periods" onchange="homeCtrl.repaintChart"></dropdown-select>
+				</div>
+				<div class="col-xs-12">
+					<span class="chart-main-label">
+						{{ 'HOME.BENEFITS_TILE.BENEFIT_AMOUNT' | translate }}
+					</span> 
+					<span ng-if="homeCtrl.chart.total.value !== undefined" class="chart-total-label">
+						{{ 'GENERAL.TOTAL' | translate }}: {{homeCtrl.chart.total.value | currency}}
+					</span>
+					<uib-progress>
+						<uib-bar value="homeCtrl.chart.paid.percent" type="{{homeCtrl.chart.paid.type}}">
+							<span ng-hide="!homeCtrl.chart.paid.percent">{{homeCtrl.chart.paid.value | currency}}</span>
+						</uib-bar>
+						<uib-bar value="homeCtrl.chart.requested.percent" type="{{homeCtrl.chart.requested.type}}">
+							<span ng-hide="!homeCtrl.chart.requested.percent">{{homeCtrl.chart.requested.value | currency}}</span>
+						</uib-bar>
+					</uib-progress>		
+				</div>
+				<div class="col-sm-4">
+					<span class="swatch paid"></span>
+					<span class="swatch-label">{{ 'HOME.BENEFITS_TILE.PAID' | translate }}: {{homeCtrl.chart.paid.value | currency}}</span>
+				</div>
+				<div class="col-sm-4">
+					<span class="swatch requested"></span>
+					<span class="swatch-label">{{ 'HOME.BENEFITS_TILE.IN_PROGRESS' | translate }}: {{homeCtrl.chart.requested.value | currency}}</span>
+				</div>
+				<div class="col-sm-4" ng-if="homeCtrl.chart.total.available !== undefined">
+					<span class="swatch available"></span>
+					<span class="swatch-label">{{ 'HOME.BENEFITS_TILE.REMAINING' | translate }}: {{homeCtrl.chart.total.available | currency}}</span>
+				</div>					
+			</div>
+		</div>	
+		<div ng-show="homeCtrl.tasklist.length || homeCtrl.status === 'loading'">
+			<div class="tile">
+				<div class="header">
+					<h2>{{ 'HOME.TASKLIST.HEADER' | translate }}</h2>
+				</div>
+				<div class="error" ng-if="homeCtrl.status === 'error'">
+					<span class="icon-error"></span>
+					<span>{{homeCtrl.message}}</span>
+				</div>
+				<div ng-show="homeCtrl.tasklist.length <= 0">
+					<span>{{'HOME.TASKLIST.NO_APPLICATIONS' | translate}}</span>
+				</div>
+				<div ng-class="{'loading': homeCtrl.status === 'loading'}"></div>
+				<div ng-show="homeCtrl.status !== 'loading' && homeCtrl.tasklist.length">
+					<div class="appBlockWrap">
+						<application-action-block is-supervisor="global.isSupervisor()" application-action-click="homeCtrl.onApplicationActionClick(application)" participant-id="homeCtrl.userDetails.participantId" ng-repeat="application in homeCtrl.tasklist" application="application">
+						</application-action-block>
+					</div>
+					<nav class="action-needed-pagination text-center" aria-label="{{'HISTORY.PAGE_NAVIGATION' | translate}}" ng-if="homeCtrl.totalItems > 5">
+						<ul uib-pagination total-items="homeCtrl.totalItems" items-per-page="homeCtrl.recordsPerPage" ng-model="homeCtrl.currentPage" ng-change="homeCtrl.getTaskList()" class="pagination-sm" boundary-link-numbers="true" max-size="homeCtrl.maxSize" previous-text="&lsaquo;" next-text="&rsaquo;"></ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

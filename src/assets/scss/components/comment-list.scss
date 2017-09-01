@@ -1,0 +1,44 @@
+.application-comments {
+
+  & .comment-list-container {
+    border-bottom: 1px solid #C4C4C4;
+    border-right: 1px solid #C4C4C4;
+
+    & .comment-list-box {
+      display: flex;
+      
+      & .status {
+        padding: 1rem .5rem;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      & .status-block-left {
+        width: 4.3rem;
+        min-width: 4.3rem;
+        justify-content: center;
+      }
+
+      & .details {
+        padding: $pad-xs;
+
+        & .comment {
+          padding: $pad-xs 0rem;
+          word-break: break-word;
+        }
+
+        & .delete {
+          cursor: pointer;
+        }
+      }
+    }
+
+    & .date {
+      float: none;
+    }
+    
+    &:first-child {
+      border-top: 1px solid #C4C4C4;
+    }
+  }
+}

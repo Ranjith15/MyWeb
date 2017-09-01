@@ -1,0 +1,20 @@
+<div class="modal-header">
+	<button data-dismiss="modal" class="icon-close" aria-label="{{'GENERAL.CLOSE' | translate}} {{'
+SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.MODAL.MODAL' | translate}}" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<div class="heading-extra-small" id="modal-title">{{ 'SUBMITTED_APPLICATION.SUPPORTED_DOCS_MODAL.TITLE' | translate }}</div>
+	<div ng-if="data.content">
+		<div ng-bind-html="data.content"></div>
+	</div>
+	<div ng-if="!data.content">
+		<p id="dialog1Title">{{ 'SUBMITTED_APPLICATION.SUPPORTED_DOCS_MODAL.SUPPORTED_DOCUMENTS_ERROR_MESSAGE' | translate }}</p>
+	</div>
+</div>
+<div class="modal-footer">
+	<div>
+		<button data-dismiss="modal" class="btn btn-primary btn-sm" ng-click="cancel()">{{'GENERAL.OK' | translate}}</button>
+		<a href="" class="btn btn-default btn-sm" role="button" ng-click="data.printFaxCoverSheet()" ng-if="!data.isSupervisorReviewApp && data.showFaxCoverSheet" aria-label="{{ 'FAX_COVERSHEET.PRINT_FAX_COVERSHEET' | translate }} {{ 'FAX_COVERSHEET.FAX_VIEW_COVERSHEET' | translate }}">{{ 'FAX_COVERSHEET.PRINT_FAX_COVERSHEET' | translate }}</a> 
+	</div>
+</div>
+<div action="data.faxCoverSheet" template="fax-cover-sheet.template" data="data.data" size="lg" generic-modal></div>

@@ -1,0 +1,1 @@
+C:\jenkins\workspace\STG\EdAssist-Web-STG\node_modules\.bin\protractor C:\jenkins\workspace\STG\EdAssist-Web-STG\tests\edassist-e2e-tests\conf\conf.js

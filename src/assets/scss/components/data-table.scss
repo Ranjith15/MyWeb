@@ -1,0 +1,84 @@
+.data-table {
+  margin-bottom: 2.0rem;
+
+  & .table-heading {
+    padding: 1rem 0rem;
+    margin: 0rem;
+  }
+
+  & .table-data-container {
+    padding: 1.5rem;
+  }
+
+  [st-sort] {
+    & [st-sort]:after {
+      font-family: FontAwesome;
+      content: "\f0dc";
+      color: $c-gray-light-3;
+      margin-right: 0.5rem;
+    }
+  }
+
+  & .st-sort-ascent,
+  & .st-sort-descent {
+    & span:after {
+      font-family: FontAwesome;
+      color: $c-gray-light-3;
+    }
+  }
+    
+  & .st-sort-ascent {
+    & [st-sort]:after {        
+      content: "\f0de";
+    }
+  }
+
+  & .st-sort-descent {
+    & [st-sort]:after {
+      content: "\f0dd";
+    }
+  }
+}
+
+.table-controls-container {
+  justify-content: flex-start;
+
+  @media (min-width: $screen-sm-min) {
+    justify-content: flex-end;
+  }
+
+  select {
+    width: auto;
+  }
+
+  .search-input {
+    position: relative;
+    
+    & input {
+      border: none;
+      border-bottom: 0.2rem solid $c-blue-dark;
+      padding-left: 2.5rem;
+      background: transparent;
+
+      &:focus {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+
+    & .close-icon, 
+    & .search-icon {
+      position: absolute;
+      top: 0.7rem;
+    }
+
+    & .search-icon { 
+      left: 0.7rem;
+    }
+
+    & .close-icon {
+      right: 0.7rem;
+      cursor: pointer;
+    }
+  }
+}

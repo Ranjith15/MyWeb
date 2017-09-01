@@ -1,0 +1,124 @@
+.ui-select-bootstrap {
+  & > {
+    & .ui-select-choices {
+      max-height: 24rem !important;
+      padding: 0px;
+
+      @media(min-width: $screen-sm-min) {
+        width: 22.2rem !important;
+      }
+    }
+
+    & .ui-select-no-choice {
+      max-height: 24rem !important;
+
+      @media(min-width: $screen-sm-min) {
+        width: 22.2rem !important;
+      }
+    }
+
+    & .ui-select-match {
+      & > .btn {
+        border: 1px solid $c-gray-2;
+        line-height: 3rem;
+        height: 3rem;
+        cursor: default;
+
+        @media(min-width: $screen-sm-min) {
+          width: 22.2rem;
+        }
+      }
+    }
+  }
+
+  & .dropdown-header {
+    display: none;
+  }
+
+  & .form-control {
+    width: 100%;
+    background-color: transparent;
+  }
+
+  & .ui-select-choices-row {
+    & > span {
+      padding: 0.3rem 3rem !important;
+    }
+
+    &.active { 
+      & > span {
+        & .users-group:before {
+          color: $c-white;
+        }
+
+        & .ui-dropdown-options:before {
+          color: $c-white;
+        }
+      }
+    }
+  }
+
+  & .ui-select-match-text {
+    color: $c-gray-dark-1;
+  }
+
+  & .ui-select-toggle {
+    & > .caret {
+      display: none;
+    }
+  }
+}
+
+.ui-dropdown-options, 
+.users-group {
+  &:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    position: absolute;
+    color: $c-blue-dark;
+  }
+}
+
+.ui-dropdown-options {
+  &:before {
+    content: "\f007";
+    left: 1.3rem;
+  }
+}
+
+.users-group {
+  &:before {
+    content: "\f0c0";
+    left: 1rem;
+  }
+}
+
+.ui-select-container {
+  &:focus {
+    background-color: transparent !important;
+    border: initial !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0.5rem $c-blue-light-1 !important;
+    border-color: $c-blue-light-1 !important;
+  }
+
+  & .btn.btn-default{
+    &:hover {
+      background: initial;
+    }
+  }
+}
+
+.ui-select-match {
+  background-color: transparent !important;
+  border: initial !important;
+  outline: 0 !important;
+
+  &:focus {
+    background-color: transparent !important;
+    border: initial !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0.5rem $c-blue-light-1 !important;
+    border-color: $c-blue-light-1 !important;
+  }
+}

@@ -1,0 +1,42 @@
+.document-fax {
+  & .fax-cover-sheet-body {
+    margin-top: 10px;
+    border: solid 1px;
+    text-align: center;
+
+    @media print {
+      width: 9.4in;
+      min-height: 9.9in;
+    }
+  }
+
+  & .fax-cover-sheet-ocr {
+    margin-top: 10px;
+    border: solid 1px;
+    text-align: center;
+
+    @media print {
+      width: 9.4in;
+      height: 1in;
+    }
+  }
+
+  & .fax-cover-sheet-table {
+    border : solid 2px;
+  }
+
+  & .application-number {
+    text-align: left;
+    @extend .trim-padding;
+
+    & span {
+      text-align: left;
+      @extend .trim-padding;
+    }
+  }
+}
+
+.document-item-container,
+.document-item {
+  display: inline-block !important;
+}

@@ -1,0 +1,47 @@
+.participant-action-block {
+  & .table-heading {
+    & .fa {
+      font-size: $fs-large;
+    }
+
+    .btn-group.open .dropdown-toggle {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+
+  & .table-data-container {
+    display: flex;
+    flex-direction: row;
+    padding: 0rem;
+
+    & .status {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & .detail {
+      flex: 0.1rem;
+      padding: 1.5rem;
+
+      & > div {
+        @media(min-width: $screen-sm-min) {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      & .application-action {
+        padding: 1rem 1.5rem 0rem 0rem;
+        text-align: right;
+
+        @media(min-width: $screen-sm-min) {
+          padding-top: 0rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

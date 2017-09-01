@@ -1,0 +1,32 @@
+<div class="tile inbox">
+	<div ng-show="inbox.statusMessages === 'submitting'" class="loading"></div>
+	<div ng-show="inbox.statusMessages === 'success'">
+		<a href="" class="inbox-header-wrapper" role="button" ng-click="inboxCtrl.toggleInbox()">
+			<div class="inbox-header">
+				<span class="inbox-title" ng-attr-sign="{{inbox.open ? '&ndash;':'+'}}">
+					{{::'HOME.MESSAGE_BOARD.MESSAGES' | translate }}
+				</span>
+				<span class="inbox-new-total" ng-class="{'zero': inbox.newCount < 1}">
+					{{inbox.newCount}} {{::'GENERAL.NEW' | translate}}
+				</span>
+			</div>
+		</a>
+		<div ng-if="inbox.open && inbox.messages.length" class="inbox-body">
+			<div class="inbox-message" ng-repeat="message in inbox.messages" ng-class="{'new': !message.old}">
+				<div class="date">{{message.startDate | timezoneDate:"MMMM d, yyyy"}}</div>
+				<div class="inbox-news-title">
+					{{message.title | limitTo: 15}}{{message.title.length > 20 ? "..." : ""}}
+				</div>
+				<div ng-bind-html="message.translatedContent" ng-show="message.open" class="inbox-msg-body"></div>
+				<a href="" class="btn btn-default btn-sm" role="button" ng-click="message.open = ! message.open">
+					{{message.open ? 'HISTORY.LESS_BUTTON' : 'HISTORY.MORE_BUTTON' | translate}}
+				</a>
+			</div>
+		</div>
+		<div ng-if="inbox.open && !inbox.messages.length" class="tile">
+			<div class="message">
+				<div>{{ 'HOME.MESSAGE_BOARD.NO_MESSAGE' | translate }}</div>
+			</div>
+		</div>		
+	</div>
+</div>

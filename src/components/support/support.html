@@ -1,0 +1,35 @@
+<h1>{{'SUPPORT.HEADER' | translate}}</h1>
+<div class="tile">
+	<div class="header">
+		<h2>{{'SUPPORT.TICKET.CREATE' | translate}}</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="explination heading-extra-small">{{'SUPPORT.TICKET.DOCUMENTS' | translate}}</div>
+			<div class="spacer"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="row col-xs-12 row">
+			<div ng-class="{'loading': supportCtrl.status === 'submitting'}"></div>
+			<ul ng-repeat="document in supportCtrl.policyDocuments">
+				<span><document-download content="document"><document-download></span>
+			</ul>
+		</div>
+	</div>
+</div>
+<create-ticket ng-show="supportCtrl.isVhdEnabled" on-ticket-created="supportCtrl.loadSupportTickets()"></create-ticket>
+<ticket-search ng-if="global.isClientAdmin() && supportCtrl.isVhdEnabled" on-search-click="supportCtrl.ticketSearchClick(ticketSearchData)" on-clear-ticket-search="supportCtrl.clearTicketSearch()"></ticket-search>
+<support-ticket ng-show="supportCtrl.isVhdEnabled" support-ticket-history="supportCtrl.supportTicketHistory" history-status="supportCtrl.historyStatus"></support-ticket>
+<div class="tile">
+	<div class="header">
+		<h2>{{'SUPPORT.QUESTION' | translate}}</h2>
+	</div>
+	<div class="row">
+		<div ng-class="{'loading': supportCtrl.contactUsStatus === 'submitting'}"></div>
+			<div class="col-xs-12">
+				<span ng-bind-html="supportCtrl.contactUsContent"/></span>
+			</div>
+		</div>
+	</div>
+</div>

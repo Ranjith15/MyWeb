@@ -1,0 +1,8 @@
+bower_components/
+node_modules/
+dist/
+tests/edassist-e2e-tests/conf/results
+.idea
+ngdocs/
+styleguide/
+.package-lock.json

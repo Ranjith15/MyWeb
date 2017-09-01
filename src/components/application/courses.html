@@ -1,0 +1,521 @@
+<div class="courses-content">
+	<div ng-bind-html="coursesCtrl.step3Intro"></div>
+	<div class="row" aria-live="polite">
+		<section-header section-icon="icon-circleClass" section-title="{{'APPLICATION.COURSES.HEADER' | translate }}"></section-header>
+	</div>
+	<div class="row margin-top-5" ng-if="coursesCtrl.status === 'error'">
+		<div class="col-xs-12">
+			<div class="error" role="alert"><span class="icon-error"></span>
+				<span>{{coursesCtrl.message}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-md-11 col-md-offset-1">
+			<div class="form-group">
+				<span><div class="course-expense-info" ng-bind-html="coursesCtrl.applSessionInfo"></div></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row picker-wrapper">
+		<div class="col-xs-12 col-md-11 col-md-offset-1">
+			<div class="form-group col-xs-12 col-sm-3 no-padding">
+				<label>{{'APPLICATION.COURSES.COURSE_START_DATE' | translate}}</label>
+				<div class="datepicker-block" role="alert">
+					<div class="input-group">
+						<input
+							uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+							datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+							is-open="courseStartDateOpen"
+							type="text"
+							id="courseStartDate"
+							name="courseStartDate"
+							placeholder="{{ 'APPLICATION.COURSES.PLACEHOLDERS.CHOOSE_DATE' | translate}}"
+							class="form-control"
+							ng-model="addCourseSessionForm.courseStartDate"
+							ng-click="courseStartDateOpen = true"
+							ng-pattern="global.constants.patterns.date"
+							datepicker-options="dateOptions"
+							adjust-timezone
+							required />
+						<a href="" class="input-group-addon" ng-click="courseStartDateOpen = true"><i class="fa fa-calendar"></i></a>
+					</div>
+					<span class="help-block" ng-messages="sessionInformationForm.courseStartDate.$error" ng-show="sessionInformationForm.courseStartDate.$invalid && sessionInformationForm.$submitted">
+						<span><div ng-message="required"><span class="sr-only">{{'HOME.TASKLIST.SESSION_START_FIELD' | translate}}</span> {{ 'APPLICATION.COURSES.ERROR_COURSE_START_DATE' | translate }}</div></span>
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-3 col-sm-offset-1 picker-wrapper no-padding">
+				<label>{{'APPLICATION.COURSES.COURSE_END_DATE' | translate}}</label>
+				<div class="datepicker-block" role="alert">
+					<div class="input-group">
+						<input
+							uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+							datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+							is-open="courseEndDateOpen"
+							type="text" id="courseEndDate"
+							name="courseEndDate"
+							placeholder="{{ 'APPLICATION.COURSES.PLACEHOLDERS.CHOOSE_DATE' | translate}}"
+							class="form-control" ng-model="addCourseSessionForm.courseEndDate"
+							ng-click="courseEndDateOpen = true"
+							ng-pattern="global.constants.patterns.date"
+							datepicker-options="dateOptions"
+							adjust-timezone
+							required />
+						<a href="" class="input-group-addon" ng-click="courseEndDateOpen = true"><i class="fa fa-calendar"></i></a>
+					</div>
+					<span class="help-block" ng-messages="sessionInformationForm.courseEndDate.$error" ng-show="sessionInformationForm.courseEndDate.$invalid  && sessionInformationForm.$submitted">
+						<span><div ng-message="required"><span class="sr-only">{{'HOME.TASKLIST.SESSION_END_FIELD' | translate}}</span> {{ 'APPLICATION.COURSES.ERROR_COURSE_END_DATE' | translate }}</div></span>
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="coursesCtrl.graduationQuestion">
+		<div class="col-xs-12 col-md-11 col-md-offset-1 form-group no-padding">
+			<div class="col-xs-12 inline-radio-group" role="radiogroup" aria-labelledby="graduationDate">
+				<div class="graduation-question">
+					<label ng-bind-html="coursesCtrl.graduationQuestion"></label>
+				</div>
+				<div class="row inline-radio-group">
+					<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+						<input type="radio" ng-value="true" name="degreeComplete" aria-checked="false" ng-model="addCourseSessionForm.degreeCompleteYN" required>
+						<div class="radio-label">
+							<span>{{'GENERAL.YES' | translate}}</span>
+							<span aria-label="{{'APPLICATION.COURSES.GRADUATION_COMPLETION_DASH' | translate}}"></span>
+						</div>
+					</label>
+					<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+						<input type="radio" ng-value="false" name="degreeComplete" aria-checked="true" ng-model="addCourseSessionForm.degreeCompleteYN" required>
+						<div class="radio-label">
+							<span>{{'GENERAL.NO' | translate}}</span>
+							<span aria-label="{{'APPLICATION.COURSES.GRADUATION_COMPLETION_DASH' | translate}}"></span>
+						</div>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-11 col-md-offset-1"  ng-show="coursesCtrl.enableCompletionDate && !addCourseSessionForm.degreeCompleteYN">
+			<div class="row">
+				<div class="form-group col-xs-12 col-sm-4" ng-class="{'field-error': ((sessionInformationForm.expectedGradDate.$error.required || !coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.expectedGradDate.$pristine || sessionInformationForm.$submitted))}">
+					<label for="expectedGradDate">{{'APPLICATION.COURSES.EXPECTED_GRADUATION_DATE' | translate}}</label>
+					<div class="datepicker-block" role="alert">
+						<div class="input-group">
+							<input
+								uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+								datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+								is-open="expectedGradDateOpen"
+								type="text"
+								id="expectedGradDate"
+								name="expectedGradDate"
+								placeholder="{{ 'APPLICATION.COURSES.PLACEHOLDERS.CHOOSE_DATE' | translate}}"
+								class="form-control"
+								ng-model="addCourseSessionForm.expGraduationDt"
+								ng-click="expectedGradDateOpen = true"
+								ng-pattern="global.constants.patterns.date"
+								ng-required="coursesCtrl.enableCompletionDate &&!addCourseSessionForm.degreeCompleteYN"
+								datepicker-options="dateOptions"
+								adjust-timezone />
+							<a href="" class="input-group-addon" ng-click="expectedGradDateOpen = true"><i class="fa fa-calendar"></i></a>
+						</div>
+						<span ng-show="(sessionInformationForm.expectedGradDate.$error.required && coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.expectedGradDate.$pristine || sessionInformationForm.$submitted)" class="help-block-slim">
+						<span class="sr-only">{{'HOME.TASKLIST.GRADUATION_DATE_FIELD' | translate}}</span> {{ 'APPLICATION.COURSES.ERROR_GRAD_DATE' | translate }}</span>
+						<span ng-show="(!sessionInformationForm.expectedGradDate.$error.required && !coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.expectedGradDate.$pristine || sessionInformationForm.$submitted)" class="help-block-slim">{{ 'APPLICATION.COURSES.ERROR_GRAD_DATE_BEFORE_SESSION_END' | translate }}</span>
+						<span class="help-block field-error" ng-messages="sessionInformationForm.expectedGradDate.$error" role="alert">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-11 col-md-offset-1" ng-show="addCourseSessionForm.degreeCompleteYN">
+			<div class="row">
+				<div class="form-group  col-xs-12 col-sm-4" ng-class="{'field-error': ((sessionInformationForm.actualGradDate.$error.required || !coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.actualGradDate.$pristine || sessionInformationForm.$submitted))}">
+					<label for="actualGradDate">{{'APPLICATION.COURSES.GRADUATION_DATE' | translate}}</label>
+					<div class="datepicker-block" role="alert">
+						<div class="input-group">
+							<input
+								uib-datepicker-popup="{{'M!/dd/yyyy'}}"
+								datepicker-popup-template-url="src/components/datepicker/datepicker-popup.template.html"
+								is-open="actualGradDateOpen"
+								type="text"
+								id="actualGradDate"
+								name="actualGradDate"
+								placeholder="{{ 'APPLICATION.COURSES.PLACEHOLDERS.CHOOSE_DATE' | translate}}"
+								class="form-control"
+								ng-model="addCourseSessionForm.expGraduationDt"
+								ng-click="actualGradDateOpen = true"
+								ng-required="addCourseSessionForm.degreeCompleteYN"
+								ng-pattern="global.constants.patterns.date"
+								datepicker-options="dateOptions"
+								adjust-timezone />
+							<a href="" class="input-group-addon" ng-click="actualGradDateOpen = true"><i class="fa fa-calendar"></i></a>
+						</div>
+						<span ng-show="(sessionInformationForm.actualGradDate.$error.required && coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.actualGradDate.$pristine || sessionInformationForm.$submitted)" class="help-block-slim">
+						<span class="sr-only">{{'HOME.TASKLIST.GRADUATION_DATE_FIELD' | translate}}</span> {{ 'APPLICATION.COURSES.ERROR_GRAD_DATE' | translate }}</span>
+						<span ng-show="(!sessionInformationForm.actualGradDate.$error.required && !coursesCtrl.gradDateAfterSession()) && (!sessionInformationForm.actualGradDate.$pristine || sessionInformationForm.$submitted)" class="help-block-slim">{{ 'APPLICATION.COURSES.ERROR_GRAD_DATE_BEFORE_SESSION_END' | translate }}</span>
+						<span class="help-block field-error" ng-messages="sessionInformationForm.actualGradDate.$error" role="alert">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-11 col-md-offset-1">
+			<div ng-class="{'loading': coursesCtrl.coursesTableStatus === 'submitting'}"></div>
+			<div ng-hide="coursesCtrl.coursesTableStatus === 'noCourses'" class="panel courses">
+				<div ng-repeat="course in coursesCtrl.coursesAndCourseRelatedExpenses">
+					<div class="panel-heading">
+						<div class="heading-extra-small panel-header">{{::course.courseNumber}} - {{::course.courseName}}</div>
+					</div>
+					<div class="panel-body">
+						<row>
+							<cell class="course-cell"><span class="key">Requested Amount</span> <span class="value">{{::course.tuitionAmount | currency}}</span></cell>
+							<cell class="course-cell"><span class="key">Expenses</span> <span class="value">{{::course.feesAmount | currency}}</span></cell>
+							<cell class="course-cell"><span class="key">Total</span> <span class="total value">{{::course.tuitionAmount+course.feesAmount | currency}}</span></cell>
+							<cell class="course-button-cell">
+								<a href="" ng-click= "deleteCourse(course)" class="btn btn-sm btn-danger" role="button">
+									{{ 'GENERAL.REMOVE' | translate }}
+								</a>
+							</cell>
+							<cell class="course-button-cell">
+								<a href="" ng-click= "editCourse(course)" class="btn btn-default btn-xs" role="button">
+									<i class="fa fa-pencil medium" aria-hidden="true"></i>
+									{{ 'GENERAL.EDIT' | translate }}
+								</a>
+							</cell>
+						</row>
+					</div>
+				</div>
+				<div ng-repeat="expense in coursesCtrl.otherExpenses"> <!--TODO merge with the course and expense array so that we do not loop again-->
+					<div class="panel-heading">
+						<div class="heading-extra-small panel-header">{{::expense.courseNumber}} {{::expense.courseName}}</div>
+					</div>
+					<div class="panel-body">
+						<row>
+							<cell class="course-cell"></cell>
+							<cell class="course-cell"><span class="key">Expenses</span><span>{{::expense.feesAmount | currency}} </span></cell>
+							<cell class="course-cell"><span class="key">Total</span> <span class="total">{{::expense.tuitionAmount+expense.feesAmount | currency}}</span></cell>
+							<cell class="course-button-cell">
+								<a href="" ng-click= "deleteExpense(expense)" class="btn btn-sm btn-danger" role="button">
+									{{ 'GENERAL.REMOVE' | translate }}
+								</a>
+							</cell>
+							<cell class="course-button-cell">
+								<a href="" ng-click= "editExpense(expense)" class="btn btn-default btn-xs" role="button">
+									<i class="fa fa-pencil medium" aria-hidden="true"></i>
+									{{ 'GENERAL.EDIT' | translate }}
+								</a>
+							</cell>
+						</row>
+					</div>
+				</div>
+				<div ng-hide="coursesCtrl.coursesTableStatus === 'submitting'">
+					<div class="panel-footer">
+						<row>
+							<cell class="course-cell">Tuition {{coursesCtrl.courseTotal | currency}}</cell>
+							<cell class="course-cell">Expenses {{coursesCtrl.expenseTotal | currency}}</cell>
+							<cell class="course-cell">Total <span class="total">{{coursesCtrl.courseAndExpenseTotal | currency}}</span></cell>
+							<cell class="course-button-cell"></cell>
+							<cell class="course-button-cell"></cell>
+						</row>
+					</div>
+				</div>
+			</div>
+			<a href="" ng-click="resetCourseForm()" ng-hide="coursesCtrl.coursesTableStatus === 'noCourses' || coursesCtrl.coursesTableStatus === 'submitting' || !coursesCtrl.hideCourseForm" role="button" class="btn btn-default btn-sm">{{ 'APPLICATION.COURSES.ADD_COURSE' | translate }}</a>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-10 col-md-offset-1 margin-top-5 course-container-wrapper">
+		<div ng-if="coursesTableExpanded()" class="add-course margin-top-3">
+			<ng-form name="courseExpenseForm">
+				<div class="col-xs-12">
+					<div class="heading-small" ng-if="!coursesCtrl.isEditCourse">{{ 'APPLICATION.COURSES.ADD_COURSE_HEADER' | translate }}</div>
+					<div class="heading-small" ng-if="coursesCtrl.isEditCourse">{{ 'APPLICATION.COURSES.EDIT_COURSE_HEADER' | translate }}</div>
+				</div>
+				<div ng-if="coursesCtrl.content" class="spacer margin-bottom-5"></div>
+				<div class="col-xs-12">
+					<div ng-if="coursesCtrl.content" class="row">
+						<div class="col-xs-12">
+							<p ng-bind-html="coursesCtrl.getContentHtml('applSaveCourse')"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12 col-sm-8" aria-live="polite" ng-class="{ 'field-error' : courseExpenseForm.courseNameName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+							<label for="courseName">{{ 'APPLICATION.COURSES.COURSE_NAME' | translate }}</label>
+							<input type="text" name="courseNameName" id="courseName" maxlength="40" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.COURSE_NAME' | translate}}" class="form-control" ng-model="addCourseExpenseForm.courseName" ng-required="coursesTableExpanded()">
+							<span class="help-block" ng-show="courseExpenseForm.courseNameName.$invalid && courseExpenseForm.courseNameName.$dirty" ng-messages="courseExpenseForm.courseNameName.$error">
+								<span class="sr-only">{{ 'HOME.TASKLIST.COURSE_NAME_FIELD' | translate }}</span>
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+						<div class="form-group col-xs-12 col-sm-4" aria-live="polite" ng-class="{ 'field-error' : courseExpenseForm.courseNum.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+							<label for="courseNumber" class="">{{ 'APPLICATION.COURSES.COURSE_NUMBER' | translate }}</label>
+							<input type="text"
+									name="courseNum"
+									id="courseNumber"
+									maxlength="12"
+									placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.COURSE_NUM' | translate}}"
+									class="form-control" ng-model="addCourseExpenseForm.courseNumber"
+									ng-required="coursesTableExpanded()"
+									form-focus="{{coursesCtrl.coursesAndCourseRelatedExpenses.length > 0}}" />
+							<span class="help-block" ng-show="courseExpenseForm.courseNum.$invalid && courseExpenseForm.courseNum.$dirty" ng-messages="courseExpenseForm.courseNum.$error">
+								<span class="sr-only">{{ 'HOME.TASKLIST.COURSE_NUMBER_FIELD' | translate }}</span>
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+						<div class="form-group col-xs-12 col-sm-4" ng-class="{ 'field-error' : courseExpenseForm.tuitionAmountName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+							<label for="tuitionAmount">{{ 'APPLICATION.COURSES.TUITION_AMOUNT' | translate }}</label>
+							<div class="input-group amount-addon">
+								<span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+								<input type="text" name="tuitionAmountName" id="tuitionAmount" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.EXAMPLE' | translate}}" class="form-control" ng-model="addCourseExpenseForm.tuitionAmount" ng-pattern="global.constants.patterns.currency" ng-required="coursesTableExpanded()">
+								<span class="help-block" ng-show="courseExpenseForm.tuitionAmountName.$invalid && courseExpenseForm.tuitionAmountName.$dirty" ng-messages="courseExpenseForm.tuitionAmountName.$error">
+									<span class="sr-only">{{ 'HOME.TASKLIST.TUITION_AMOUNT_FIELD' | translate }}</span>
+									<span ng-messages-include="src/components/errors/general.html"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group col-xs-12 col-sm-4" ng-class="{ 'field-error' : courseExpenseForm.creditHoursName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+							<label for="creditHours">{{ 'APPLICATION.COURSES.CREDIT_HOURS' | translate }}</label>
+							<input type="text" name="creditHoursName" id="creditHours" maxlength="6" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.HOURS' | translate}}" class="form-control" ng-model="addCourseExpenseForm.creditHours" ng-pattern="global.constants.patterns.decimal">
+							<span class="help-block" aria-live="polite" aria-atomic="true" ng-show="courseExpenseForm.creditHoursName.$invalid && courseExpenseForm.creditHoursName.$dirty" ng-messages="courseExpenseForm.creditHoursName.$error">
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+						<div class="form-group col-xs-12 col-sm-4" aria-live="polite" aria-atomic="true" ng-class="{ 'field-error' : courseExpenseForm.instructionTypeName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+							<label for="instructionType">{{ 'APPLICATION.COURSES.INSTRUCTION_TYPE' | translate }}</label>
+							<select name="instructionTypeName" id="instructionType" class="form-control" name="instructionType" ng-options="method.courseMethodId as method.courseMethod for method in coursesCtrl.methods" ng-model="addCourseExpenseForm.courseMethod.courseMethodId" ng-required="coursesTableExpanded()"></select>
+							<span class="help-block" ng-show="courseExpenseForm.instructionTypeName.$invalid && coursesCtrl.courseExpenseFormSubmitted" ng-messages="courseExpenseForm.instructionTypeName.$error">
+								<span class="sr-only">{{ 'HOME.TASKLIST.INSTRUCTION_TYPE_FIELD' | translate }}</span>
+								<span ng-messages-include="src/components/errors/general.html"></span>
+							</span>
+						</div>
+					</div>
+					<div class="spacer"></div>
+					<div class="line"></div>
+					<div class="row input-row" ng-if="coursesCtrl.courseRelatedExpenseTypes.length">
+						<div class="form-group col-xs-12">
+							<div class="row col-xs-12">
+								<div id="expenseRelated" class="heading-extra-small">{{ 'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION' | translate }}</div>
+								<p class="explination">{{ 'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION_CONT' | translate }}</p>
+							</div>
+							<div class="row inline-radio-group margin-top-0" role="radiogroup" aria-labelledby="expenseRelated">
+								<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+									<input type="radio" name="courseExpenseGroup" aria-checked="false" value="Yes" ng-model="addCourseExpenseForm.courseRelatedExpense">
+									<div class="radio-label">
+										<span>{{'GENERAL.YES' | translate}}</span>
+										<span aria-label="{{'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION_DASH' | translate}}"></span>
+									</div>
+								</label>
+								<label class="custom-radio col-xs-6 col-sm-6 col-md-2" aria-label="{{'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION_DASH' | translate}}">
+									<input type="radio" checked="checked" aria-checked="false" name="courseExpenseGroup" value="No" ng-model="addCourseExpenseForm.courseRelatedExpense">
+									<div class="radio-label">{{'GENERAL.NO' | translate}}</div>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div ng-if = "addCourseExpenseForm.courseRelatedExpense === 'Yes' && coursesCtrl.courseExpenses.length > 0">
+						<div class="panel">
+							<div class="panel-body">
+								<div ng-repeat="expense in coursesCtrl.courseExpenses | filter:{status : '!deleted'} ">
+									<div class="panel-heading">
+										<div class="heading-extra-small panel-header">{{::expense.expenseType.description}}</div>
+									</div>
+									<row>
+										<cell><span class="key">{{'APPLICATION.COURSES.AMOUNT' | translate}}</span> <span class="total">{{::expense.feesAmount | currency}}</span></cell>
+										<cell ng-if = "::expense.expenseType.expenseTypeID === 3">
+											<span class="key">{{'APPLICATION.COURSES.QUANTITY' | translate}}</span> {{::expense.numberOfBooks}}
+										</cell>
+										<cell ng-if = "expense.expenseType.expenseTypeID !== 3">
+											<span class="key"></span>
+										</cell>
+										<cell>
+											<a href="" ng-click= "deleteCourseExpense(expense)" class="btn btn-default btn-borderless btn-sm danger"><span data-grunticon-embed class="icon-delete small"/>Remove</a>
+										</cell>
+									</row>
+								</div>
+								<div class="row" ng-hide="coursesCtrl.showCourseExpenseForm">
+									<div class="form-group col-xs-12 col-sm-4">
+										<a ng-click="showCourseExpenceForm()" href="" class="btn btn-primary btn-sm" role="button">{{'APPLICATION.COURSES.ADD_EXPENSE' | translate}}<span></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-if = "addCourseExpenseForm.courseRelatedExpense === 'Yes' && checkShowCourseExpenseForm()" class="col-xs-12 margin-top-5 related-expense-wrapper"
+					>
+						<div class="col-xs-12 margin-top-3 margin-bottom-3">
+							<div class="heading-extra-small">{{'APPLICATION.COURSES.ADD_COURSE_RELATED_EXPENSE' | translate}}</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="form-group-wrapper">
+									<div class="form-group col-xs-12 col-sm-6" ng-class="{ 'field-error' : courseExpenseForm.expenseTypeName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+										<label for="expenseType">{{ 'APPLICATION.COURSES.EXPENSE_TYPE' | translate }}</label>
+										<select
+											name="expenseTypeName"
+											id="expenseType" class="form-control"
+											name="expenseType"
+											ng-options="expenseType.expenseTypeID as expenseType.description for expenseType in coursesCtrl.courseRelatedExpenseTypes"
+											ng-model="coursesCtrl.courseExpense.expenseType.expenseTypeID"
+											aria-label="{{ 'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_TYPE' | translate }}">
+										</select>
+									</div>
+									<div ng-if = "coursesCtrl.courseExpense.expenseType.expenseTypeID === 3">
+										<div class="form-group col-xs-12 col-sm-6" aria-live="polite" aria-atomic="true" ng-class="{ 'field-error' : courseExpenseForm.numberOfBooksName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+											<label for="numberOfBooks">{{ 'APPLICATION.COURSES.QUANTITY' | translate }}</label>
+											<input type="text" ng-pattern="global.constants.patterns.numeric" name="numberOfBooksName" id="numberOfBooks" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.NUM_BOOKS' | translate}}" class="form-control" ng-model="coursesCtrl.courseExpense.numberOfBooks">
+											<span class="help-block" ng-show="courseExpenseForm.numberOfBooksName.$invalid && courseExpenseForm.numberOfBooksName.$dirty" ng-messages="courseExpenseForm.numberOfBooksName.$error">
+												<span ng-messages-include="src/components/errors/general.html"></span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group col-xs-12 col-sm-6" ng-class="{ 'field-error' : courseExpenseForm.feesAmountName.$invalid && coursesCtrl.courseExpenseFormSubmitted}">
+										<label for="feesAmount">{{ 'APPLICATION.COURSES.AMOUNT' | translate }}</label>
+										<div class="input-group amount-addon" aria-live="polite" aria-atomic="true">
+											<span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+											<input type="text" name="feesAmountName" id="feesAmount" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.EXAMPLE' | translate}}" class="form-control" ng-model="coursesCtrl.courseExpense.feesAmount" ng-pattern="global.constants.patterns.currency" aria-label="{{ 'APPLICATION.COURSES.COURSE_RELATED_EXPENSE' | translate }}">
+											<span class="help-block" ng-show="courseExpenseForm.feesAmountName.$invalid && courseExpenseForm.feesAmountName.$dirty" ng-messages="courseExpenseForm.feesAmountName.$error">
+												<span ng-messages-include="src/components/errors/general.html"></span>
+											</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12 box-style margin-top-6">
+											<a ng-click="addCourseExpense()" href="" role="button" class="btn btn-primary btn-sm" title="{{ 'APPLICATION.COURSES.ADD_EXPENSE' | translate }} {{ 'APPLICATION.COURSES.COURSE_RELATED' | translate }}">{{ 'APPLICATION.COURSES.ADD_EXPENSE' | translate }}<span class="sr-only"> {{ 'APPLICATION.COURSES.COURSE_RELATED' | translate }}</span></a>
+											<a href="" ng-click="coursesCtrl.cancelCourseExpense()" role="button" class="btn btn-default btn-sm" title="{{ 'GENERAL.CANCEL' | translate }}">{{ 'GENERAL.CANCEL' | translate }}<span class="sr-only"> {{ 'APPLICATION.COURSES.COURSE_RELATED_EXPENSES' | translate }}</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="spacer"></div>
+
+
+					<div ng-if="coursesCtrl.taxQuestionsCount && coursesCtrl.courseTaxQuestions.length">
+						<div class="line"></div>
+						<div class="spacer"></div>
+						<div class="row input-row">
+							<div class="col-xs-12 heading-small margin-bottom-2">{{'APPLICATION.COURSES.TAX_INFORMATION' | translate}}</div>
+							<div class="col-xs-12 margin-bottom-2" ng-bind-html="coursesCtrl.coursetaxIntro"></div>
+							<div class="form-group" ng-repeat="courseTaxQuestion in coursesCtrl.courseTaxQuestions">
+								<div ng-if="courseTaxQuestion.question" class="col-xs-12 heading-extra-small" ng-bind-html="courseTaxQuestion.question"></div>
+								<div class="row col-xs-12 inline-radio-group margin-bottom-4">
+									<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+										<input type="radio" name="qualifyingExpense-{{$index}}" value="Y" ng-model="courseTaxQuestion.modelValue" ng-required="coursesTableExpanded()" ng-change="coursesCtrl.courseTaxQuestionChange()">
+										<div class="radio-label">
+											<span>{{'GENERAL.YES' | translate}}</span>
+											<span aria-label="{{'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION_QUALIFY' | translate}}"></span>
+										</div>
+									</label>
+									<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+										<input type="radio" name="qualifyingExpense-{{$index}}" value="N" ng-model="courseTaxQuestion.modelValue" ng-required="coursesTableExpanded()" ng-change="coursesCtrl.courseTaxQuestionChange()">
+										<div class="radio-label">
+											<span>{{'GENERAL.NO' | translate}}</span>
+											<span aria-label="{{'APPLICATION.COURSES.COURSE_RELATED_EXPENSE_QUESTION_QUALIFY' | translate}}"></span>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div ng-show="coursesCtrl.displayNonTaxableAlert && coursesCtrl.courseNonTaxablePopUpInfo" class="alert alert-info flex-container">
+								<span ng-bind-html="coursesCtrl.courseNonTaxablePopUpInfo"></span>
+							</div>
+							<div ng-show="coursesCtrl.displayTaxableAlert && coursesCtrl.courseTaxablePopUpInfo" class="alert alert-info flex-container">
+								<span ng-bind-html="coursesCtrl.courseTaxablePopUpInfo"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 box-style">
+						<a ng-if="!coursesCtrl.isEditCourse" href="" ng-click="submitAddCourseForm()" class="btn btn-primary btn-sm" role="button" ng-class="{working: coursesCtrl.status === 'submitting'}" title="{{ 'APPLICATION.COURSES.ADD_COURSE' | translate }}">{{ 'APPLICATION.COURSES.ADD_COURSE' | translate }}<span class="sr-only"> {{ 'APPLICATION.COURSES.COURSE_RELATED' | translate }}</span><span></span></a>
+						<a ng-if="coursesCtrl.isEditCourse" href="" ng-click="submitAddCourseForm()" class="btn btn-primary btn-sm" role="button" ng-class="{working: coursesCtrl.status === 'submitting'}" >{{ 'APPLICATION.COURSES.EDIT_COURSE' | translate }}<span></span></a>
+						<a href="" ng-click="resetCourseForm(); coursesCtrl.hideCourseForm=true" class="btn btn-default btn-sm" role="button" title="{{ 'GENERAL.CANCEL' | translate }}">{{ 'GENERAL.CANCEL' | translate }}<span class="sr-only"> {{ 'APPLICATION.COURSES.ADDING_COURSE' | translate }}</span><span></span></a>
+					</div>
+				</div>
+			</ng-form>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="spacer"></div>
+	<div ng-if="coursesCtrl.enableNonCourseExpenses" class="row" role="polite">
+		<section-header section-icon="icon-circlePayment" id="otherExpensesOption" section-title="{{ 'APPLICATION.COURSES.EXPENSE_QUESTION' | translate }}"></section-header>
+	</div>
+	<div ng-if="coursesCtrl.enableNonCourseExpenses">
+		<ng-form name="otherExpenseForm" class="col-xs-12 col-md-11 col-md-offset-1 no-padding">
+			<div class="row col-xs-12 inline-radio-group" role="radiogroup" aria-labelledby="otherExpensesOption">
+				<label class="custom-radio col-xs-6 col-sm-6 col-md-2">
+					<input type="radio" ng-click="resetExpenseForm()" aria-checked="false" name="expenseGroup" value="Yes" ng-model="expenseRadio.otherExpense">
+					<div class="radio-label">
+						<span>{{'GENERAL.YES' | translate}}</span>
+						<span aria-label="{{'APPLICATION.COURSES.EXPENSE_QUESTION_DASH' | translate}}"></span>
+					</div>
+				</label>
+				<label class="custom-radio col-xs-6 col-sm-6 col-md-2" aria-label="{{'APPLICATION.COURSES.EXPENSE_QUESTION_DASH' | translate}}">
+					<input type="radio" checked="checked" name="expenseGroup" aria-checked="true" value="No" ng-model="expenseRadio.otherExpense">
+					<div class="radio-label">{{'GENERAL.NO' | translate}}</div>
+				</label>
+			</div>
+			<div ng-if="expenseRadio.otherExpense === 'Yes'" class="col-xs-12 col-md-10 margin-top-5 other-expenses-wrapper ng-scope">
+				<div ng-if="!expenseRadio.otherExpense" class="col-xs-12 heading-small margin-top-5 ng-binding ng-scope">{{ 'APPLICATION.COURSES.EDIT_EXPENSE_HEADER' | translate }}</div>
+				<div ng-if="expenseRadio.otherExpense" class="col-xs-12 heading-small margin-top-5 ng-binding ng-scope">{{ 'APPLICATION.COURSES.ADD_EXPENSE_HEADER' | translate }}</div>
+				<div class="form-group col-xs-12 col-sm-6" aria-live="polite" aria-atomic="true" ng-class="{ 'field-error' : otherExpenseForm.otherExpenseTypeName.$invalid && coursesCtrl.otherExpenseFormSubmitted}">
+					<label for="expenseType" class="ng-binding">{{ 'APPLICATION.COURSES.EXPENSE_TYPE' | translate }}</label>
+					<select name="otherExpenseTypeName" id="otherExpenseType" class="form-control" name="otherExpenseType" ng-options="otherExpenseType.expenseTypeID as otherExpenseType.description for otherExpenseType in coursesCtrl.otherExpenseTypes" ng-model="addExpenseForm.expenseType.expenseTypeID" ng-required="expenseRadio.otherExpense === 'Yes'" aria-label="{{ 'APPLICATION.COURSES.ADDITIONAL_EXPENSE_TYPE' | translate }}"></select>
+					<span class="help-block" ng-show="otherExpenseForm.otherExpenseTypeName.$invalid && coursesCtrl.otherExpenseFormSubmitted" ng-messages="otherExpenseForm.otherExpenseTypeName.$error">
+						<span ng-messages-include="src/components/errors/general.html"></span>
+					</span>
+				</div>
+				<div class="form-group col-xs-12 col-sm-6" aria-live="polite" aria-atomic="true" ng-class="{ 'field-error' : otherExpenseForm.otherfeesAmountName.$invalid && coursesCtrl.otherExpenseFormSubmitted}">
+					<label for="otherfeesAmount" class="ng-binding">{{ 'APPLICATION.COURSES.AMOUNT' | translate }}</label>
+					<div class="input-group amount-addon">
+						<span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+						<input type="text" name="otherfeesAmountName" id="otherfeesAmount" placeholder="{{'APPLICATION.COURSES.PLACEHOLDERS.EXAMPLE' | translate}}" class="form-control" ng-model="addExpenseForm.feesAmount" ng-pattern="global.constants.patterns.currency" ng-required="expenseRadio.otherExpense === 'Yes'" aria-label="{{ 'APPLICATION.COURSES.ADDITIONAL_EXPENSES' | translate }}">
+						<span class="help-block" ng-show="otherExpenseForm.otherfeesAmountName.$invalid && coursesCtrl.otherExpenseFormSubmitted" ng-messages="otherExpenseForm.otherfeesAmountName.$error">
+							<span ng-messages-include="src/components/errors/general.html"></span>
+						</span>
+					</div>
+				</div>
+				<div ng-if="coursesCtrl.taxQuestionsCount">
+					<div ng-if="coursesCtrl.expensetaxIntro" class="col-xs-12 margin-top-3" id="expenseTypeQuestion" ng-bind-html="coursesCtrl.expensetaxIntro"></div>
+					<div ng-repeat="expenseTaxQuestion in coursesCtrl.expenseTaxQuestions">
+						<div class="row">
+							<div class="form-group col-xs-12" >
+								<div class="col-xs-12 heading-extra-small" ng-bind-html="expenseTaxQuestion.question"></div>
+								<div class="row col-xs-12 inline-radio-group margin-top-0" role="radiogroup" aria-labelledby="expenseTypeQuestion">
+									<label class="custom-radio col-xs-6 col-sm-6 col-md-4">
+										<input type="radio" value="Y" name="expenseAdded-{{$index}}" aria-checked="false" ng-model="expenseTaxQuestion.modelValue" ng-required="expenseRadio.otherExpense === 'Yes'" ng-change="coursesCtrl.courseExpenseQuestionChange()">
+										<div class="radio-label">{{'GENERAL.YES' | translate}}</div>
+									</label>
+									<label class="custom-radio col-xs-6 col-sm-6 col-md-4">
+										<input type="radio" value="N" name="expenseAdded-{{$index}}" aria-checked="false" ng-model="expenseTaxQuestion.modelValue" ng-required="expenseRadio.otherExpense === 'Yes'" ng-change="coursesCtrl.courseExpenseQuestionChange()">
+										<div class="radio-label">{{'GENERAL.NO' | translate}}</div>
+									</label>
+								</div>
+								<div class="col-xs-12 margin-top-3"  id="expenseTypeQuestion" ng-bind-html="coursesCtrl.expensetaxIntro"></div>
+							</div>
+					</div>
+					<div ng-show="coursesCtrl.displayAcceptedExpenseAlert && coursesCtrl.expenseNonTaxablePopUpInfo" class="alert alert-info flex-container">
+						<span ng-bind-html="coursesCtrl.expenseNonTaxablePopUpInfo"></span>
+					</div>
+					<div ng-show="coursesCtrl.displayDeclinedExpenseAlert && coursesCtrl.expenseTaxablePopUpInfo" class="alert alert-info flex-container">
+						<span ng-bind-html="coursesCtrl.expenseTaxablePopUpInfo"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 box-style">
+						<a href="" ng-if="!coursesCtrl.isEditExpense" ng-click="submitOtherExpenseForm()" ng-class="{working: coursesCtrl.status === 'submitting'}" class="btn btn-primary btn-sm" role="button" title="{{ 'APPLICATION.COURSES.ADD_EXPENSE' | translate }} {{ 'GENERAL.ADDITIONAL' | translate }} ">{{ 'APPLICATION.COURSES.ADD_EXPENSE' | translate }}<span class="sr-only"> {{ 'GENERAL.ADDITIONAL' | translate }}</span><span></span></a>
+						<a href="" ng-if="coursesCtrl.isEditExpense" ng-click="submitOtherExpenseForm()" ng-class="{working: coursesCtrl.status === 'submitting'}" class="btn btn-primary btn-sm" role="button">{{ 'APPLICATION.COURSES.EDIT_EXPENSE' | translate }}<span></span></a>
+						<a href="" ng-click="expenseRadio.otherExpense='No'" class="btn btn-default btn-sm" role="button" title="{{ 'GENERAL.CANCEL' | translate }}">{{ 'GENERAL.CANCEL' | translate }}<span class="sr-only"> {{ 'APPLICATION.COURSES.ADDITIONAL_EXPENSES' | translate }}</span><span></span></a>
+					</div>
+				</div>
+			</div>
+		</ng-form>
+	</div>
+</div>

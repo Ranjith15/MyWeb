@@ -1,0 +1,7 @@
+<div class="step" ng-class="[{complete: applicationSubnavStepCtrl.complete, current: scheduleAppointmentSubnavStepCtrl.current }]">
+
+	<span ng-if="scheduleAppointmentSubnavStepCtrl.complete" class="icon-subNavComplete"></span>
+	<span ng-if="!scheduleAppointmentSubnavStepCtrl.complete" class="icon">{{scheduleAppointmentSubnavStepCtrl.step}}</span>
+
+	<ng-transclude></ng-transclude>
+</div>

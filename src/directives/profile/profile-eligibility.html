@@ -1,0 +1,197 @@
+<fieldset>
+	<legend>
+		<span class="icon-circleProfile"></span>
+		<span class="heading-small">{{ 'CLIENT_ADMIN.PROFILE.PARTICIPANT_INFO' | translate }}</span>
+	</legend>
+	<div class="participant-wrapper">
+		<div class="col-xs-12 col-sm-4" ng-if="model.user.firstName || model.user.lastName">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.EMP_NAME' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.user.lastName}}, {{model.user.firstName}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.client.clientName">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.COMPANY_NAME' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.client.clientName}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.jobTitle">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.JOB_TITLE' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.jobTitle}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.department">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.DEPARTMENT' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.department}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.employeeStatus">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.EMP_STATUS' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.employeeStatus}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.companyName">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.COMP_NAME' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.companyName}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.hireDate">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.HIRE_DATE' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.hireDate | timezoneDate:'longDate'}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.region">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.REGION' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.region}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.costCenter">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.COST_CENTER' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.costCenter}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.hourlySalaried">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.HOURLY_SALARIED' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.hourlySalaried}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.fullTime">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.FULL_TIME' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.fullTime}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.hoursPerWeek">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.HOURS_WK' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.hoursPerWeek}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.gradeLevel">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.SALARY_GRADE' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.gradeLevel}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.union">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.UNION' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.union}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.participantUnion">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.UNION_CODE' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.participantUnion}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.terminationDate">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.TERMINATION_DATE' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.terminationDate | timezoneDate:'longDate'}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.terminationReason">
+			<div class="col-xs-12 pull-left">{{ 'CLIENT_ADMIN.PROFILE.TERMINATION_REASON' | translate }} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.terminationReason}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic1">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel1}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic1}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic2">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel2}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic2}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic3">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel3}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic3}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic4">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel4}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic4}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic5">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel5}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic5}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic6">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel6}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic6}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic7">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel7}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic7}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic8">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel8}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic8}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic9">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel9}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic9}}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4" ng-if="model.generic10">
+			<div class="col-xs-12 pull-left">{{model.client.genericLabel10}} </div>
+			<div class="col-xs-12 data-item">
+				<span class="uneditable"></span>
+				<p>{{model.generic10}}</p>
+			</div>
+		</div>
+	</div>
+</fieldset>

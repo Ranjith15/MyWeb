@@ -1,0 +1,171 @@
+/*
+most of those are overwriting
+standard ui datepicker styles
+thus a lot of 'magic numbers'
+*/
+
+.calender-content-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.calendar-wrap {
+  background: $c-white;
+  padding-top: 35px;
+  width: 421px;
+  position: relative;
+  border: 1px solid $c-gray-2;
+}
+
+.times-wrap {
+  position: absolute;
+  left: 450px;
+  right: 15px;
+  top: 0;
+  overflow-x: auto;
+  max-height: 45rem;
+}
+
+.appointment-calendar {
+  button {
+    border: 0;
+  }
+
+  table {
+    border-spacing: 18px;
+    border-collapse: separate;
+
+    thead {
+      th small,
+      th strong {
+        font-weight: normal;
+        color: $c-blue-dark;
+        font-size: 1.3rem;
+      } 
+      th small {
+        color: $c-gray-1;
+      }
+
+      tr:first-child {
+        display: block;
+        position: absolute;
+        width: 380px;
+        text-align: right;
+        top: 20px;
+        th {
+          display: inline-block;
+        }
+        th:nth-child(2) {
+          position: absolute;
+          left: -2px;
+        }
+        th .glyphicon {
+          background: $c-blue-dark;
+          color: $c-white;
+          padding: 3px;
+          border-radius: 50%; 
+          font-size: 15px;  
+        }
+        th .btn:hover {
+          background: none;
+        } 
+      }                 
+
+    }    
+
+    td button.btn {
+      border-radius: 50%;
+      box-shadow: none;
+      font-weight: normal;
+      font-size: 1.3rem;
+      width: 39px;
+      height: 39px;
+    }
+
+    td button.btn.active {
+      box-shadow: none;
+      background-color: #5573AE;
+      color: $c-white;
+    }
+
+    td button.btn.active > span {
+      color: $c-white;
+    }      
+  }
+  .uib-daypicker {
+    outline: none;
+  }
+  .text-muted {
+    color: $c-gray-2;
+  }  
+}
+
+
+.time-slots input {
+  display: none;
+}
+
+.time-slots input + label {
+  display: block;
+  text-align: center;
+  background-color: $c-gray-light-2;
+  margin-bottom: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.time-slots input + label.selected {
+  color: $c-white;
+  background: $c-blue-dark;
+}
+
+@media (max-width: 850px) {
+  .appointment-calendar table {
+    border-spacing: 10px;
+  }
+
+  .calendar-wrap {
+    width: 360px;
+  }
+
+  .times-wrap {
+    left: 390px;
+  }
+  .appointment-calendar table thead tr:first-child {
+    width: 332px;
+    top: 14px;	    
+  }
+}
+
+@media (max-width: 660px) {	
+  .calendar-wrap {
+    width: initial;
+    text-align: center;
+    padding-top: 55px;
+  }
+
+  .times-wrap {
+    position: static;
+    margin-top: 15px;
+  }
+
+  .appointment-calendar table thead tr:first-child {
+    left: 25px;
+    right: 25px;
+    width: initial;
+  }
+}
+
+@media (max-width: $screen-xs-min) {	
+  .appointment-calendar table {
+    border-spacing: 0;
+  }
+  .inline-calendar {
+    min-height: 250px;
+  }
+  .appointment-calendar table td button.btn {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+  }		
+}

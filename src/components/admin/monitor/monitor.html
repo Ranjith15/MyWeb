@@ -1,0 +1,35 @@
+<div class="tile">
+	<div class="header">
+		<h2>{{ 'ADMIN.MONITOR.HEADER' | translate }}</h2>
+	</div>
+	<div class="error" ng-if="monitorCtrl.monitorStatus === 'error'"><span class="icon-error"></span>
+		<span>{{monitorCtrl.message}}</span>
+	</div>
+	<div class="row">
+		<button class="btn btn-default btn-sm" ng-click="monitorCtrl.checkV4Servers()">{{ 'ADMIN.MONITOR.CHECK_V4_SERVERS' | translate }}</button>
+		<button class="btn btn-default btn-sm" ng-click="monitorCtrl.checkV5Servers()">{{ 'ADMIN.MONITOR.CHECK_V5_SERVERS' | translate }}</button>
+	</div>
+	<div class="row">
+		<div ng-class="{'loading': monitorCtrl.monitorStatus === 'loading'}"></div>
+		<div class="panel-body zebra" ng-if="monitorCtrl.serverStatusList">
+			<row class="tblheader">
+				<h4 class="col-xs-3">{{ 'ADMIN.MONITOR.SERVER_NAME' | translate }}</h4>
+				<h4 class="col-xs-3">{{ 'ADMIN.MONITOR.PURPOSE' | translate }}</h4>
+				<h4 class="col-xs-2">{{ 'ADMIN.MONITOR.SERVER_STATUS' | translate }}</h4>
+				<h4 class="col-xs-2">{{ 'ADMIN.MONITOR.RESPONSETIME' | translate }}</h4>
+				<h4 class="col-xs-2">{{ 'ADMIN.MONITOR.MANAGE_SERVER' | translate }}</h4>
+			</row>			
+			<div ng-repeat= "server in monitorCtrl.serverStatusList">
+				<row class="column">
+					<cell class="col-xs-3" data-label="{{'ADMIN.MONITOR.SERVER_NAME' | translate }}">{{server.name}}</cell>
+					<cell class="col-xs-3" data-label="{{ 'ADMIN.MONITOR.PURPOSE' | translate }}">{{server.purpose}}</cell>
+					<cell class="col-xs-2" ng-if="server.status" data-label="{{ 'ADMIN.MONITOR.SERVER_STATUS' | translate }}"><i class="fa fa-check success-text" aria-hidden="true"></i></cell>
+					<cell class="col-xs-2" ng-if="!server.status" data-label="{{ 'ADMIN.MONITOR.RESPONSETIME' | translate }}"><i class="fa fa-times error-text" aria-hidden="true"></i></cell>
+					<cell class="col-xs-2" data-label="{{ 'ADMIN.MONITOR.RESPONSETIME' | translate }}">{{server.responseTime / 1000}} seconds</cell>
+					<cell class="col-xs-2" data-label="{{ 'ADMIN.MONITOR.MANAGE_SERVER' | translate }}"><button class="btn btn-default btn-sm" ng-click="monitorCtrl.manageStatus(server, true)" ng-disabled="server.status">{{ 'ADMIN.MONITOR.SERVER_ON' | translate }}</button>
+					<button class="btn btn-default btn-sm" ng-click="monitorCtrl.manageStatus(server, false)" ng-disabled="!server.status">{{ 'ADMIN.MONITOR.SERVER_OFF' | translate }}</button></cell>
+				</row>
+			</div>
+		</div>
+	</div>
+</div>

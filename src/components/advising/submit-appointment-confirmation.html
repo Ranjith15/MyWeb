@@ -1,0 +1,31 @@
+<div id="confirmationHeader" class="tile">
+	<div class="row">
+		<div class="left col-xs-12 col-md-3">
+			<div ng-class="submitAppointmentConfirmationCtrl.submissionStatus ? 'icon-appSuccess huge' : 'icon-appFailure huge'"></div>
+		</div>
+		<div class="col-xs-12 col-md-9">
+			<div ng-show = "submitAppointmentConfirmationCtrl.submissionStatus">
+				<div class="row input-row">
+					<strong>{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.SUCCESS_MESSAGE' | translate}}</strong>
+				</div>
+				<div class="row input-row">
+					<span>{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.SUCCESS_MESSAGE_BODY1' | translate}}</span>
+				</div>
+				<div class="row input-row">
+					<span>{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.SUCCESS_MESSAGE_BODY2' | translate}}</span>
+				</div>
+			</div>
+			<div ng-show = "!submitAppointmentConfirmationCtrl.submissionStatus">
+				<div class="row input-row">
+					<strong>{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.FAILURE_MESSAGE' | translate}}</strong>
+				</div>
+				<div class="row input-row">
+					<span>{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.FAILURE_MESSAGE_BODY' | translate}}</span>
+				</div>
+			</div>
+			<div class="row input-row">
+				<a ng-click="submitAppointmentConfirmationCtrl.routeToEmploymentEducation()" href="" class="btn btn-primary" role="button">{{ 'ADVISING.SUBMIT_APPOINTMENT_CONFIRMATION.NEW_APPOINTMENT' | translate}}</a>
+			</div> 
+		</div>
+	</div>
+</div>

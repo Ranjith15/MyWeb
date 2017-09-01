@@ -1,0 +1,16 @@
+<div class="col-xs-12 col-sm-6 col-md-4">
+  <div class="form-group" ng-class="{'field-error' : selectDropdownCtrl.isError}">
+    <label for="{{selectDropdownCtrl.name}}">{{selectDropdownCtrl.label}}</label>
+    <input id="{{selectDropdownCtrl.name}}" name="{{selectDropdownCtrl.name}}" class="as-text" disabled ng-if="selectDropdownCtrl.options.length === 1" value="{{selectDropdownCtrl.options[0][selectDropdownCtrl.displayValue]}}" />
+    <select
+        id="{{selectDropdownCtrl.name}}"
+        class="form-control"
+        name="{{selectDropdownCtrl.name}}"
+        ng-if="selectDropdownCtrl.options.length > 1"
+        ng-options="o as o[selectDropdownCtrl.displayValue] for o in selectDropdownCtrl.options | orderBy: [otherSort, selectDropdownCtrl.displayValue] track by o[selectDropdownCtrl.trackBy]"
+        ng-model="selectDropdownCtrl.model"
+        ng-change="onchange()"
+        ng-required="selectDropdownCtrl.required"></select>
+    <span class="help-block" ng-show="{{selectDropdownCtrl.isShowHelp}}">{{selectDropdownCtrl.helpText}}</span>
+  </div>
+</div>

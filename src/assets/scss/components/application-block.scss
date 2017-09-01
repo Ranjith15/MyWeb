@@ -1,0 +1,89 @@
+.appBlock {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $screen-sm-min) {
+    flex-direction: row;
+  }
+
+  &:first-child > div {
+    border: none;
+  }
+
+  & .status {
+    padding: 1.5rem;
+    color: $c-white;
+    font-weight: $fw-bold;
+    line-height: 1.2em;
+    flex-basis: 33%;
+    display: flex;
+    text-transform: uppercase;
+    border-top: 1px solid $c-white;
+  }
+
+  & .details {
+    padding: 1.5rem;
+    border-top: 1px solid $c-gray-2;
+    background: $c-white;
+    display: flex;
+
+    & > div {
+      width: 100%;
+    }
+
+    & .left,
+    & .right,
+    & .detail-left-stacked,
+    & .detail-right-stacked {
+      display: flex;
+      flex-direction: column;
+
+      & .bottom {
+        margin-top: auto;
+      }
+    }
+
+    & .left {
+      & span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    & .right {
+      text-align: right;
+      margin-left: auto;
+    }
+
+    @media (min-width: $screen-sm-min) {
+      width: 67%;
+    }
+  }
+  
+  // if showing content under the Application Details
+  .stacked {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: $screen-sm-min) {
+      width: 67%;
+    }
+    .details {
+      width: 100%;
+    }
+    @media (max-width: $screen-xs-max) {
+      .details {
+        flex-direction: column-reverse;
+        .right {
+          text-align: left;
+          margin-left: 0;
+          margin-bottom: .8rem;
+        }
+      }
+    }
+    // remove bottom border for zebra stripes
+    .zebra row:last-child {
+      border-bottom: none;
+    }
+  }
+}

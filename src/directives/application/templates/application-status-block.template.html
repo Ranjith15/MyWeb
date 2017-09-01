@@ -1,0 +1,61 @@
+<div class="application-status-block">
+	<div class="status hidden-sm hidden-md hidden-lg hide-print" ng-class="appStatusBlockCtrl.isSupervisor ? appStatusBlockCtrl.status.adminColor : appStatusBlockCtrl.status.color">
+		<span ng-class="appStatusBlockCtrl.status.icon"></span>
+	</div>
+	<div ng-if="appStatusBlockCtrl.displayStatuses.relatedItems.length > 0" class="application-status-block-container" ng-repeat="applicationStatus in appStatusBlockCtrl.displayStatuses.relatedItems">
+		<div class="status status-block-left hidden-xs show-print" ng-class="appStatusBlockCtrl.isSupervisor ? appStatusBlockCtrl.status.adminColor : appStatusBlockCtrl.status.color">
+			<span class="spacer-icon"></span>
+		</div>
+		<div class="details">
+			<div class="row details-container">
+				<div class="row col-xs-6 col-sm-8">
+					<div class="col-xs-12 col-sm-6 details-item display">
+						<span class="message-source">{{applicationStatus.messageSource.display | uppercase}}</span>
+					</div>
+					<div class="col-sm-6 hidden-xs details-item">
+						<div ng-bind-html="applicationStatus.message" class="application-item"></div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-4 details-item pull-right">
+					<div class="pull-right">
+						<div class="date">{{applicationStatus.dateCreated | timezoneDate:"MMM dd, yyyy"}}</div>
+						<div class="date time">{{applicationStatus.dateCreated | timezoneDate:"hh:mm a"}}</div>
+					</div>
+				</div>
+				<div class="col-xs-12 hidden-sm hidden-md hidden-lg details-item mobile-message">
+					<div ng-bind-html="applicationStatus.message" class="application-item"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="application-status-block-container general" ng-if="appStatusBlockCtrl.displayStatuses">
+		<div class="status status-block-left hidden-xs show-print" ng-class="appStatusBlockCtrl.isSupervisor ? appStatusBlockCtrl.status.adminColor : appStatusBlockCtrl.status.color">
+			<span ng-class="appStatusBlockCtrl.status.icon"></span>
+		</div>
+		<div class="details">
+			<div class="row details-container">
+				<div class="col-xs-6 col-sm-8 row">
+					<div class="col-xs-12 col-sm-6 details-item display">
+						<span class="application-status" uib-tooltip="{{appStatusBlockCtrl.displayStatuses.toolTipData}}">{{appStatusBlockCtrl.displayStatuses.status | uppercase}}</span>
+					</div>
+					<div class="col-sm-6 hidden-xs details-item">
+						<div class="application-item">
+							{{appStatusBlockCtrl.displayStatuses.message}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-4 details-item pull-right">
+					<div class="pull-right">
+						<div class="date">{{appStatusBlockCtrl.displayStatuses.dateCreated | timezoneDate:"MMM dd, yyyy"}}</div>
+						<div class="date time">{{appStatusBlockCtrl.displayStatuses.dateCreated | timezoneDate:"hh:mm a"}}</div>
+					</div>
+				</div>
+				<div class="col-xs-12 hidden-sm hidden-md hidden-lg details-item mobile-message">
+					<div class="application-item">
+						{{appStatusBlockCtrl.displayStatuses.message}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+{
+	"local": {
+		"api": "https://localhost:8443/ed5/api/v1",
+		"cdn": "https://cdn-stg.edassist.com",
+		"newRelicAppId": "",
+		"envPostfix" : "-dev",
+		"ssoEndpoint": "https://sso-dev.edassist.com/as/token.oauth2?"
+	},
+	"stg": {
+		"api": "https://web1-stg.edassist.com/ed5/api/v1",
+		"cdn": "https://cdn-stg.edassist.com",
+		"newRelicAppId": "22874160",
+		"envPostfix" : "-stg",
+		"ssoEndpoint": "https://sso-dev.edassist.com/as/token.oauth2?"
+	},
+	"uat": {
+		"api": "https://svc-uat.edassist.com/ed5/api/v1",
+		"cdn": "https://cdn-uat.edassist.com",
+		"newRelicAppId": "24484558",
+		"envPostfix" : "-uat",
+		"ssoEndpoint": "https://sso-dev.edassist.com/as/token.oauth2?"
+	},
+	"prod": {
+		"api": "https://svc.edassist.com/ed5/api/v1",
+		"cdn": "https://cdn.edassist.com",
+		"newRelicAppId": "24485792",
+		"envPostfix" : "",
+		"ssoEndpoint": "https://sso.edassist.com/as/token.oauth2?"
+	}
+}

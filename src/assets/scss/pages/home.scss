@@ -1,0 +1,32 @@
+.home {
+  & ul {
+    padding-left: 2rem;
+  }
+
+  & .header {
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+
+    & h3 {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 1rem;
+    }
+  }
+
+  & .tile-wrapper {
+    & .tile {
+      padding-bottom: 1.5rem;
+      background: $c-white;
+      margin-bottom: 0; 
+      
+      & .icon-purpleCalendar {
+        margin-left: 0.5rem;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 2px 8px 0 rgba(0, 0, 0, 0.24);
+    }
+  }
+}

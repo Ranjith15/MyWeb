@@ -1,0 +1,15 @@
+.admin-header-container {
+  & .form-group {
+    & label {
+        margin: 0;
+    }
+  }
+}
+
+.admin-body-container {
+  & .datepicker-block {
+    & label {
+      text-align: left;
+    }
+  }
+}

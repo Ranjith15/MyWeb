@@ -1,0 +1,90 @@
+.submitted-application {
+
+  & .title {
+    padding: 2rem 0rem;
+    display: block;
+
+    & .application-title {
+
+      & .application-status {
+        font-weight: bold;
+      }
+
+      @media print {
+        width: 100%;
+      }
+    }
+
+    .button-container {
+      @media (min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
+
+    @media (min-width: $screen-sm-min) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  & .header {
+
+    padding: 0rem;
+
+    & .status-container {
+
+      display: flex;
+
+      & .status-block-left {
+        width: 4.3rem;
+        margin-bottom: -0.1rem;
+        justify-content: center;
+        min-height: 6rem;
+      }
+
+      & .status {
+        padding: 1rem .5rem;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      & .details {
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+
+  & section-header {
+    & h2 {
+      margin-bottom: 2rem;
+    }
+  }
+
+  & .display-on-print,
+  & .ng-hide {
+    @media print {
+      display: block !important;
+    }
+  }
+
+  .appBlock {
+    
+    & .details {
+      @media print {
+        width: 67%;
+      }
+    }
+
+    @media print {
+      flex-direction: row;
+    }
+  }
+
+  & .agreement {
+    padding: 1rem 1.5rem;
+  }
+
+  @media print {
+    -webkit-print-color-adjust: exact; 
+  }
+}

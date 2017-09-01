@@ -1,0 +1,3 @@
+<nav ng-if="pages.length >= 2" aria-label="Page navigation">
+  <ul uib-pagination total-items="totalItemCount " ng-model="currentPage" ng-change="selectPage(currentPage)" items-per-page="stItemsByPage" class="pagination-sm" boundary-link-numbers="true" max-size="stDisplayedPages" previous-text="&lsaquo;" next-text="&rsaquo;"></ul>
+</nav>

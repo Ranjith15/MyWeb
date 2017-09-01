@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="16px" viewBox="0 0 25 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43 (38999) - http://www.bohemiancoding.com/sketch -->
+    <title>admin</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8,0 L8,2 L2,2 L2,11 L0,11 L0,16 L5,16 L5,11 L3,11 L3,3.001 L8,3.001 L8,5 L12,5 L12,11 L10,11 L10,16 L15,16 L15,11 L12.999,11 L12.999,5 L17,5 L17,3.001 L21.999,3.001 L21.999,11 L20,11 L20,16 L25,16 L25,11 L23,11 L23,2 L17,2 L17,0 L8,0 Z M9,4.001 L16,4.001 L16,1 L9,1 L9,4.001 Z M21,15.001 L24.001,15.001 L24.001,12.001 L21,12.001 L21,15.001 Z M11,15.001 L14.001,15.001 L14.001,12.001 L11,12.001 L11,15.001 Z M1,15.001 L4,15.001 L4,12.001 L1,12.001 L1,15.001 Z" id="Admin-Icon" fill="#FFFFFF"></path>
+    </g>
+</svg>

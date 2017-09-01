@@ -1,0 +1,36 @@
+<div class="appointment-block">
+
+<div class="application-action-block"><!--TODO : need to upated this css class-->
+	<div class="status" ng-class="appointment.statusDesc == 'Scheduled' || appointment.statusDesc == 'Open' ? 'green' : 'red'"> <!--TODO : need to use css class here-->
+		<div class="status-wrapper">
+			<span ng-class = "appointment.statusDesc == 'Scheduled' || appointment.statusDesc == 'Open' ? 'icon-statusApproved' : 'icon-statusCancelled'"></span>
+		</div>
+	</div>
+	<div class="details">
+		<div class="row">
+			<div class="col-xs-12 col-md-2 details-item detail-status">
+				<strong>{{appointment.statusDesc | uppercase}}</strong>
+			</div>
+			<div class="col-xs-6 col-md-2 details-item detail-date">
+				<strong>{{appointment.appointmentDateAndTime | date}}</strong>
+			</div>
+			<div class="col-xs-6 col-md-2 col-md-push-1 details-item detail-category">
+				<span>{{appointment.category}}</span>
+			</div>
+			<div class="col-xs-6 col-md-1 col-md-pull-2 details-item detail-time">
+				<strong>{{appointment.appointmentDateAndTime | date : 'h:mma'}}</strong>
+			</div>
+			<div class="col-xs-6 col-md-1 details-item detail-name">
+				<span>{{appointment.advisorName}}</span>
+			</div>
+			<div class="col-xs-12 col-md-2 details-item appointment-button" ng-if="(appointment.statusDesc == 'Scheduled' || appointment.statusDesc == 'Open') && (appointment.appointmentDateAndTime >= (appointmentBlockCtrl.dt | timezoneDate:'yyyy-MM-ddTHH:mm:ssZ'))">
+				<a href="" id="btnViewAppointment" class="btn btn-default btn-sm" ng-click="appointmentBlockCtrl.updateAppointment(appointment)" role="button">{{'ADVISING.APPOINTMENT.UPDATE_APPOINTMENT' | translate}}</a>
+			</div>
+			<div class="col-xs-12 col-md-2 details-item appointment-button" ng-if="(appointment.statusDesc == 'Scheduled' || appointment.statusDesc == 'Open') && (appointment.appointmentDateAndTime >= (appointmentBlockCtrl.dt | timezoneDate:'yyyy-MM-ddTHH:mm:ssZ'))">
+				<a href="" id="btnViewAppointment" class="btn btn-default btn-sm" ng-click="appointmentBlockCtrl.confirmAppointmentCancel(appointment.id)" role="button">{{ 'GENERAL.CANCEL' | translate }}</a>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div action='appointmentBlockCtrl.showCancel' template='cancel-appointment-request.template' data='appointmentBlockCtrl.appointment' generic-modal></div>

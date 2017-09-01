@@ -1,0 +1,111 @@
+.panel {
+  margin: 5rem 0;
+  border-color: $c-gray-1;
+  &.courses {
+    margin-bottom: 1rem;
+  }
+  &.margin-vertical-1 {
+    margin: 1rem 0;
+  }
+  .panel-heading {
+    background: $c-gray-1;
+    border-radius: 0;
+    padding: .5rem 1rem;
+    h4 {
+      color: $c-white;
+      margin: 0;
+    }
+  }
+  .panel-body,
+  .panel-footer {
+    padding: 1rem 1.5rem;
+    .inline-radio-group {
+      margin-top: 0;
+    }
+    // styles after course has been added
+    row {
+      display: flex;
+      flex-direction: column;
+      
+
+      @media (min-width: $screen-sm-min) {
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;	
+      }
+
+      @media print {
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;	
+      }
+
+      
+      .center {
+        text-align: center;
+      }
+      .key {
+        color: $c-gray-1;
+        margin-right: .5rem;
+      }
+      .total {
+        font-size: $fs-medium;
+        font-weight: $fw-semibold;
+      }
+      .course-cell {
+          width: 20rem;
+          text-align: right;
+      }
+      .course-button-cell {
+          width: 10rem;
+      }
+      .btn {
+        @media (max-width: $screen-xs-max) {
+          padding: 0;
+          margin-right: 2rem;
+        }
+        &.warning [class^="icon-"] {
+          @include icon-color($c-red);
+        }
+        [class^="icon-"] {
+          margin: 0 .5rem 0 0;
+        }
+      }
+    }
+	
+  }
+
+.panel-body{
+  @media (max-width: $screen-xs-max)
+  {
+    padding: 2px;
+  }
+}
+
+  .panel-footer {
+    background: $c-gray-dark-1;
+    color: $c-white;
+  }
+  // make zebra tables expand to edges
+  .zebra {
+    margin: 2rem -1.5rem 0 -1.5rem;
+    row {
+      background: $c-white;
+      &:nth-child(even) {
+        background: $c-gray-light-1;
+      }
+      &:hover {
+      box-shadow: 0 0 4px  rgba(0,0,0,0.12), 0 2px 8px 0 rgba(0,0,0,0.24);
+      background: $c-blue-light-1;
+      }
+    }
+    row-footer {
+      margin-bottom: -1rem;
+      padding: 1rem;
+    }
+  }
+}
+// Custom class to add when text changed back to white when using custom header class in panel
+.panel-header {
+  color: $c-white;
+}

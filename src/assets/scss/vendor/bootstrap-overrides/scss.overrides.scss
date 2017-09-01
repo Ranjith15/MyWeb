@@ -1,0 +1,13 @@
+//This is a breakdown of bootstraps scss directory. Each file corresponds to a file in
+//that scss directory. It allows for overriding the css of something in bootstrap that
+//isn't covered by just modifying variables.
+
+@import './override-alerts';
+@import './override-buttons';
+@import './override-dropmenu';
+@import './override-forms';
+@import './override-grid';
+@import './override-modals';
+@import './override-navbar';
+@import './override-pagination';
+@import './override-tooltip';

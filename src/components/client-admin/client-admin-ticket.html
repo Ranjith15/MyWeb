@@ -1,0 +1,86 @@
+<div class="tile">	
+	<div class="header">
+		<div class="heading-medium">{{ 'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.ADMIN_SEARCH' | translate }}</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-4 pull-left footer-name">
+			<a href="" ng-click="clientAdminTicketCtrl.backToSearch()"  class="pull-left">
+				<span>{{clientAdminTicketCtrl.backToSearchIcon}}</span> {{ 'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.BACK_TO_SEARCH' | translate }}
+			</a>
+		</div>	
+	</div>
+	<div class="spacer col-xs-12"></div>
+	<div class="row">
+		<div class="col-xs-6"><div class="heading-medium"><i><strong>{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.TICKET_HISTORY_FOR' | translate }} {{clientAdminTicketCtrl.participantName}}</strong></i></div></div>
+	</div>
+	<div class="spacer col-xs-12"></div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div st-safe-src="clientAdminTicketCtrl.ticketsList" st-table="clientAdminTicketCtrl.ticketsListDisplay">
+				<div class="data-table default-table">
+					<div class="table-heading default-table-heading">
+						<div class="row">
+							<div class="col-xs-6 col-sm-2 default-table-header" st-sort="TicketNumber">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.TICKET_NUMBER' | translate }}</div>
+								<span st-sort="TicketNumber"></span>
+							</div>
+							<div class="col-xs-6 col-sm-2 default-table-header" st-sort="topicName">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.TOPIC' | translate }}</div>
+								<span st-sort="topicName"></span>
+							</div>
+							<div class="col-xs-2 hidden-xs default-table-header" st-sort="subTopicName">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.SUB_TOPIC' | translate }}</div>
+								<span st-sort="subTopicName"></span>
+							</div>
+							<div class="col-xs-2 hidden-xs default-table-header" st-sort="Status">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.STATUS' | translate }}</div>
+								<span st-sort="Status"></span>
+							</div>
+							<div class="col-xs-2 hidden-xs default-table-header" st-sort="ModifiedBy">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.UPDATED_BY' | translate }}</div>
+								<span st-sort="ModifiedBy"></span>
+							</div>
+							<div class="col-xs-2 hidden-xs default-table-header" st-sort="ModifiedOn" st-sort-default="true">
+								<div class="heading-extra-small">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.UPDATED_ON' | translate }}</div>
+								<span st-sort="ModifiedOn"></span>
+							</div>
+						</div>
+					</div>
+					<div class="table-body default-table-body">
+						<div ng-if="!clientAdminTicketCtrl.ticketsList || clientAdminTicketCtrl.ticketsList.length === 0" class="table-data-container">
+							<div class="row">
+								<div class="col-xs-12">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.NO_TICKET_DATA' | translate }}</div>
+							</div>
+						</div>
+						<div ng-if="clientAdminTicketCtrl.ticketsList.length > 0" ng-repeat="ticket in clientAdminTicketCtrl.ticketsListDisplay" class="table-data-container">
+							<div class="row">
+								<div class="col-xs-6 col-sm-2"><strong><a href="" ng-click="clientAdminTicketCtrl.ticketDetails(ticket.TicketId)">{{ticket.TicketNumber}}</a></strong></div>
+								<div class="col-xs-6 col-sm-2">{{ticket.topicName}}</div>
+								<div class="col-xs-12 col-sm-2">
+									<strong class="show-xs hidden-sm hidden-md hidden-lg">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.SUB_TOPIC' | translate }}: </strong>
+									{{ticket.subTopicName}}
+								</div>
+								<div class="col-xs-12 col-sm-2">
+									<strong class="show-xs hidden-sm hidden-md hidden-lg">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.STATUS' | translate }}: </strong>
+									{{ticket.Status}}
+								</div>
+								<div class="col-xs-12 col-sm-2">
+									<strong class="show-xs hidden-sm hidden-md hidden-lg">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.UPDATED_BY' | translate }}: </strong>
+									{{ticket.ModifiedBy}}
+								</div>
+								<div class="col-xs-12 col-sm-2">
+									<strong  class="show-xs hidden-sm hidden-md hidden-lg">{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.UPDATED_ON' | translate }}: </strong>
+									{{ticket.ModifiedOn  | timezoneDate:'MM/dd/yyyy' }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<div st-pagination="" st-items-by-page="clientAdminTicketCtrl.recordsPerPage" st-displayed-pages="clientAdminTicketCtrl.displayPages" st-template="/src/partials/smart-table-pager.html"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div action='clientAdminTicketCtrl.showTicket' template='support-ticket.template' data='clientAdminTicketCtrl.selectedTicketData' size="lg" generic-modal></div>

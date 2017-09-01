@@ -1,0 +1,181 @@
+.appBlockWrap {
+  border: 1px solid $c-gray-2;
+  margin-bottom: $margin-bottom;
+  border: initial;
+
+  & a.appBlock {
+    z-index: 1;
+    position: relative;
+    font-weight: $fw-normal;
+    color: $c-gray-dark-1;
+
+    @include transition(box-shadow, .15s);
+    
+    &:hover {
+      text-decoration: none;
+      box-shadow: 0 0 4px  rgba(0,0,0,0.12), 0 2px 8px 0 rgba(0,0,0,0.24);
+      z-index: 2;
+      .status {
+        border: none;
+      }
+    }    
+  }
+}
+
+.application-action-block {
+  z-index: 1;
+  position: relative;
+  font-weight: $fw-normal;
+  color: $c-gray-dark-1;
+  display: flex;
+  flex-direction: column;
+  @include transition(box-shadow, .15s);
+  border: 1px solid $c-gray-2;
+
+  & .status {
+    padding: 1rem .5rem;
+  }
+
+  & .details {
+    padding: 1.5rem;
+    background: $c-white;
+    width: 100%;
+
+    & .details-item, 
+    & .application-item {
+        padding-bottom: 10px;
+    }
+
+    @media (min-width: $screen-sm-min) {
+      & .application-action {
+        padding-left: 0px;
+      }
+        
+      & .details-item {
+        padding-bottom: 0px;
+      }
+    }
+  }
+}
+
+.application-action-block {
+  margin-bottom: 1.5rem;
+  flex-direction: row;
+  flex-direction: initial;
+
+  & .status-block-left {
+    width: 4.3rem;
+    margin-top: -1px;
+    margin-bottom: -1px;
+  }
+
+  & .details {
+    & .details-item {
+      padding-bottom: 0;
+      line-height: 2rem;
+    }
+
+    & .application-item {
+      padding-bottom: 0;
+      line-height: 2rem;
+    }
+
+    & .application-action {
+      padding-left: 1.5rem;
+    }
+  }
+
+  & .status [class^="icon-status"] {
+    position: absolute;
+    left: 1rem;
+    top: 2.4rem;
+  }
+
+  & .btn.btn-default {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+}
+
+& .application-item-date {
+  font-style: italic;
+}
+
+& .application-status {
+  font-weight: bold;
+}
+
+& .program-name {
+  margin-top: 0.5rem;
+}
+
+& .status-wrapper {
+  position: absolute;
+  top: 1.8rem;
+  left: 0.8rem;
+}
+
+& .appointment-block {
+  & .status {
+    width: 4.3rem;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    margin-left: -1px;
+    position: relative;
+    [class^="icon-status"] {
+      position: initial;
+    }
+  }
+  
+  & .detail-status {
+    margin-bottom: 1rem;
+  }
+  
+  & .btn.btn-default {
+    width: 100%;
+  }
+}
+
+@media(min-width: $screen-md-min) {
+  & .program-name {
+    margin-top: 0;
+  }
+
+  & .application-action-block {
+    flex-direction: initial;
+
+    & .btn.btn-default {
+      width: initial;
+      margin-top: initial;
+    }
+
+    & .details .application-action {
+      padding-left: initial;
+    }
+  }
+
+  & .appointment-block {
+    & .detail-status {
+      margin-bottom: initial;
+    }
+
+    & .details .row {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  & .status-wrapper {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    max-height: 1.5rem;
+  }
+  
+  & div.detail-time {
+    padding-left: 0;
+  }
+}

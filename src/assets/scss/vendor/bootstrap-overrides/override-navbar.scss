@@ -1,0 +1,262 @@
+// Overrides and additions to Bootstrap Navbar styles
+& nav {
+  @media print {
+    display: none;
+  }
+}
+
+.navbar {
+  box-shadow: 0 0 4px rgba(black, .50);
+  border: none;
+  // not using mobile first for this because it would throw Bootstrap height calulations off for all other viewport sizes
+  @media (max-width: $screen-xs-max) {
+    min-height: 40px;
+  }
+
+  a.logo {
+    margin: auto;
+    width: 150px;
+    display: block;
+    text-align: center;
+    @media (min-width: $screen-sm-min) {
+      display: inline-block;
+      text-align: left;
+      width: auto;
+      float: left;
+      margin: 10px 0 5px 15px;     
+    }
+    @media (min-width: $screen-md-min) {
+      margin-top: 5px;
+    }
+    @media (min-width: $screen-lg-min) {
+      margin-left: 25px;
+    }
+    img {
+      height: 30px;
+      margin-top: 5px;
+      @media (min-width: $screen-sm-min) {
+        width: 80%;
+        height: 50px;
+        margin-top: 0;
+      }
+      @media (min-width: $screen-md-min) {
+        width: 100%;
+      }
+    }
+  }
+  
+  // mobile toggle
+  .navbar-toggle {
+    float: left;
+    border-radius: none;
+    margin-top: 4px;
+    margin-bottom: 0;
+  }
+
+  // mobile hamburger focus
+  .navbar-header button:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline: 5px auto -moz-focus-ring-color;
+    outline: 5px auto -o-focus-ring-color;
+    outline-offset: -2px;
+    border: 1px dashed $c-gray-dark-1;
+  }
+  
+  // navbar styles
+  .navbar-nav {
+    float: right;
+
+    & .navbar-icon {
+        margin-left: 5px;
+        vertical-align: bottom;
+    }
+
+    .icon-navNewApp {
+      margin-left: 3px;
+      margin-right: 12px !important;
+    } 
+
+    .icon-navCalendar {
+      margin-left: 2px;
+      margin-right: 11px !important;
+    }      
+    
+    > li {
+      > a {
+        font-size: $fs-xsmall;
+        @media (min-width: $screen-md-min) {
+          font-size: $fs-small;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        @media (min-width: $screen-lg-min) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+      }
+      @media (min-width: $screen-sm-min) {
+        & .navbar-doubleicon-container {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+      }
+      &:after {
+        content: '';
+        width: 100%;
+        height: 5px;
+        bottom: -5px;
+        background: rgba($c-blue-dark, 0);
+        position: absolute;
+        @include transition(position, .12s);
+      }
+      &:hover:after,
+      &:focus:after {
+        background: rgba($c-blue-dark, .5);
+        bottom: 0;
+      }
+      &.active:after {
+        background: $c-blue-dark;
+        bottom: 0;
+      }
+      
+      // New Application button
+      &.newApp {
+        a {
+          background: $c-blue-dark;
+          color: $c-white;
+          padding: 10px;
+          margin: 9px 20px 0 0;
+          border-radius: 4px;
+          @include transition(background, .2s);
+          @media (min-width: $screen-md-min) {
+            padding-left: 15px;
+            padding-right: 15px;
+            
+            }
+          @media (min-width: $screen-lg-min) {
+            margin-right: 25px;
+          }
+        }
+        &:hover {
+          &:after {
+            background: rgba($c-blue-dark, 0);
+            bottom: -5px;
+          } 
+          a {
+            background-color: darken($c-blue-dark, 10%);
+          }
+        }
+      }
+      
+      // Profile dropdown for tablet and desktop
+
+      &.profile {
+        > a {
+          background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path d="M6.125 7.06l5.625-4.498L10.5 1l-5 4h1.25l-5-4L.5 2.562z" fill-opacity="0.7" fill="%235573AE" /></svg>') no-repeat;
+          background-position: right 20px center;
+          padding-right: 40px;
+          margin-right: 10px;
+          &:focus {
+            outline:1px dotted $c-gray-dark-1;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+          }
+        }
+        .dropdown-menu {
+          right: 12px;
+          left: auto;
+          > li {
+            border-top: 1px solid $c-gray-light-2;
+            &:first-child {
+              border: none;
+            }
+            > a {
+              font-weight: $fw-semibold;
+              font-size: $fs-xsmall;
+              padding: 15px 5px;
+              @include transition(color, .2s);
+              @media (min-width: $screen-md-min) {
+                font-size: $fs-small;
+              }
+              &:hover .icon-logout {
+                opacity: 1;
+              }
+            }
+          }
+          &:after {
+            content: "";
+            width: 28px;
+            height: 14px;
+            display: inline-block;
+            position: absolute;
+            top: -14px;
+            right: 10px;
+            background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="14"><defs><path id="b" d="M2 14L14 2l12 12z"/><filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="a"><feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/><feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" in="shadowBlurOuter1"/></filter></defs><g fill="none" fill-rule="evenodd"><use fill="%23000" filter="url(%23a)" xlink:href="%23b"/><use fill="%23FFF" xlink:href="%23b"/></g></svg>');
+          }
+        }
+        &:hover {
+          .dropdown-menu {
+            display: block;
+          }
+          &:after {
+            background: rgba($c-blue-dark, 0);
+            bottom: -5px;
+          }
+        }
+      }
+    }
+  }
+  
+  // Mobile Navigation
+  @media (max-width: $screen-xs-max) {
+    .navbar-collapse {
+      background: rgba($c-blue-dark-2, .8);
+      height: 110vh;
+      border: none;      
+      .navbar-nav {
+        overflow: auto;
+        float: none;
+        padding: 15px;
+        height: 70vh;
+        > li {
+          &:after {
+            background: none;
+          }
+          &.newApp a {
+            background: none;
+          }
+          > a {
+            font-weight: $fw-normal;
+            font-size: $fs-large;
+            color: $c-white;
+            margin: 20px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .nav-logout {
+    float: none;
+    margin: 0;
+    margin-bottom: 0;
+    padding: 0px;    
+    position: fixed;
+    list-style: none;
+    > li {
+      width: 90vw;
+      border-top: solid $c-white;
+      position: relative;
+      > a {
+        position: absolute;
+        font-weight: $fw-normal;
+        font-size: $fs-large;
+        height: $fs-large * 2;
+        color: $c-white;
+        margin: 0;
+        padding-top: 2px;
+        padding-left: 12px;
+      }
+    }
+  }
+}

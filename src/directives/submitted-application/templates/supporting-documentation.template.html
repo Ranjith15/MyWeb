@@ -1,0 +1,82 @@
+<div class="spacer col-xs-12"></div>
+<ng-form name="supportDocumentationForm">
+	<div class="form-group supporting-document-section">
+		<div>
+			<div class="spacer col-xs-12"></div>
+				<div ng-show="supportingDocsCtrl.statuses.uploadStatus === 'error'" aria-live="polite">
+					<div class="col-xs-12">
+						<span class="help-block col-xs-12">
+							{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.UPLOAD_ERROR' | translate }}
+						</span>
+					</div>
+					<div class="spacer col-xs-12"></div>
+					<div class="spacer col-xs-12"></div>
+				</div>
+			<div ng-if = "supportingDocsCtrl.applicationId">
+				<div class="form-group form-inline" ng-class="{'field-error': supportDocumentationForm.documentType.$error.required && (!supportDocumentationForm.documentType.$pristine || supportDocumentationForm.$submitted)}">
+					<div class="row" role="alert">
+						<div>
+							<label class="col-xs-4" for="documentType" >{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.DOCUMENT_TYPE_LABEL' | translate }}</label>
+							<select name="documentType" class="form-control col-xs-4" ng-options="docType.documentName for docType in supportingDocsCtrl.model.documentTypes" ng-model="supportingDocsCtrl.selectedDocumentType" required>
+							</select>
+						</div>
+						<span class="help-block-slim" ng-show="supportDocumentationForm.documentType.$error.required && (!supportDocumentationForm.documentType.$pristine || supportDocumentationForm.$submitted)">
+						{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.DOCUMENT_TYPE_REQUIRED' | translate }}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+				</div>
+				<div ng-if="supportingDocsCtrl.isGradesSelected()">
+					<div class="col-xs-12">
+						<span><strong>{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.ENTER_GRADE_MESSAGE' | translate }}</strong></span>
+					</div>
+					<div class="form-group" ng-show="supportingDocsCtrl.applicationCourses.length > 0" ng-class="{'field-error': supportDocumentationForm.courseGradeComboBoxes{{course.courseNumber}}.$error.required && (!supportDocumentationForm.courseGradeComboBoxes{{course.courseNumber}}.$pristine || supportDocumentationForm.$submitted)}" ng-repeat="course in supportingDocsCtrl.applicationCourses">
+						<label class="col-xs-7 sub-label" for="courseGradeComboBoxes{{course.courseName}}" >{{course.courseName}}</label>
+						<div class="row col-xs-3" role="alert">
+							<span>
+								<select id="courseGradeComboBoxes{{course.courseNumber}}" name="courseGradeComboBoxes{{course.courseNumber}}" ng-model="course.grades" class="form-control" ng-options="grade.gradeName for grade in supportingDocsCtrl.grades track by grade.gradeID" required>
+								</select>
+							</span>
+							<span class="help-block-slim" ng-show="supportDocumentationForm.courseGradeComboBoxes{{course.courseNumber}}.$error.required && (!supportDocumentationForm.courseGradeComboBoxes{{course.courseNumber}}.$pristine || supportDocumentationForm.$submitted)">
+								{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.GRADE_ERROR' | translate }}
+							</span>
+						</div>
+						<div class="row col-xs-12">
+							<div class="spacer"></div>
+						</div>
+					</div>
+					<div ng-show="!supportingDocsCtrl.applicationCourses || supportingDocsCtrl.applicationCourses.length <= 0">
+						<div class="col-xs-8 error-text">
+							<span>{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.NO_COURSES_ERROR' | translate }}</span>
+						</div>
+					</div>
+				</div>
+				<div class="spacer"></div>
+				<div class="row">
+					<label for="supportingDocumentComment" class="col-xs-4">{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.COMMENT_LABEL' | translate }}</label>
+					<textarea id="supportingDocumentComment" class="col-xs-8" cols="60" rows="3" ng-model="supportingDocsCtrl.documentComments"></textarea>
+				</div>
+			</div>
+		<div class="spacer col-xs-12"></div>
+		<div class="submitSection">
+			<div class="row ">
+				<div ng-if = "supportingDocsCtrl.selectedDocumentType !== ''" class="col-md-6 col-lg-5">
+					<a href="" type="submit" class="btn btn-primary btn-sm" ng-click="supportingDocsCtrl.save(supportDocumentationForm)">
+						{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.SUBMIT_DOCUMENT' |translate}}
+					</a>
+				</div>
+				<div ng-if = "supportingDocsCtrl.selectedDocumentType === ''" class="col-md-6 col-lg-5">
+					<a href="" type="submit" class="btn btn-primary btn-sm" ng-click="supportingDocsCtrl.saveContentDocument()">
+						{{ 'SUBMITTED_APPLICATION.SUPPORT_DOCUMENTS.DOCUMENT_DETAILS.SUBMIT_DOCUMENT' |translate}}
+					</a>
+				</div>
+				<div class="col-md-4 col-lg-3">
+					<a href="" class="btn btn-default btn-sm" ng-click="supportingDocsCtrl.clearAll()">
+						{{ 'GENERAL.CANCEL' |translate}}
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-form>

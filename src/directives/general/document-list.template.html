@@ -1,0 +1,16 @@
+<div class="tile document-list">
+	<div ng-show="documents.header.length" class="list-label heading-small">
+		{{documents.header | translate}}
+	</div>
+	<div class="error" ng-if="documents.status === 'error'">
+		<span class="icon-error"></span>
+		<span>{{documents.error}}</span>
+	</div>
+	<div ng-class="{'loading': documents.status === 'submitting'}"></div>
+	<div ng-repeat="document in documents.list">
+		<document-download content="document"><document-download>
+	</div>
+	<div class="no-documents" ng-show="documents.status !== 'submitting' && !documents.list.length">
+		{{'HOME.BENEFITS.NO_DOCUMENTS' | translate}}
+	</div>	
+</div>

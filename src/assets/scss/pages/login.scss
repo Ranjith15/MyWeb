@@ -1,0 +1,15 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.login-container {
+  @media (min-width: 100px) {
+    background-image: url("/src/assets/images/loginBackground.jpg");
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100%;
+  }
+}
+
+.login-logo {
+  @include logo-size(7rem);
+}

@@ -1,0 +1,297 @@
+.course-list {
+  & .error {
+    display: block;
+    position: static;
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  & .status {
+    padding: 1rem .5rem;
+    display: flex;
+  }
+
+  & .status-block-left {
+    width: 4.3rem;
+    margin-bottom: -0.1rem;
+    justify-content: center;
+  }
+
+  .course-card {
+    position: relative;
+    background-color: $c-gray-light-2;
+    border: 0.1rem solid $c-gray-2;
+    margin: 1rem 0 1.5rem 0;
+    display: flex;
+    
+    & .course-card-label {
+      border-bottom: 0.1rem solid $c-gray-2;
+      padding: 1.5rem 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      @media (min-width: $screen-md-min) {
+        border-bottom: none;
+        position: absolute;
+        padding: 0;
+        padding: 1rem 0 0 1rem;
+      }
+    }
+
+    & .course-info {
+      background-color: $c-white;
+      padding: 1.5rem 0 1.5rem 0rem;
+
+      & .table {
+        margin-bottom: 0;
+        margin-top: 1.5rem;
+
+        & thead {
+          float: left;
+        }
+        
+        & tbody {
+          float: right;
+        }
+
+        & thead,
+        & tbody {
+          @media (min-width: $screen-sm-min) {
+            float: none;
+          }
+
+          @media print {
+            float: none;
+          }
+        }
+
+        & th,
+        & td {
+          display: block;
+          padding: 0;
+          border: none;
+
+          @media (min-width: $screen-sm-min) {
+            display: table-cell;
+            padding: 0.5rem 0;
+          }
+
+          @media print {
+            display: table-cell;
+            padding: 0.5rem 0;
+          }
+        }
+
+        & th {
+          font-weight: normal;
+        }
+
+        & td {
+          text-align: right;
+
+          &.date {
+            float: none;
+          }
+
+          @media (min-width: $screen-sm-min) {
+            text-align: left;
+          }
+
+          @media print {
+            text-align: left;
+          }
+        }
+
+        @media (min-width: $screen-sm-min) {
+          margin-top: 0;
+        }
+
+        @media print {
+          margin-top: 0;
+        }
+      }
+
+      & .preview-total {
+        position: absolute;
+        right: 1.5rem;
+        padding-top: 0.5rem;   
+      }
+
+      &:first-child {
+        border-bottom: 0.1rem solid $c-gray-2;
+      }
+      
+      &:nth-child(3) {
+        border-top: 0.1rem solid $c-gray-2;
+        
+        @media (min-width: $screen-md-min) {
+          border-left: 0.1rem solid $c-gray-2;
+        }
+      }
+
+      &.final-totals {
+        padding-left: 0.5rem;
+        padding-right: 1.5rem;
+      }
+
+      &.payments {
+        background-color: $c-gray-light-2;
+      }
+
+      &.funds {
+        border-bottom: 0.1rem solid $c-gray-2;
+      }
+
+      &.more {
+        background-color: $c-gray-light-2;
+        min-height: 6rem;
+
+        & a {
+          background-color: $c-white;
+          margin-left: 0.5rem;
+
+          @media (min-width: $screen-sm-min) {
+            margin-left: 1.5rem;
+          }
+        }
+      }
+
+      &.totals {
+        &.totals-column {
+          text-align: left;
+
+          &:nth-child(2) {
+            @media (min-width: $screen-sm-min) {
+              text-align: center;
+            }
+          }
+
+          &:nth-child(3n) {
+            @media (min-width: $screen-sm-min) {
+              width: 33%;
+              margin: 0;
+              text-align: right;
+            }
+          }
+
+          :nth-child(3n+2)::before {
+            @media (min-width: $screen-sm-min) {
+              content: '';
+            }
+          }
+          
+          @media (min-width: $screen-sm-min) {
+            float: left;
+            width: 33.3%;
+            margin: 0;
+            height: 2rem;
+          }
+        }
+      }
+
+      &.payments,
+      &.funds {
+        padding: 0rem 1.5rem;
+        border-left: 0.1rem solid $c-gray-2;
+        background-color: $c-gray-light-1;
+
+        & .totals-column {
+          float: left;
+        }
+
+        &.head {
+          font-weight: bold;
+        }
+
+        & .date {
+          float: left;
+        }
+
+        & .striped {
+          padding: 1.5rem 0 2rem 0;
+          border-bottom: 0.1rem solid $c-gray-2;
+
+          &:nth-child(even) {
+            background-color: $c_white;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+
+      &.final-totals {
+        text-align: right;
+        background-color: $c-gray-light-2;
+      }
+
+      & .left-col {
+        margin-bottom: 1.5rem;
+        border-bottom: 0.1rem solid $c-gray-2;
+        padding-bottom: 1.5rem;
+
+        @media (min-width: $screen-sm-min) {
+          border-bottom: none;
+          border-right: 0.1rem solid $c-gray-2;
+          margin-bottom: 0;
+          padding-bottom: 0rem;
+        }
+
+        @media print {
+          border-bottom: none;
+          border-right: 0.1rem solid $c-gray-2;
+          margin-bottom: 0;
+          padding-bottom: 0rem;
+        }
+      }
+
+      & .right-col {
+        padding-top: 1.5rem;
+
+        & .heading-amount,
+        & .heading {
+          display: inline-block;
+          width: 50%;
+          margin-bottom: 1.5rem;
+        }
+
+        & .line {
+          height: 0.1rem;
+          border-top: 0.1rem solid $c-gray-2;
+          margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: $screen-sm-min) {
+          padding-top: 0rem;
+          border-left: 0.1rem solid $c-gray-2;
+          margin-left: -0.1rem;
+        }
+
+        @media print {
+          padding-top: 0rem;
+          border-left: 0.1rem solid $c-gray-2;
+          margin-left: -0.1rem;
+        }
+      }
+
+      &:first-child {
+        @media (min-width: $screen-md-min) {
+          border-left: 0.1rem solid $c-gray-2;
+        }
+      }
+
+      @media (min-width: $screen-md-min) {
+        padding-left: 0;
+      }
+
+      & .tax-question {
+        margin-bottom: 1.5rem;
+      }
+
+      & .payment-total {
+        float: right;
+      }
+    }
+  }
+}

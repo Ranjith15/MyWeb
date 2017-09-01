@@ -1,0 +1,138 @@
+.default-table {
+  & .default-table-heading {
+    background: $c-blue-dark;
+    border-radius: 0;
+    padding: 1.5rem 1rem;
+
+    & .action-items {
+      & .action-item {
+          cursor: pointer;
+
+          & span {
+            display: block;
+            margin: auto;
+          }
+
+          & div {
+              color: $c_white;
+              font-size: $fs-xsmall;
+              margin: 0rem;
+          }
+      }
+
+      @media(min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
+
+    & .mobile-action-item {
+      padding: 1rem 0rem;
+
+      & [class^="icon-"] {
+        margin-right: 1rem;
+      }
+    }
+
+    & .heading-extra-small {
+      color: $c-white;
+      margin: 0;
+    }
+  }
+
+  & .default-table-body {
+    & .table-data-container:not(:last-child) {
+      border-bottom: 0.1rem solid $c-gray-2;
+    }
+  }
+
+  & .default-table-header {
+    cursor: pointer;
+
+    & > div {
+      float: left;
+    }
+
+    & span {
+      float: left;
+      padding-left: 1rem;
+    }
+  }
+
+  [st-sort] {
+    & [st-sort]:after {
+      color: $c-white;
+    }
+  }
+
+  & .st-sort-ascent,
+  & .st-sort-descent {
+    & span:after {
+      color: $c-white;
+    }
+  }
+}
+
+/* New Table Styles for ADA Compliance */
+
+.profile-table-wrapper {
+  padding: 0;
+  tbody {
+    border-bottom: 1px solid $c-gray-2;
+    > tr {
+      border-right: 1px solid $c-blue-dark;
+    }
+  }
+  table {
+    td {
+      padding: 1rem;
+    }
+    tbody tr th {
+      background: $c-blue-dark;
+      border-radius: 0;
+      padding: 1rem;
+      margin: 0;
+    }
+    tr th {
+      color: $c-white;
+    }
+  }
+  &.table-responsive {
+    border: initial;
+  }
+  .table > tbody > tr > td {
+    vertical-align: top;
+    &:first-of-type {
+      border-left: 1px solid $c-gray-2;
+    }
+    &:last-of-type {
+      border-right: 1px solid $c-gray-2;
+    }
+  }
+}
+@media(min-width: $screen-md-min) {
+  .profile-table-wrapper {
+    padding: 0 9rem;
+  }
+}
+
+/* Tabbing Styling for ADA Compliance */
+
+.action-items a {
+  font-weight: $fw-normal;
+  &:focus {
+    outline: thin dotted;
+    outline-color: $c-white;
+    text-decoration: none;
+  }
+}
+.default-table-heading div a:focus {
+  outline: thin dotted;
+  outline-color: $c-white;
+}
+.button-dropdown .dropdown-menu-right a {
+  font-weight: $fw-normal;
+  &:focus {
+    outline-offset: -2px;
+    text-decoration: none;
+  }
+}

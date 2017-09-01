@@ -1,0 +1,102 @@
+// Overrides and additions to Bootstrap button styles
+
+@import '../../abstracts/mixins.scss';
+
+.btn {
+  height: 4rem;
+  line-height: $line-height;
+  padding-top: 0;
+  padding-bottom: 0;
+  @include transition(background, .2s);
+
+  & > .fa {
+    padding-right: 0.5rem;
+  }
+  &.disabled {
+    opacity: .4;
+  }
+  &.working {
+    opacity: .7;
+    cursor: not-allowed;
+    pointer-events: none;
+    position: relative;
+    color: transparent !important;
+    outline: none;
+    span {
+      top: -.1rem;
+      height: $line-height;
+      width: $line-height;
+      left: 50%;
+      margin-left: -$line-height/2;
+      @include working($btn-primary-color, 1.5s);
+    }
+  }
+  &.working ~ span {    
+      top: 0;  
+      height: $line-height;
+      width: $line-height;
+      left: 50%;
+      margin-left: -$line-height/2;
+      @include working(white, 1.5s);
+  }
+  &.btn-default {
+    font-size: $fs-small;
+    font-weight: $fw-semibold;
+    &:hover {
+      background: rgba($c-blue-dark, .05);
+    }
+  }
+  &.btn-primary,
+  &.btn-danger {
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.12), 0px 2px 2px 0px rgba(0,0,0,0.24);
+    &.disabled {
+      background-color: $c-gray-1;
+      border-color: $c-gray-1;
+    }
+  }
+  &.btn-borderless {
+    border: none;
+    &.danger {
+      color: $c-red;
+    }
+  }
+  &:focus {
+    outline: thin dotted;
+  }
+}
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-xs {
+  // line-height: ensure proper height of button next to small input
+  @include button-size($padding-extra-small-vertical, $padding-extra-small-horizontal, $btn-font-extra-size-small, $line-height-extra-small, $btn-border-radius-extra-small);
+  height: $line-height-extra-small;
+  &.working span {
+    height: $line-height-extra-small;
+    width: $line-height-extra-small;
+    margin-left: -$line-height-extra-small/2;
+  }
+}
+
+.btn-sm {
+  // line-height: ensure proper height of button next to small input
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $btn-font-size-small, $line-height-small, $btn-border-radius-small);
+  height: $line-height-small;
+  &.working span {
+    height: $line-height-small;
+    width: $line-height-small;
+    margin-left: -$line-height-small/2;
+  }
+}
+
+.uib-datepicker .btn {
+  // overriding button size for datepickers
+  @include button-size($padding-small-vertical, $padding-small-compact, $font-size-small, $line-height-small, $btn-border-radius-small);
+  &:active,
+  &.active {
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.6);
+  }
+}

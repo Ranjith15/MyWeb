@@ -1,0 +1,22 @@
+<fieldset>
+	<legend>
+		<span class="icon-circleTerms"></span>
+		<span class="heading-small">{{'CLIENT_ADMIN.PROFILE.CURRENT_EXCEPTIONS.CURRENT_EXCP_HEADER' | translate }}</span>
+	</legend>
+	<div st-table="model.rulesExceptions" class="profile-table-wrapper table-responsive">
+		<table class="table">
+			<tr>
+				<th class="col-xs-12">{{'CLIENT_ADMIN.PROFILE.CURRENT_EXCEPTIONS.RULE_NAME' | translate }}</th>
+			</tr>
+			<tr ng-if="!model.rulesExceptions.length">
+				<td>{{'CLIENT_ADMIN.PROFILE.CURRENT_EXCEPTIONS.NO_DATA' | translate }}</td>
+			</tr>
+			<tr ng-if="!model.programs" ng-repeat="program in model.programs">
+				<td>{{'CLIENT_ADMIN.CLIENT_ADMIN_TICKET.NO_TICKET_DATA' | translate }}</td>
+			</tr>
+			<tr ng-if="model.rulesExceptions.length" ng-repeat="rule in model.rulesExceptions">
+				<td>{{rule.friendlyName}}</td>
+			</tr>
+		</table>
+	</div>
+</fieldset>

@@ -1,0 +1,16 @@
+<div class="tile">
+	<div schedule-appointment-subnav data="stepViewData" class="tile-sub-nav"></div> 
+	<!--<div class="header" role="alert">
+		<h2>{{stepViewData.stepHeader | translate}}</h2>
+	</div>-->
+	<form name="{{stepViewData.formName}}" form-focus ng-submit="submitChildForm(this[stepViewData.formName])" ng-hide="status === 'loading'" novalidate>
+		<div class="row">
+			<div class="col-xs-12" ui-view="subNavView" autoscroll="true"></div>
+		</div>
+		<div class="section-footer">
+			<button type="submit" class="btn btn-primary btn-sm" ng-class="{working: status === 'submitting'}">{{ stepViewData.submitButtonName | translate }} <span></span></button>
+			<button aria-label="cancel" type="button" class="btn btn-default btn-sm" ng-click="scheduleAppointmentCtrl.confirmCancel()">{{ 'GENERAL.CANCEL' | translate }}</button>
+		</div>
+	</form>
+</div>
+<div action='scheduleAppointmentCtrl.showCancel' template='cancel-appointment-request.template' data='scheduleAppointmentCtrl.appData' generic-modal></div>

@@ -1,0 +1,11 @@
+<div class="modal-header">
+	<button class="icon-close" aria-label="{{ 'GENERAL.CLOSE' | translate }}" ng-click="data.cancelChangeProgram()"></button>
+</div>
+<div class="modal-body">
+	<div class="heading-extra-small">{{ 'MODALS.CHANGE_PROGRAM.PROGRAM_QUESTION' | translate }}</div>
+	<p>{{ 'MODALS.CHANGE_PROGRAM.PROGRAM_TEXT' | translate}} </p>
+</div>
+<div class="modal-footer">
+	<a href="" class="btn btn-primary btn-sm" data-dismiss="modal" role="button" ng-click="data.cancelChangeProgram()">{{ 'GENERAL.CANCEL' | translate }}</a>
+	<a href="" class="btn btn-danger btn-sm" data-dismiss="modal" role="button" ng-click="data.confirmChangeProgram()">{{ 'MODALS.CHANGE_PROGRAM.BTN_CHANGE_PROGRAM' | translate }}</a>
+</div>

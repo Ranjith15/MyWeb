@@ -1,0 +1,33 @@
+<!doctype HTML>
+<html lang="en-us">
+	<head>
+		<title>EdAssist Icons Preview</title>
+		<meta charset="utf-8">
+		<style>
+			body {
+  			background: #666;
+  			color: white;
+				width: auto;
+				background-size: 10px 10px;
+				font-family: sans-serif;
+			}
+		</style>
+		<script>
+			{{{loaderText}}}
+			{{{embedText}}}
+			{{#with cssFiles}}
+			grunticon(["{{svg}}", "{{png}}", "{{fallback}}"]);
+		</script>
+		<noscript><link href="{{fallback}}" rel="stylesheet"></noscript>
+{{/with}}
+	</head>
+	<body>
+
+		<h1>EdAssist Icons</h1>
+		{{#each icons}}
+			{{#with this}}
+			<pre><code>{{prefix}}{{name}}:</code></pre><div {{selectorType}}="{{selectorString}}{{name}}" style="width: {{width}}px; height: {{height}}px;" ></div><hr/>
+			{{/with}}
+		{{/each}}
+</body>
+</html>

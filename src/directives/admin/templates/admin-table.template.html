@@ -1,0 +1,129 @@
+<div st-safe-src="adminTableCtrl.contentList" st-table="adminTableCtrl.contentListDisplay" class="admin-table-container">
+	<div ng-if="adminTableCtrl.showColumnError">
+		<div class="row"><div class="spacer col-xs-12"></div></div>
+		<div class="error margin-top-2">
+			<span class="icon-error"></span>
+			<span>{{ 'ADMIN.TABLE.ERROR_MUST_SHOW_ONE_COLUMN' | translate }}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-5 form-group flex-container table-controls-container pull-right">
+			<div class="search-input">
+				<span class="fa fa-search search-icon fa-blue"></span>
+				<input class="form-control" st-search placeholder="{{ 'ADMIN.TABLE.SEARCH_TEXT' | translate: adminTableCtrl.dataLength }}" ng-model="adminTableCtrl.searchText"></input>
+				<span class="fa fa-times close-icon fa-blue" st-clear-search ng-click="adminTableCtrl.clearSearch()"></span>
+			</div>
+			<select id="pageAmount" class="form-control" name="pageAmount" ng-model="adminTableCtrl.selectedPageCount" ng-options="pageAmount.value as pageAmount.text for pageAmount in adminTableCtrl.pageAmounts" ng-change="adminTableCtrl.onPageCountChange()"></select>
+			<div class="btn-group button-dropdown" uib-dropdown auto-close="outsideClick">
+				<button id="single-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+					<i class="fa fa-columns" aria-hidden="true"></i>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					<li role="menuitem">
+						<label class="custom-checkbox">
+							<input type="checkbox" id="cbName" name="cName" ng-model="adminTableCtrl.showNameColumn" ng-click="adminTableCtrl.toggleColumn($event, adminTableCtrl.showNameColumn, 'name')"><span></span> {{'ADMIN.TABLE.CONTENT_NAME' | translate}} 
+						</label>
+					</li>
+					<li role="menuitem">
+						<label class="custom-checkbox">
+							<input type="checkbox" id="cbClient" name="cbClient" ng-model="adminTableCtrl.showClientColumn" ng-click="adminTableCtrl.toggleColumn($event, adminTableCtrl.showClientColumn, 'client')"><span></span> {{ 'ADMIN.TABLE.CLIENT' | translate }} 
+						</label>
+					</li>
+					<li role="menuitem">
+						<label class="custom-checkbox">
+							<input type="checkbox" id="cbProgram" name="cbProgram" ng-model="adminTableCtrl.showProgramColumn" ng-click="adminTableCtrl.toggleColumn($event, adminTableCtrl.showProgramColumn, 'program')"><span></span> {{ 'ADMIN.TABLE.PROGRAM' | translate }} 
+						</label>
+					</li>
+					<li role="menuitem">
+						<label class="custom-checkbox">
+							<input type="checkbox" id="cbContentType" name="cbContentType" ng-model="adminTableCtrl.showContentTypeColumn" ng-click="adminTableCtrl.toggleColumn($event, adminTableCtrl.showContentTypeColumn, 'contentType')"><span></span> {{ 'ADMIN.TABLE.CONTENT_TYPE' | translate }} 
+						</label>
+					</li>
+					<li role="menuitem">
+						<label class="custom-checkbox">
+							<input type="checkbox" id="cbContentCategory" name="cbContentCategory" ng-model="adminTableCtrl.showContentCategoryColumn" ng-click="adminTableCtrl.toggleColumn($event, adminTableCtrl.showContentCategoryColumn, 'component')"><span></span> {{ 'ADMIN.TABLE.CONTENT_CATEGORY' | translate }} 
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="spacer col-xs-12"></div></div>
+	<div class="row">
+		<div class="data-table admin-table">
+			<div class="table-heading admin-table-heading row">
+				<div class="fa-spacer pull-left hidden-xs"></div>
+				<div class="col-xs-6 flex-item flex-item-large" st-sort="name" st-sort-default="true" ng-hide="adminTableCtrl.isHidden('name')">
+					<span st-sort="name"></span>
+					<div class="heading-extra-small">{{ 'ADMIN.TABLE.CONTENT_NAME' | translate }}</div>
+				</div>
+				<div class="col-xs-6 flex-item" ng-hide="adminTableCtrl.isHidden('client')">
+					<span st-sort="client"></span>
+					<div class="heading-extra-small">{{ 'ADMIN.TABLE.CLIENT' | translate }}</div>
+				</div>
+				<div class="col-xs-12 hidden-xs flex-item" st-sort="program" ng-hide="adminTableCtrl.isHidden('program')">
+					<span st-sort="program"></span>
+					<div class="heading-extra-small">{{ 'ADMIN.TABLE.PROGRAM' | translate }}</div>
+				</div>
+				<div class="col-xs-12 hidden-xs flex-item" st-sort="contentType" ng-hide="adminTableCtrl.isHidden('contentType')">
+					<span st-sort="contentType"></span>
+					<div class="heading-extra-small">{{ 'ADMIN.TABLE.CONTENT_TYPE' | translate }}</div>
+				</div>
+				<div class="col-xs-12 hidden-xs flex-item" st-sort="component" ng-hide="adminTableCtrl.isHidden('component')">
+					<span st-sort="component"></span>
+					<div class="heading-extra-small">{{ 'ADMIN.TABLE.CONTENT_CATEGORY' | translate }}</div>
+				</div>
+				<div class="fa-action-container" st-sort="adminTableCtrl.sortActions" st-skip-natural="true">
+					<span st-sort="adminTableCtrl.sortActions" st-skip-natural="true"></span>
+				</div>
+			</div>
+			<div class="table-body admin-table-body">
+				<div ng-show="!adminTableCtrl.contentList || adminTableCtrl.contentList.length === 0 || adminTableCtrl.contentListDisplay.length === 0" class="table-data-container">
+					<div class="row">
+						<div class="col-xs-12">{{ 'ADMIN.TABLE.NO_RECORDS_FOUND' | translate }}</div>
+					</div>
+				</div>
+				<div ng-show="adminTableCtrl.contentList.length > 0" class="admin-table-data-container">
+					<div ng-repeat="content in adminTableCtrl.contentListDisplay" class="row">
+						<div class="data-container" ng-click="adminTableCtrl.updateAccess && adminTableCtrl.onEditClick({content: content});">
+							<div class="content-icon pull-left">
+								<span ng-class="adminTableCtrl.getIcon(content)" class="hidden-xs fa-white"></span>
+							</div>
+							<div class="col-xs-6 flex-item flex-item-large" ng-hide="adminTableCtrl.isHidden('name')">
+								<div>{{content.name}}</div>
+							</div>
+							<div class="col-xs-6 flex-item" ng-hide="adminTableCtrl.isHidden('client')">{{adminTableCtrl.getClientName(content.client)}}</div>
+							<div class="col-xs-12 flex-item" ng-hide="adminTableCtrl.isHidden('program')">
+								<strong class="show-xs hidden-sm hidden-md hidden-lg">{{ 'ADMIN.TABLE.PROGRAM' | translate }}: </strong>
+								{{adminTableCtrl.getProgramName(content.program)}}
+							</div>
+							<div class="col-xs-12 flex-item" ng-hide="adminTableCtrl.isHidden('contentType')">
+								<strong class="show-xs hidden-sm hidden-md hidden-lg">{{ 'ADMIN.TABLE.CONTENT_TYPE' | translate }}: </strong>
+								{{content.type}}
+							</div>
+							<div class="col-xs-12 flex-item" ng-hide="adminTableCtrl.isHidden('component')">
+								<strong class="show-xs hidden-sm hidden-md hidden-lg">{{ 'ADMIN.TABLE.CONTENT_CATEGORY' | translate }}: </strong>
+								{{content.component}}
+							</div>
+						</div>
+						<div ng-if="!adminTableCtrl.updateAccess" class="col-xs-12 content-icon fa-action-container flex-item">
+							<strong class="show-xs hidden-sm hidden-md hidden-lg">{{ 'ADMIN.TABLE.ACTIONS' | translate }}: </strong>
+							<span uib-tooltip="{{adminTableCtrl.publishedToolTipUat}} {{content.publishedDate | timezoneDate : 'MM/dd/yy h:mma'}} UserID {{content.publishedBy}}" class="fa fa-check fa-gray"></span>
+						</div>
+						<div ng-if="adminTableCtrl.updateAccess" class="col-xs-12 content-icon fa-action-container flex-item">
+							<strong class="show-xs hidden-sm hidden-md hidden-lg">{{ 'ADMIN.TABLE.ACTIONS' | translate }}: </strong>
+							<span uib-tooltip="{{adminTableCtrl.publishedToolTipStg}} {{content.publishedDate | timezoneDate : 'mm/dd/yy h:mma'}} UserID {{content.publishedBy}}" ng-if="!content.needsPropagation && !adminTableCtrl.isProduction" class="fa fa-check fa-gray"></span>
+							<span uib-tooltip="{{adminTableCtrl.publishedToolTipUat}} {{content.publishedDate | timezoneDate : 'mm/dd/yy h:mma'}}" ng-if="!content.needsPropagation && adminTableCtrl.isProduction" class="fa fa-check fa-gray"></span>
+ 							<span ng-if="content.needsPropagation" ng-class="content.isContentPublished ? 'fa fa-circle-o-notch fa-spin fa-gray':'fa fa-paper-plane-o fa-yellow'" ng-click="adminTableCtrl.onPropagateClick({content: content});"></span>
+							<span ng-if="!adminTableCtrl.isProduction && (adminTableCtrl.isSuperAdmin || adminTableCtrl.globalType !== content.client)" class="fa fa-trash-o fa-blue" ng-click="adminTableCtrl.onDeleteClick({content: content});"></span>
+							<span ng-if="adminTableCtrl.isProduction && content.isDeleted" class="fa fa-trash-o fa-blue" ng-click="adminTableCtrl.onDeleteClick({content: content});"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-center">
+			<div st-pagination="" st-items-by-page="adminTableCtrl.recordsPerPage" st-displayed-pages="adminTableCtrl.displayPages" st-template="/src/partials/smart-table-pager.html"></div>
+		</div>
+	</div>
+</div>

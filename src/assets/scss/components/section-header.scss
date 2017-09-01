@@ -1,0 +1,13 @@
+.section-header {
+  .header-container {
+    > h2 {
+      display: inline-block;
+      margin-right: 3em;
+      vertical-align: baseline;
+    }
+
+    > .header-edit-btn {
+      vertical-align: baseline;
+    }
+  }
+}

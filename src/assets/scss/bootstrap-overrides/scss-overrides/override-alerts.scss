@@ -1,0 +1,20 @@
+.alert {
+  padding: 1rem;
+  border-radius: 0px;
+}
+
+.alert-success {
+  border: 1px solid $c-green-2;
+}
+
+.alert-info {
+  background: $c-blue-light-2;
+  border: 1px solid $c-blue-dark-3;
+  color: $c-blue-dark-3;
+}
+
+.alert-danger {
+  border: 1px solid $c-orange-1;
+  background-color: $c-orange-2;
+  color: $c-brown-1;
+}

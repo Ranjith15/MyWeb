@@ -1,0 +1,39 @@
+//Layouts
+//
+// Section footer is used for the bottom of a user entry form or a section that may require input buttons 
+// for action. Typically this is applied to a div element.
+// To apply just add section-footer to the class attribute.
+//
+//Markup: <div class="section-footer"><a href="#" class="btn btn-primary btn-sm">Save</a><a href="#" class="btn btn-default btn-sm btn-group">Cancel</a></div>
+//
+//Styleguide 1.0
+.section-footer {
+  background: $c-white;
+  min-height: 7rem;
+  box-shadow: 0 -1px 0 0 rgba(0,0,0,0.15);
+  top: $pad-md;
+  position: relative;
+  right: -$pad-sm;
+  margin-left: -$pad-sm * 2;
+  padding: 2rem $pad-sm;
+
+  & h2, 
+  & .heading-medium {
+      margin: 0;
+    }
+
+  & .btn {
+    margin-right: $pad-sm;
+  }
+
+  &.extended-footer {
+      height: 12rem;
+  }
+    
+  @media (min-width: $screen-md-min) {
+    padding: $pad-md;
+    right: -$pad-md;
+    margin-left: -$pad-md * 2;
+    padding: 2rem $pad-md;
+  }
+}

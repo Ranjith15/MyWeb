@@ -1,0 +1,70 @@
+<h1 class="sr-only">{{ 'LOGIN.LOGIN' | translate }}</h1>
+<div class="tile col-xs-12 col-sm-6 col-sm-offset-3 col-md-5" ng-if="loginCtrl.data && (!loginCtrl.ssoEnabled || loginCtrl.nonSsoOverride)">
+	<div class="error" ng-if="loginCtrl.status === 'error'"><span class="icon-error" ></span>
+		<span> {{loginCtrl.message}} <a href="#/forgotPassword">{{ 'LOGIN.LOGIN_HELP' | translate }}</a></span>
+	</div>
+	<div class="logo">
+		<img class="img-responsive center-block login-logo" ng-src='{{loginCtrl.logoPath}}' alt="{{global.clientName}} {{ 'GENERAL.LOGO' | translate }}" title="{{global.clientName}} {{ 'GENERAL.LOGO' | translate }}"/>
+	</div>
+	<div ng-if="loginCtrl.loginInstructions" class="row input-row">
+		<div class="col-xs-12">
+			<p class="explination margin-0" ng-bind-html="loginCtrl.loginInstructions"></p>
+		</div>
+	</div>
+	<form name="loginForm" ng-submit="submitLogin()">
+		<div class="row input-row">
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input type="Username" class="form-control" id="userName" placeholder="{{loginCtrl.contentLoginName | htmlToPlaintext}}" ng-model="formData.name" required/>
+					<span data-grunticon-embed class="icon-username"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row input-row">
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input type="password" class="form-control" id="loginPassword" placeholder="{{loginCtrl.contentLoginPwd | htmlToPlaintext}}" ng-model="formData.password" required />
+					<span data-grunticon-embed class="icon-password"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row input-row">
+			<div class="col-xs-12">
+				<button type="submit" class="btn btn-primary btn-block" ng-class="{working: loginCtrl.status === 'submitting'}" ng-disabled="loginForm.$invalid">
+					{{ 'LOGIN.LOGIN' | translate }}<span class="icon-login"></span>
+				</button>
+			</div>
+		</div>
+		<div class="row input-row">
+			<div class="form-group">
+				<div class="col-xs-6">
+					<div ng-show={{loginCtrl.clientRememberMe}}>
+						<label class="custom-checkbox margin-top-half pull-left">
+						<input type="checkbox" ng-model="rememberMe"></input>
+						<span></span> {{ 'LOGIN.REMEMBER' | translate }}
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-6 margin-top-1">
+					<a class="pull-right" ui-sref="{{global.constants.routes.forgotPwd}} ({contentName: 'forgotPassword', logoPath: '{{loginCtrl.logoPath}}'})">{{ 'LOGIN.FORGOT_PASSWORD' | translate }}</a>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row input-row">
+			<div class="form-group">
+				<div class="col-xs-6 margin-top-1 pull-left">
+					<span>{{ 'LOGIN.FIRST_TIME' | translate }}</span>
+				</div>
+				<div class="col-xs-6">
+					<a ui-sref="{{global.constants.routes.forgotPwd}}({contentName: 'createPassword', logoPath: '{{loginCtrl.logoPath}}'})" class="btn btn-default btn-xs pull-right">{{ 'LOGIN.CREATE_PASSWORD' | translate }}</a>
+				</div>
+			</div>
+		</div>
+	</form>
+	<footer class="row input-row col-xs-12">
+		<ng-include src="'/src/components/general/powered-by.html'"></ng-include>
+	</footer>
+</div>

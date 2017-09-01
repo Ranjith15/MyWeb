@@ -1,0 +1,40 @@
+<div class="row content-container">
+	<section-header section-icon="icon-circleSchool" section-title="{{ (model.educationProfile.programTypeID.programTypeID === 11 ? 'EDUCATION.PROVIDER.CERTIFICATE_EXAM_PROVIDER_QUESTION' : 'EDUCATION.PROVIDER.QUESTION') | translate }}" on-edit-click="providerInformationCtrl.editEducation()" has-edit="!providerInformationCtrl.isEditing">
+		<p class="explination" ng-bind-html="model.educationProvider | trustHtml"></p>
+		<p class="explination" ng-bind-html="model.examProvider | trustHtml"></p> <!-- TODO Add ng-if after program sub type integration-->
+
+		<div class="row" ng-if="model.educationProfile.providerID">
+			<div class="form-group col-xs-12 col-sm-6">
+				<label for="providerName">{{ 'PROFILE.EDUCATION.PROVIDER.NAME' | translate}}</label>
+				<input id="providerName" class="as-text" disabled value="{{model.educationProfile.providerID.providerName}}" />
+			</div>
+
+			<div class="form-group col-xs-12 col-sm-6 col-md-3">
+				<label for="studentID">{{ 'PROFILE.EDUCATION.PROVIDER.STUDENT_ID' | translate}}</label>
+				<input type="text" id="studentID" name="studentId" class="form-control" ng-pattern="studentIdRegex" ng-model="model.educationProfile.studentID" maxlength="15" />
+			</div>
+		</div>
+
+		<div class="row" ng-if="model.educationProfile.providerID">
+			<div class="form-group col-xs-12 col-sm-6">
+				<label for="providerAddress">{{ 'PROFILE.EDUCATION.PROVIDER.ADDRESS' | translate}}</label>
+				<textarea id="providerAddress" class="as-text" disabled rows="5">{{model.educationProfile.providerID.providerAddress1}}&#13;&#10;{{model.educationProfile.providerID.providerAddress2}}&#13;&#10;{{model.educationProfile.providerID.providerCity}}, {{model.educationProfile.providerID.providerState}} {{model.educationProfile.providerID.providerZip}}</textarea>
+			</div>
+
+			<div class="form-group col-xs-12 col-sm-6">
+				<label for="providerCode">{{ 'PROFILE.EDUCATION.PROVIDER.CODE' | translate}}</label>
+				<input type="text" id="providerCode" class="as-text" disabled value="{{model.educationProfile.providerID.providerCode}}" />
+			</div>
+
+			<div class="form-group col-sm-12">
+				<document-download ng-repeat="providerDoc in providerInformationCtrl.providerDocuments" content="providerDoc"></document-download>
+			</div>
+
+			<h4 class="col-sm-12" ng-if="model.educationProfile.isIneligibleProvider" ng-bind-html="providerInformationCtrl.getContentHtml('ineligibleProvider')"></h4>
+		</div>
+		<provider-search model="model" />
+	</section-header>
+
+	<div action="providerInformationCtrl.programDataModal" template="program-select.template" generic-modal></div>
+	<div action="model.educationProfile.providerModalState" template="provider-select.template" generic-modal></div>
+</div>

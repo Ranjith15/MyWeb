@@ -1,0 +1,187 @@
+// general icon styling 
+
+[class^="icon-"] {
+  @include icon-size(2rem);
+}
+
+[class^="small icon-"],
+[class^="icon-"].small {
+  @include icon-size(1.5rem);
+}
+
+[class^="double icon-"],
+[class^="icon-"].double {
+  @include icon-size(4rem);
+}
+
+[class^="triple icon-"],
+[class^="icon-"].triple {
+  @include icon-size(6rem);
+}
+
+[class^="quadruple icon-"],
+[class^="icon-"].quadruple {
+  @include icon-size(8rem);
+}
+
+[class^="quintuple icon-"],
+[class^="icon-"].quintuple {
+  @include icon-size(10rem);
+}
+
+[class^="huge icon-"],
+[class^="icon-"].huge {
+  @include icon-size(20rem);
+}
+
+// Set client logos to have consistent positioning and sizing
+div.logo {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+// home heading circle icons
+h1 [class^="icon-"],
+h2 [class^="icon-"],
+h3 [class^="icon-"],
+[class^="icon-"].heading-large, 
+[class^="icon-"].heading-medium, 
+[class^="icon-"].heading-small {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
+// button icons
+.btn [class^="icon-"] {
+  vertical-align: sub;
+  margin-left: .6rem;
+}
+
+
+// navbar dropdown
+.icon-logout {
+  opacity: .7; // becomes 100% on hover
+}
+
+// Custom search icon styling
+.custom-search-input i {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.5rem;
+    color: $c-blue-dark;
+}
+
+// mobile nav icons
+@media (max-width: $screen-xs-max) {
+  .navbar-collapse [class^="icon-nav"] {
+    display: inline-block !important;
+    vertical-align: bottom;
+    margin-right: 13px !important;
+    height: 2.2rem;
+    width: 2.2rem;  
+  }
+}
+
+// appBlock icons
+[class^="icon-status"] {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-right: .5rem;
+  margin-top: -.3rem;
+  flex-shrink: 0;
+}
+
+// profile circle icons
+[class^="icon-circle"] {
+  width: 100%;
+  height: 6rem;
+  background-position: center center;
+}
+
+// input icons
+.form-group [class^="icon-"] {
+  position: absolute;
+  right: 2rem;
+  top: .5rem;
+  @include icon-transition(all, .15s);
+}
+
+// moreInfo to open modal
+.icon-moreInfo {
+  width: 2.4rem;
+  height: 2.4rem;
+  vertical-align: middle;
+  margin: -.3rem 0 0 .5rem;
+  cursor: pointer;
+  &:hover {
+    @include pop();
+  }
+}
+
+// close button for modals
+button.icon-close {
+  background-color: transparent;
+  border: none;
+}
+
+// error icon
+.icon-error {
+  vertical-align: bottom;
+  margin-right: .5rem;
+  flex-shrink: 0;
+}
+
+// Datepicker icon fix
+.datepicker-block .input-group-addon {
+  padding: 0 1.2rem 0 1.2rem;
+  background-color: $c-white;
+}
+
+.datepicker-block a.input-group-addon i.fa {
+  color: $c-blue-dark;
+  &:hover {
+    color: $c-blue-dark-3;
+    @include pop();
+  }
+  &:focus {
+    color: $c-blue-dark-3;
+  }
+}
+
+.datepicker-block .input-group .form-control {
+    border-right: 0px;
+    padding-right: $size-1 * 2;
+}
+
+// footer EdAssist logo
+.icon-logoEdAssist {
+  width: 7.8rem;
+  height: 3rem;
+  padding-top: .5rem;
+}
+
+.fa {
+  font-size: 2rem;
+
+  &.medium {
+    font-size: 1.4rem;
+  }
+}
+
+.fa-white {
+  color: $c-white;
+}
+
+.fa-blue {
+  color: $c-blue-dark;
+}
+
+.fa-gray {
+  color: #B4B4B4;
+}
+
+.fa-yellow {
+  color: $c-yellow;
+}

@@ -1,0 +1,74 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.tile {
+  &.application-history-block {
+    & .header {
+      height: 100%;
+    }
+
+    & .form-group {
+      margin-top: initial;
+
+      & .form-control#benefitPeriod {
+        @media(min-width: $screen-sm-min) {
+          min-width: 12rem;
+        }
+      }
+
+    }
+
+    & label {
+      @media(min-width: $screen-md-min) {
+        margin-bottom: 0;
+        vertical-align: middle;
+      }
+
+      @media(min-width: $screen-sm-min) {
+        padding-right: 1rem;
+      }
+    }
+  }
+}
+
+.absolute-icon-right {
+  position: absolute;
+  right: 3.2rem;
+}
+
+.applications-total {
+  margin-right: 2rem;
+  
+  @media(min-width: $screen-md-min) {
+    margin-right: 2rem;
+  }
+}
+
+.applications-download {
+  padding-left: 0;
+
+  @media(min-width: $screen-md-min) {
+    padding-left: 0;
+  }
+}
+
+.ui-select-container, 
+.multiselect-btn {
+  &:focus {
+    background-color: transparent !important;
+    border: initial !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0.5rem $c-blue-light-1 !important;
+    border-color: $c-blue-light-1 !important;
+  }
+}
+
+.pull-right-full-screen {
+  & .form-group {
+    & .form-control {
+      @media(min-width: $screen-md-min) {
+        width: 20rem;
+      }
+    }
+  }
+}

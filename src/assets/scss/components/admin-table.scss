@@ -1,0 +1,139 @@
+.admin-table-container {
+
+  .admin-table {
+    border: 1px solid $c-gray-light-3;
+    background-color: $c-white;
+
+    & .admin-table-heading {
+      background: $c-white;
+      padding: 1rem 0rem;
+      border-bottom: 1px solid $c-gray-light-3;
+      display: flex;
+      margin: 0px;
+
+      & .fa-spacer {
+        min-width: 4.5rem;
+        min-height: 1rem;
+      }
+
+      & > div {
+        cursor: pointer;
+        display: flex;
+      }
+    }
+
+    & .admin-table-body {
+
+      .admin-table-data-container {
+
+        padding: 0px 15px;
+
+        & .row {
+          border-bottom: 1px solid $c-gray-light-3;
+          cursor: pointer;
+
+          & .data-container {
+            @media(min-width: $screen-sm-min) {
+              display: flex;
+              flex: 1; 
+            }
+          }
+
+          @media(min-width: $screen-sm-min) {
+            display: flex;
+          }
+
+          &:nth-child(even) {
+            background: $c-gray-light-2;
+          }
+
+          &:last-child {
+            border-bottom: 0px;
+          }
+        }
+      }
+    }
+
+    & .content-icon {
+      display: flex;
+
+      & span {
+        font-family: FontAwesome;
+        font-size: 3rem;
+        padding: 0 1rem;
+        display: table-cell;
+        cursor: pointer;
+        min-width: 5rem;
+        text-align: center;
+      }
+    }
+
+    @media(min-width: $screen-sm-min) {
+      & .fa-action-container {
+        min-width: 130px;
+        max-width: 130px;
+        min-height: 1px;
+        justify-content: center;
+      }
+
+      & .flex-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1;
+      }
+
+      & .flex-item-large {
+        flex-grow: 2;
+      }
+    }
+
+    & .global {
+      background-color: $c-gray-light-3;
+
+      &:before {
+        content: "\f0ac";
+      }
+    }
+
+    & .content {
+      background-color: $c-green-1;
+
+      &:before {
+        content: "\f0e8";
+      }
+    }
+
+    & .document {
+      background-color: $c-orange-1;
+
+      &:before {
+        content: "\f0f6";
+      }
+    }
+  }
+}
+.table-controls-container {
+  padding-right: 0;
+  padding-right: 1.5rem;
+  margin: 2rem 0 0;
+}
+.admin-table-container {
+  margin-top: 5rem;
+  .admin-table {
+    border: 1px solid $c-gray-2;
+    margin: 0 1.5rem 0 1.5rem;
+  }
+  .btn-group > .btn:first-child {
+    background: $c-white;
+    border: 1px solid $c-gray-2;
+  }
+  .btn > .fa {
+    padding: 0.4rem 0 0 0;
+  }
+}
+@media(min-width: $screen-sm-min) {
+  .admin-table-container {
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,11 @@
+.dropdown-menu {
+    border-radius: 0px;
+    padding: 0px 15px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(black, .5);
+    min-width: 180px;
+
+    & label {
+        text-align: left !important;
+    }
+}

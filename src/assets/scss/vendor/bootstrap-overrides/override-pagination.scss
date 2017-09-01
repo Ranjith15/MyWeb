@@ -1,0 +1,24 @@
+.pagination,
+.pagination-sm {
+  & > li {
+    & > a {
+      color: $c-blue-dark;
+    }
+    
+    & > a:hover {
+      background-color: $c-gray-light-2;
+    }
+
+    & > span {
+      color: $c-blue-dark;
+    }
+  }
+
+  & > .active {
+    & > a,
+    & > a:hover {
+      background-color: $c-blue-dark;
+      border-color: $c-blue-dark;
+    } 
+  }
+}

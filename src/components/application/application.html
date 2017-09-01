@@ -1,0 +1,24 @@
+<h1 class="sr-only">{{ 'NAV.PAGES.NEW_APPLICATION' | translate }}</h1>
+<div id="applicationHeader" application-subnav data="stepViewData"></div>
+<div class="tile">
+	<div class="header" role="alert">
+		<h2>{{stepViewData.stepHeader | translate}}</h2>
+	</div>
+	<div ng-class="{'loading': status === 'loading'}"></div>
+	<div ng-if="status === 'errorIncompleteApplication'" role="alert">
+		<div class="error margin-top-1"><span class="icon-error"></span><span>{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION' | translate }}<span ng-if="statusIncompleteSection === 'errorIncompleteApplicationAgreements'">{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION_AGREEMENTS' | translate }}</span><span ng-if="statusIncompleteSection === 'errorIncompleteApplicationCourses'">{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION_COURSES' | translate }}</span></span></div>
+	</div>	
+	<form name="{{stepViewData.formName}}" form-focus ng-submit="submitChildForm(this[stepViewData.formName])" ng-hide="status === 'loading'" novalidate>
+		<div class="row">
+			<div class="col-xs-12" ui-view autoscroll="true"></div>
+		</div>
+		<div class="section-footer">
+			<button type="submit" class="btn btn-primary btn-sm" ng-class="{working: status === 'submitting'}">{{ stepViewData.submitButtonName | translate }}<span></span></button>
+			<button aria-label="cancel" type="button" class="btn btn-default btn-sm" ng-click="confirmDelete()">{{ 'GENERAL.CANCEL' | translate }}</button>
+		</div>
+		<div ng-if="status === 'errorIncompleteApplication'">
+			<div class="error margin-top-10" role="alert"><span class="icon-error"></span><span>{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION' | translate }}<span ng-if="statusIncompleteSection === 'errorIncompleteApplicationAgreements'">{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION_AGREEMENTS' | translate }}</span><span ng-if="statusIncompleteSection === 'errorIncompleteApplicationCourses'">{{ 'APPLICATION.SUMMARY.INCOMPLETE_APPLICATION_COURSES' | translate }}</span></span></div>
+		</div>	
+	</form>
+</div>
+<div action='applicationCtrl.showDelete' template='delete-confirmation.template' data='applicationCtrl.appData' generic-modal></div>

@@ -1,0 +1,203 @@
+<div class="course-list col-xs-12 col-md-10">
+	<div class="error" ng-if="courseListCtrl.error"><span class="icon-error"></span>
+		<span>{{courseListCtrl.error}}</span>
+	</div>
+	<!-- courses -->
+	<div class="row course-card" ng-show="courseListCtrl.loaded" ng-repeat="course in courseListCtrl.courses">
+		<div class="status status-block-left gray">
+			<span class="icon-statusComplete"></span>
+		</div>
+		<div class="col-xs-12 row">
+			<div class="course-card-label">{{'COURSES.COURSE' | translate}}</div>
+			<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2">
+				<div class="row course-info">
+					<div class="col-xs-12">
+						{{course.name}}, ({{course.number}})
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>{{ 'COURSES.TABLE_HEADERS.CREDITS' | translate }}</th>
+									<th ng-show="courseListCtrl.showCourseQuestionsSection()">{{ 'COURSES.TABLE_HEADERS.TAX_EXEMPT' | translate }}</th>
+									<th>{{ 'COURSES.TABLE_HEADERS.GRADE' | translate }}</th>
+									<th>{{ 'COURSES.TABLE_HEADERS.VERIFIED' | translate }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="data-item">{{ course.creditHours }}</td>
+									<td class="data-item" ng-show="courseListCtrl.showCourseQuestionsSection()">{{ course.taxExempt ? 'Yes':'No' }}</td>
+									<td class="data-item">{{ course.grades.gradeName }}</td>
+									<td class="date">{{ course.gradeVerified ? (course.gradeVerifiedDate | timezoneDate) : 'N/A' }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row course-info more">
+					<a href="" role="button" class="btn btn-default btn-sm hide-print" ng-click="course.moreStuff = !course.moreStuff">
+						{{ course.moreStuff ? 'HISTORY.LESS_BUTTON' : 'HISTORY.MORE_BUTTON' | translate}}
+					</a>
+					<span class="preview-total" ng-show="!course.moreStuff">
+						{{course.requestedAmount | currency}}
+					</span>
+				</div>
+				<div class="row course-info" ng-show="course.moreStuff">
+					<div class="col-xs-12 col-sm-6 left-col">
+						<div ng-show="courseListCtrl.showCourseQuestionsSection()">
+							<p>{{ 'COURSES.RESPONSES_TO_TAX_QUESTIONS' | translate }}</p>
+							<div ng-if="courseListCtrl.courseQuestionOne" class="tax-question">
+								<span ng-bind-html="courseListCtrl.courseQuestionOne"></span>
+								<strong>{{ course.maintainSkills ? 'YES':'NO' }}</strong>
+							</div>
+							<div ng-if="courseListCtrl.courseQuestionTwo" class="tax-question">
+								<span ng-bind-html="courseListCtrl.courseQuestionTwo"></span>
+								<strong>{{ course.meetMinimumQuals ? 'YES':'NO' }}</strong>
+							</div>
+							<div ng-if="courseListCtrl.courseQuestionThree" class="tax-question">
+								<span ng-bind-html="courseListCtrl.courseQuestionThree"></span>
+								<strong>{{ course.newCareerField ? 'YES':'NO' }}</strong>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 right-col">
+						<span class="heading">{{ 'COURSES.TUITION' | translate }}</span><span class="text-right heading-amount">{{course.tuitionAmount || 0 | currency }}</span>
+						<div ng-repeat="expense in course.relatedExpenses" class="row expense">
+							<div class="col-md-8 pad-bottom-3">
+								<span>{{ expense.name || 'HISTORY.UNKNOWN_EXPENSE' | translate}}</span>
+								<span ng-if="expense.numberOfBooks">&nbsp;({{expense.numberOfBooks}})</span>
+							</div>
+							<div class="col-md-4"><span class="pull-right">{{expense.feesAmount | currency}}</span></div>
+						</div>
+						<div class="line"></div>
+						<span class="heading">{{'COURSES.DISCOUNT_AMOUNT' | translate}}</span><span class="text-right heading-amount">{{ (course.discountAmount | currency) || 'N/A' }} </span>
+						<div class="line"></div>
+						<span class="heading">{{'COURSES.REQUESTED' | translate}}</span><span class="text-right heading-amount"><strong>{{ course.requestedAmount | currency }}</strong></span>
+						<span class="heading">{{'COURSES.APPROVED' | translate}}</span><span class="text-right heading-amount"><strong>{{ course.approvedAmount | currency }}</strong></span>
+						<span class="heading">{{'COURSES.PAID' | translate}}</span><span class="text-right heading-amount"><strong>{{ course.paidAmount | currency }}</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- expences -->
+	<div class="row course-card" ng-show="courseListCtrl.loaded" ng-repeat="expense in courseListCtrl.nonCourseExpenses">
+		<div class="status status-block-left gray">
+			<span class="icon-statusComplete"></span>
+		</div>
+		<div class="col-xs-12 row">
+			<div class="course-card-label">{{'COURSES.EXPENSES' | translate}}</div>
+			<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2">
+				<div class="row course-info">
+					<div class="col-xs-12">{{expense.expenseType.description}}</div>
+				</div>
+				<div class="row course-info more">
+					<a href="" role="button" class="btn btn-default btn-sm hide-print" ng-click="expense.moreStuff = !expense.moreStuff">{{ expense.moreStuff ? 'HISTORY.LESS_BUTTON' : 'HISTORY.MORE_BUTTON' | translate}}</a>
+					<span class="preview-total" ng-show="!expense.moreStuff">
+						{{expense.feesAmount | currency}}
+					</span>
+				</div>
+				<div class="row course-info" ng-show="expense.moreStuff">
+					<div class="col-xs-12 col-sm-6 left-col">
+						<div ng-show="courseListCtrl.showExpenseQuestionsSection()">
+							<p>{{ 'COURSES.RESPONSES_TO_EXPENSE_QUESTIONS' | translate }}</p>
+							<div ng-if="courseListCtrl.expenseQuestionOne" class="tax-question">
+								<span ng-bind-html="courseListCtrl.expenseQuestionOne"></span>
+								<strong>{{ expense.maintainSkills ? 'YES':'NO' }}</strong>
+							</div>
+							<div ng-if="courseListCtrl.expenseQuestionTwo" class="tax-question">
+								<span ng-bind-html="courseListCtrl.expenseQuestionTwo"></span>
+								<strong>{{ expense.meetMinimumQuals ? 'YES':'NO' }}</strong>
+							</div>
+							<div ng-if="courseListCtrl.expenseQuestionThree" class="tax-question">
+								<span ng-bind-html="courseListCtrl.expenseQuestionThree"></span>
+								<strong>{{ expense.newCareerField ? 'YES':'NO' }}</strong>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 right-col">
+						<span class="heading">{{'COURSES.DISCOUNT_AMOUNT' | translate}}</span><span class="text-right heading-amount">{{ (expense.discountAmount | currency) || 'N/A' }} </span>
+						<div class="line"></div>
+						<span class="heading">{{'COURSES.REQUESTED' | translate}}</span><span class="text-right heading-amount">{{ expense.feesAmount | currency }}</span>
+						<span class="heading">{{'COURSES.APPROVED' | translate}}</span><span class="text-right heading-amount">{{ expense.approvedAmount | currency }}</span>
+						<span class="heading">{{'COURSES.PAID' | translate}}</span><span class="text-right heading-amount">{{ expense.paidAmount | currency }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- totals -->
+	<div class="row course-card" ng-show="courseListCtrl.loaded">
+		<div class="status status-block-left green">
+			<span class="icon-statusApproved"></span>
+		</div>
+		<div class="col-xs-12 row">
+			<div class="course-card-label">{{ 'COURSES.TOTALS' | translate }}</div>
+			<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2">
+				<div class="row course-info totals">
+					<div class="col-xs-12 col-sm-8">
+						<div class="row">
+							<div class="col-xs-6">{{ 'COURSES.TUITION' | translate }} <span class="data-item">{{courseListCtrl.totals.tuition || 0 | currency}}</span></div>
+							<div class="col-xs-6">{{ 'COURSES.EXPENSES' | translate }} <span class="data-item">{{courseListCtrl.totals.fees || 0 | currency}}</span></div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<div class="row">
+							<div class="col-xs-12">&nbsp;</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12"><div class="payment-total">{{ 'COURSES.TOTAL' | translate }} <span class="data-item">{{courseListCtrl.totals.tuitionAndFees || 0 | currency}}</span></div></div>
+						</div>
+					</div>
+				</div>
+				<div class="row course-info payments" ng-if="courseListCtrl.courseApplication.payments.length > 0">
+					<div class="row striped" ng-repeat="payment in courseListCtrl.courseApplication.payments">
+						<div class="col-xs-12 col-sm-8">
+							<div class="row">
+								<div class="col-xs-6">{{ 'COURSES.PAYMENT_PROCESSED' | translate }}</div>
+								<div class="col-xs-6">{{ 'COURSES.CHECK' | translate }}</div>
+							</div>
+							<div class="row payment-data">
+								<div class="col-xs-6 date">{{ payment.transactionDate | timezoneDate:"MMM dd yyyy" }}</div>
+								<div class="col-xs-6">{{ payment.paymentInfo }}</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="row">
+								<div class="col-xs-12">&nbsp;</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12"><div class="payment-total">{{ 'COURSES.PAID' | translate }} <span class="data-item">{{ payment.paymentAmount | currency }}</span></div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row course-info funds" ng-if="courseListCtrl.courseApplication.refunds.length > 0 ">
+					<div class="row striped" ng-repeat="refund in courseListCtrl.courseApplication.refunds  track by $index">
+						<div class="col-xs-12 col-sm-8">
+							<div class="row">
+								<div class="col-xs-6">{{ 'COURSES.REFUND_RECEIVED' | translate }}</div>
+								<div class="col-xs-6">{{ 'COURSES.REFUND_CHECK' | translate }}</div>
+							</div>
+							<div class="row payment-data">
+								<div class="col-xs-6 date">{{ refund.dateReceived | timezoneDate }}</div>
+								<div class="col-xs-6">{{ refund.checkRef }}</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="row">
+								<div class="col-xs-12">&nbsp;</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12"><div class="payment-total">{{ 'COURSES.ADJUSTMENT' | translate }} <span class="data-item">({{ refund.refundAmount | currency }})</span></div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row course-info final-totals text-right">
+					<div ng-show="courseListCtrl.showTaxableAmount()">{{ 'COURSES.TAXABLE_AMOUNT' | translate }} <strong>{{ courseListCtrl.totalTaxAmount | currency}}</strong></div>
+					<div>{{ 'COURSES.BENEFIT_AMOUNT' | translate }} <strong>{{ courseListCtrl.totals.tuitionAndFees || 0 | currency}}</strong></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

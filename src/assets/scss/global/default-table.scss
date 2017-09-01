@@ -1,0 +1,77 @@
+.default-table {
+  
+  border: 1px solid $c-blue-dark;
+  background-color: $c-white;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+
+  & .default-table-heading {
+    background: $c-blue-dark;
+    border-radius: 0;
+    padding: 1.5rem 1rem;
+
+    & .action-items {
+      & .action-item {
+          cursor: pointer;
+
+          & span {
+            display: block;
+            margin: auto;
+          }
+
+          & div {
+              color: $c_white;
+              font-size: $fs-xsmall;
+              margin: 0 0 0px;
+          }
+      }
+
+      @media(min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
+
+    & .heading-extra-small {
+      color: $c-white;
+      margin: 0;
+    }
+  }
+
+  & .default-table-body {
+    & .table-data-container:not(:last-child) {
+      border-bottom: 1px solid $c-gray-2;
+    }
+
+    & .row {
+      margin-left: 0px;
+      margin-right: 0px;
+      padding: 10px;
+    }
+  }
+
+  & .default-table-header {
+    cursor: pointer;
+
+    & > div {
+      float: left;
+    }
+
+    & span {
+      float: left;
+      padding-left: 10px;
+    }
+  }
+
+  [st-sort] {
+    & [st-sort]:after {
+      color: $c-white;
+    }
+  }
+
+  & .st-sort-ascent,
+  & .st-sort-descent {
+    & span:after {
+      color: $c-white;
+    }
+  }
+}

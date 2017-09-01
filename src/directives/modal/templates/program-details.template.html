@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<button data-dismiss="modal" aria-label="{{ 'GENERAL.CLOSE' | translate }}" class="icon-close" ng-click="cancel()"></button>
+</div>
+<div class="modal-body">
+	<div>
+		<!--translate directive will parse the stored html-->
+		<translate ng-if="data.programDescription.data">{{ data.programDescription.data }}</translate>
+		<p ng-if="!data.programDescription.data"><strong >{{data.benefitPeriodID.programID.programName}}</strong></p>
+	</div>
+	<div ng-if="data !== undefined && data.policyDocuments.length > 0">
+		<div ng-repeat="programPolicyDocument in data.policyDocuments">
+			<document-download content="programPolicyDocument"><document-download>
+		</div>
+	</div>
+	<div ng-if="data.policyDocuments === undefined || data.policyDocuments.length <= 0">
+		<div ng-class="{'loading': data.documentsStatus === 'loading'}"></div>
+		<div ng-if="data.documentsStatus !== 'loading'">
+			{{ 'MODALS.EDUCATION_PROGRAM.NO_DOCUMENTS' | translate }}
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button data-dismiss="modal" class="btn btn-primary btn-sm" ng-click="cancel()">{{ 'GENERAL.OK' | translate }}</button>
+</div>

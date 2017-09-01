@@ -1,0 +1,22 @@
+<div class="tile col-xs-12 col-sm-6 col-sm-offset-3 col-md-5">
+	<div ng-if="!logoutCtrl.ssoLogOffEnabled">
+		<div class="row input-row">
+			<div class="col-xs-12">
+				<h2>{{ 'LOGOUT.SSO_LOGOUT' | translate }}</h2>
+			</div>
+		</div>
+		<div class="row input-row">
+			<div class="col-xs-12">
+				<a ui-sref="login"><button class="btn btn-primary btn-block">{{ 'LOGIN.LOGIN' | translate }}<span class="icon-login"></span></button></a>
+			</div>
+		</div>
+	</div>
+	<div ng-if="logoutCtrl.ssoLogOffEnabled" class="row input-row">
+		<div class="col-xs-12">
+			<h2>{{ 'LOGOUT.SSO_CUSTOM_LOGOUT' | translate }}</h2>
+		</div>
+	</div>
+	<footer class="row input-row col-xs-12">
+		<ng-include src="'/src/components/general/powered-by.html'"></ng-include>
+	</footer>
+</div>

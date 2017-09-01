@@ -1,0 +1,77 @@
+<div class="row content-container">
+	<section-header section-icon="icon-circleDegree" section-title="{{ (model.educationProfile.programTypeID.programTypeID === 11 ? 'PROFILE.EDUCATION.DEGREE_INFORMATION.CERTIFICATE_HEADER' : 'PROFILE.EDUCATION.DEGREE_INFORMATION.HEADER') | translate }}">
+		<p class="explination" ng-bind-html="model.degree | trustHtml"></p>
+
+		<div class="row">
+			<select-dropdown
+				label="{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.DEGREE_OBJECTIVE' | translate }}"
+				name="degreeObjective"
+				options="model.degreeInformation.degreeObjectives"
+				display-value="degree"
+				opt-value="degreeObjective"
+				opt-filter=""
+				track-by="degreeObjectiveID"
+				is-error="form.degreeObjective.$invalid && form.$submitted"
+				help-text="{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.ERROR_DEGREE_OBJECTIVE' | translate }}"
+				model="model.educationProfile.degreeID"
+				required="true" />
+
+			<select-dropdown
+				label="{{ (model.educationProfile.programTypeID.programTypeID === 11 ? 'PROFILE.EDUCATION.DEGREE_INFORMATION.CERTIFICATION_NAME' : 'PROFILE.EDUCATION.DEGREE_INFORMATION.FIELD_OF_STUDY') | translate }}"
+				name="fieldOfStudy"
+				options="model.degreeInformation.fieldsOfStudy"
+				display-value="courseOfStudy"
+				opt-value="field"
+				track-by="courseOfStudyID"
+				is-error="form.fieldOfStudy.$invalid && form.$submitted"
+				show-help="form.fieldOfStudy.$invalid && form.$submitted"
+				help-text="{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.ERROR_FIELD_OF_STUDY' | translate }}"
+				model="model.educationProfile.fieldOfStudyID"
+				required="true"
+			 />
+
+			<div class="col-xs-12 col-sm-4" ng-show="model.educationProfile.fieldOfStudyID.courseOfStudyID === 55">
+				<div class="form-group" ng-class="{'field-error' : form.otherCourseOfStudy.$invalid && form.$submitted}">
+					<label for="otherCourseOfStudy" class="pull-left">{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.OTHER_COURSE_OF_STUDY' | translate }}</label>
+					<div>
+						<input type="text" id="otherCourseOfStudy" name="otherCourseOfStudy" class="form-control" ng-if="model.applicationId" ng-model="model.educationProfile.reimburseTuitionApp.otherCourseOfStudy" ng-required="model.educationProfile.fieldOfStudyID.courseOfStudyID === 55">
+						<input type="text" id="otherCourseOfStudy" name="otherCourseOfStudy" class="form-control" ng-if="!model.applicationId" ng-model="model.educationProfile.otherCourseOfStudy" ng-required="model.educationProfile.fieldOfStudyID.courseOfStudyID === 55">
+						<span class="help-block" ng-show="form.otherCourseOfStudy.$invalid && form.$submitted">{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.ERROR_OTHER_COURSE_OF_STUDY' | translate }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="model.educationProfile.programTypeID.programTypeID === 11">
+			<div class="margin-top-4 row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<label for="postNominalLetters">{{'PROFILE.EDUCATION.DEGREE_INFORMATION.POST_NOMINAL_LETTERS' | translate}}</label>
+					<a href=""
+						ng-click="degreeInformationCtrl.showPostNominalLettersModal()"
+						data-target=""
+						data-toggle="modal"
+						class="icon-moreInfo"
+						aria-label="{{'GENERAL.MORE_INFO' | translate}}"
+						title="{{'GENERAL.MORE_INFO' | translate}}"></a>
+					<input type="text" class="form-control" name="postNominalLetters" ng-model="model.educationProfile.postNomainalLetters" />
+					<div generic-modal action="degreeInformationCtrl.postNominalLettersModalState" template="post-nominal-letters.template"></div>
+				</div>
+			</div>
+
+			<h4 class="margin-top-10">{{ 'PROFILE.EDUCATION.DEGREE_INFORMATION.CERTIFICATE_DATES_QUESTION' | translate }}</h4>
+			<div class="row">
+					<datepicker
+						label="{{'PROFILE.EDUCATION.DEGREE_INFORMATION.CERTIFICATE_DATE_FROM' | translate}}"
+						name="certificationStartDate"
+						model="model.educationProfile.certificationStartDate"
+						required="true" />
+					<datepicker
+						label="{{'PROFILE.EDUCATION.DEGREE_INFORMATION.CERTIFICATE_DATE_TO' | translate}}"
+						name="certificationEndDate"
+						model="model.educationProfile.certificationEndDate" />
+				</div>
+			</div>
+		</div>
+
+	</section-header>
+</div>

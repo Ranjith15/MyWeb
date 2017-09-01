@@ -1,0 +1,343 @@
+.application-card {
+  position: relative;
+  background-color: $c-white;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+
+  & .app-status-mobile {
+    padding-right: 0;
+  }
+
+  & .app-status-absolute {
+    position: absolute;
+    width: 4.3rem;
+    height: 100%;
+    z-index: 2;
+
+    & span {
+      color: $c-white;
+      font-size: 2rem;
+      position: absolute;
+      top: 1.7rem;
+      right: 1.1rem;
+    }
+  }
+
+  & .app-status-desktop {
+    border-top: 1px solid $c-gray-2;
+    border-bottom: 1px solid $c-gray-2;
+    border-left: 1px solid $c-gray-2;
+    height: 20rem;
+    background-color: $c-gray-light-2;
+
+    & .status-wrapper-desktop {
+      margin-left: 4.4rem;
+    }
+    
+    & span {
+      font-weight: bold;
+    }
+
+    @media(min-width: $screen-md-min) {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+
+      & .status-wrapper-desktop {
+        margin-left: 0;
+        max-width: 29rem;
+        padding-left: 5.5rem;
+      }
+    }
+  }
+
+  & .status-wrapper-mobile {
+    background-color: $c-gray-light-2;
+    border: 1px solid $c-gray-2;
+    padding-left: 4rem;
+    padding-top: 1.2rem;
+    padding-right: 1rem;
+
+    & div {
+      position: absolute;
+      top: 50%;
+
+      & p {
+        position: relative;
+        top: -50%;
+        font-weight: bold;
+      }
+    }
+
+    & p {
+      font-weight: bold;
+    }
+  }
+
+  & .application-info {
+    height: initial;
+    width: initial;
+    margin-top: 0;
+    border-right: 1px solid $c-gray-2;
+    padding-left: 3rem;
+    border-bottom: 1px solid $c-gray-2;
+
+    & .program-name-mobile,
+    & .program-name-desktop {
+      padding-left: 1rem;
+
+      @media(min-width: $screen-md-min) {
+        padding-left: initial;
+      }
+    }
+
+    & .application-school,
+    & .application-degree-desktop,
+    & .application-degree-mobile {
+      margin-left: 6.5rem;
+
+      @media(min-width: $screen-md-min) {
+        margin-left: initial;
+      }
+    }
+
+    & .date-wrapper-mobile, 
+    & .application-degree-desc-mobile {
+      padding-left: 6.5rem;
+    }
+
+    & .school-img {
+      position: absolute;
+      left: 5.5rem;
+      top: 7.8rem;
+
+      @media(min-width: $screen-md-min) {
+        left: 1.6rem;
+      }
+    }
+
+    & .application-name {
+      font-weight: bold;
+      padding-left: 2.5rem;
+
+      @media(min-width: $screen-md-min) {
+        padding-left: 1.6rem;
+      }
+    }
+
+    & .app-date {
+      font-style: italic;
+    }
+
+    & .app-amount {
+      font-weight: bold;
+    }
+
+    & .application-degree-desktop  {
+      margin-left: 4rem;
+    }
+
+    & .application-number-wrapper {
+      & a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+
+    & .application-number {
+      position: absolute;
+      right: -12.3rem;
+      display: inline;
+    }
+
+    & .application-school {
+      & span {
+        margin-left: 0;
+      }
+    }
+
+    @media(min-width: $screen-md-min) {
+      border: 1px solid $c-gray-2;
+      background: $c-white;
+      padding-left: initial;
+
+      & .application-school, 
+      & .application-degree-desktop {
+        margin-left: 4.8rem;
+      }
+    }
+  }
+
+  & .application-expanded {
+    & .row-area:nth-child(even) {
+      background-color: $c-gray-light-1;
+    }
+
+    & .row-area:nth-child(odd) {
+      background-color: $c-white;
+    }
+
+    & .course-name { 
+      & div {
+        padding-top: 1.5rem;
+        padding-left: 2.2rem;
+      }
+    }
+
+    & .course-status {
+      & div {
+        padding-top: 1.5rem;
+
+        & span:nth-of-type(2) {
+          font-style: italic;
+        }
+      }
+    }
+
+    & .payment-amount {
+      & div {
+        padding-top: 1.5rem;
+
+        &:nth-child(2) {
+          font-weight: bold;
+        }
+      }
+    }
+
+    & .adjustment-amount {
+      & div {
+        padding-top: 1.5rem;
+      }
+    }
+
+    & .course-block, 
+    & .other-expense-block {
+      @media(min-width: $screen-md-min) {
+        padding-left: initial;
+      }
+    }
+
+    & .course-block, 
+    & .other-expense-block, 
+    & .payment-info-block,
+    & .total-view {
+      padding-bottom: 1.5rem;
+      padding-left: 4rem;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: -0.4rem;
+    }
+
+    & .course-block, 
+    & .other-expense-block, 
+    & .payment-info-block{
+      border-left: 1px solid $c-gray-2;
+      border-right: 1px solid $c-gray-2;
+      border-top: 1px solid $c-gray-2;
+
+      @media(min-width: $screen-md-min) {
+        border-left: 1px solid $c-gray-2;
+        border-top: 1px solid $c-gray-2;
+        border-right: initial;
+      }
+    }
+
+    & .course-block {
+      &:first-of-type {
+        border-top: initial;
+
+        @media(min-width: $screen-md-min) {
+          border-top: 1px solid $c-gray-2;
+        }
+      }
+    }
+
+    & .payment-info-block {
+      border-bottom: 1px solid $c-gray-2;
+
+      @media(min-width: $screen-md-min) {
+        border-bottom: 1px solid $c-gray-2;
+        padding-left: initial;
+      }
+    }
+
+    & .other-expense-block, 
+    & .view-application {
+      padding-top: 1.5rem;
+    }
+
+    & .view-application {
+      @media(min-width: $screen-md-min) {
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    & .total-view {
+      border-left: 1px solid $c-gray-2;
+      border-right: 1px solid $c-gray-2;
+      border-bottom: 1px solid $c-gray-2;
+      background-color: $c-gray-light-2;
+
+      & .total-amount {
+        & div {
+          padding-top: 2rem;
+
+          &:nth-child(2) {
+            font-weight: bold;
+          }
+        }
+      }
+
+      @media(min-width: $screen-md-min) {
+        border-right: initial;
+        border-bottom: initial;
+        border-left: initial;
+        padding-bottom: 0;
+        padding-left: .5rem;
+        margin-bottom: 0rem;
+        display: inherit;
+      }
+    }
+  }
+
+  & .app-additional {
+    background-color: $c-gray-light-2;
+    border-bottom: 1px solid $c-gray-2;
+    border-right: 1px solid $c-gray-2;
+    height: 6.2rem;
+
+    & .expense {
+      & div {
+        padding-top: 1.5rem;
+
+        &:first-of-type {
+          padding-left: 6.9rem;
+        }
+      }
+    }
+
+    & .view-more-btn {
+      padding-left: 5.5rem;
+    }
+
+    @media(min-width: $screen-md-min) {
+      height: 100%;
+      
+      & .view-more-btn {
+        padding-left: 1.6rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+  .view-application {
+    padding-left: 1.4rem;
+}
+
+@media(min-width: $screen-md-min) {
+    .view-application {
+      padding-left: 1.1rem;
+  }
+}

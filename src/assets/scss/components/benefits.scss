@@ -1,0 +1,112 @@
+
+.benefits {
+  background-color: $c-white;
+
+  & .tile-label {
+    position: relative;
+    top: -0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  & .tile-sub-header {
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+
+  & .programs, 
+  & .degrees, 
+  & .periods {
+    padding-bottom: 1.7rem;
+  }
+
+  & .programs {
+    z-index: 3;
+  }
+
+  & .degrees {
+    z-index: 2;
+  }
+
+  & .periods {
+    z-index: 1;
+  }
+
+  & .dropdowns {
+    margin-top: 2rem;
+  }
+
+  & .progress {
+    height: 3.7rem;
+    margin-bottom: 1.2rem;
+    background: repeating-linear-gradient(-45deg, $c-gray-2, $c-gray-2 0.1rem, $c-white 0.1rem, $c-white 0.7rem)
+  }
+
+  & .progress-bar {
+    line-height: 3.6rem;
+
+    & span {
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
+      text-overflow: ellipsis;
+      padding: 0 0.4rem;
+    }
+  }
+
+  & .progress-bar[type="bar-requested"] {
+    background-color: $c-blue-dark;
+  }
+
+  & .progress-bar[type="bar-paid"] {
+    background-color: $c-blue-dark-2;
+  }
+
+  & .chart-main-label {
+    color: $c-blue-dark-2;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  & .chart-total-label {
+    float: right;
+    font-size: smaller;
+  }
+
+  & .swatch {
+    display: inline-block;
+    width: 3rem;
+    height: 1.4rem;
+    border : 0.1rem solid $c-gray-dark-1;
+    border-radius: 1rem;
+
+    &.paid {
+      background-color: $c-blue-dark-2;
+    }
+
+    &.requested {
+      border-color: $c-blue-dark;
+      background-color: $c-blue-dark;
+    }
+
+    &.available {
+      border-color: $c-gray-2;
+      background: repeating-linear-gradient(-45deg, $c-gray-2, $c-gray-2 0.1rem, $c-white 0.1rem, $c-white 0.4rem);
+    }
+
+    & + .swatch-label {
+      font-size: smaller;
+      color: $c-gray-1;
+      display: inline-block;
+      vertical-align: top;
+      padding-left: 0.2rem;
+    }
+  }
+}
+.application-total span {
+  font-weight: 600;
+  font-style: italic;
+  font-size: smaller;
+}

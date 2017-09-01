@@ -1,0 +1,140 @@
+// A place for global mixins
+
+
+// Placeholder text
+@mixin m-placeholder($color, $weight) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    font-weight: $weight;
+    opacity: 1; // Override Firefox's unusual default opacity;
+  }
+  &:-ms-input-placeholder { // Internet Explorer 10+
+    color: $color;
+    font-weight: $weight;
+  }
+  &::-webkit-input-placeholder  { // Safari and Chrome
+    color: $color;
+    font-weight: $weight;
+  }
+}
+
+// Change icon color
+// Usage: .icon-upload { @include icon-color($c-gray-light-1); }
+@mixin icon-color($icon-color) {
+  svg * {
+    fill: $icon-color;
+  }
+}
+
+// Change icon size
+// Usage: .icon-upload { @include icon-size(4rem); }
+@mixin icon-size($icon-size) {
+  display: inline-block;
+  width: $icon-size;
+  height: $icon-size;
+  background-size: contain;
+}
+
+// Client logo size
+@mixin logo-size($logo-size) {
+  height: $logo-size;
+}
+
+@mixin logo-size($logo-size) {
+  height: $logo-size;
+}
+
+// Keyframe  Mixin
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+// Checkbox checkmark
+// Usage: @include checkbox-markup;
+@mixin checkbox-markup {
+  background: svg-url('<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M14.273 3.18l-7.76 7.76a.62.62 0 0 1-.875 0l-1.91-1.91a.62.62 0 0 0-.876 0L1.68 10.2a.62.62 0 0 0 0 .875l3.958 3.957c.24.24.635.24.875 0l9.807-9.807a.62.62 0 0 0 0-.875l-1.173-1.17a.62.62 0 0 0-.874 0z" fill="#fff"/></svg>');
+}
+
+// Icon transition
+// Usage: .icon-upload { @include icon-transition(all, .2s); }
+@mixin icon-transition($icon-transition...) {
+  svg * {
+    -webkit-transition: $icon-transition;
+    -o-transition: $icon-transition;
+    transition: $icon-transition;
+  }
+}
+
+// Working Animation
+// Usage: @include working($c-yellow-1, 1.5s);
+@mixin working($working-color, $working-speed) {
+  background-image: svg-url('<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="11 -11 40 40" style="enable-background:new 11 -11 40 40;" xml:space="preserve"><style type="text/css"> .st0{opacity:0.4;enable-background:new;}</style><path fill="'+ $working-color +'" class="st0" d="M31-5.9C22.7-5.9,16.1,0.8,16.1,9c0,8.3,6.7,14.9,14.9,14.9S45.9,17.2,45.9,9S39.3-5.9,31-5.9z M31,20.6 c-6.4,0-11.6-5.2-11.6-11.6S24.6-2.6,31-2.6S42.6,2.6,42.6,9S37.4,20.6,31,20.6z"/></svg>');
+  position: absolute;
+  &:after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-image: svg-url('<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="11 -11 40 40" style="enable-background:new 11 -11 40 40;" xml:space="preserve"><path fill="'+ $working-color +'" d="M37-1l1.7-2.9c-2.2-1.3-4.7-2-7.5-2l0,0v3.3l0,0C33.3-2.5,35.3-1.9,37-1z"></path></svg>');
+    @include animation(spin $working-speed linear infinite);
+  }
+}
+// Spin Animation
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+// Pop Animation
+// Usage @include pop();
+@mixin pop() {
+  @include keyframes(pop) {
+  	0% { transform: scale(1) }
+    25% { transform: scale(.8) }
+    50% { transform: scale(1.3) }
+    75% { transform: scale(.9) }
+    100% { transform: scale(1.1) }
+  }
+  @include animation (pop linear .5s);
+  @include animation-fill-mode(forwards);
+}
+
+// For cleaning SVGs if inserting them as a background image
+// Usage: background-image: svg-url('[SVG CODE]');
+@function svg-url($svg){
+  $encoded:'';
+  $slice: 2000;
+  $index: 0;
+  $loops: ceil(str-length($svg)/$slice);
+  @for $i from 1 through $loops {
+    $chunk: str-slice($svg, $index, $index + $slice - 1); 
+    $chunk: str-replace($chunk,'"','\'');
+    $chunk: str-replace($chunk,'<','%3C');
+    $chunk: str-replace($chunk,'>','%3E');
+    $chunk: str-replace($chunk,'&','%26');
+    $chunk: str-replace($chunk,'#','%23');       
+    $encoded: #{$encoded}#{$chunk};
+    $index: $index + $slice; 
+  }
+  @return url("data:image/svg+xml;charset=utf8,#{$encoded}");   
+}
+//  Helper function to replace characters in a string
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search); 
+    @if $index { 
+        @return str-slice($string, 1, $index - 1) + $replace + 
+            str-replace(str-slice($string, $index + 
+            str-length($search)), $search, $replace); 
+    }
+    @return $string; 
+}

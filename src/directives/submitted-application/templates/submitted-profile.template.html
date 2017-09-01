@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-4" ng-if="preferredAddress.city">
+		<label>{{ 'APPLICATION.SUMMARY.ADDRESS' | translate }}</label>
+		<div class="data-item">
+			<div>{{preferredAddress.address1}}</div>
+			<div>{{preferredAddress.address2}}</div>
+			<div>{{preferredAddress.city}}, {{preferredAddress.state.stateAbbreviation}} {{preferredAddress.zip}}</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4" ng-if="preferredPhone">
+		<label>{{ 'APPLICATION.SUMMARY.PHONE' | translate }}</label>
+		<div class="data-item"><span class="uneditable"></span>{{preferredPhone}}</div>
+	</div>
+	<div class="col-xs-12 col-sm-4" ng-if="preferredEmail">
+		<label>{{ 'APPLICATION.SUMMARY.EMAIL' | translate }}</label>
+		<div class="data-item"><span class="uneditable"></span>{{preferredEmail}}</div>
+	</div>
+</div>

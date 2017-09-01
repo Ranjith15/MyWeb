@@ -1,0 +1,25 @@
+a.skip-main {
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.06), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  margin-left: 1rem;
+
+  &:active,
+  &:focus {
+    left: auto;
+    width: 20rem;
+    height: auto;
+    z-index: 999;
+    outline: none;
+    margin-top: -20px;
+    border: 1px solid $c-gray-2;
+    background: $c-white;
+    text-align: center;
+    text-decoration: none;
+  }
+}

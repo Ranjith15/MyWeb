@@ -1,0 +1,81 @@
+<div ng-bind-html="summaryCtrl.intro"></div>
+
+<div class="row major-row">
+	<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleContact"></span></div>
+		<div class="col-xs-12 col-md-11">
+			<div>
+				<div class="row">
+					<div class="col-xs-8 col-md-3">
+						<h2>{{ 'PROFILE.CONTACT.HEADER' | translate }}</h2>
+					</div>
+					<div class="col-xs-4 col-md-9 margin-top-4">
+						<a class="btn btn-default btn-xs" role="button" ui-sref="{{global.constants.routes.contactInformation}}({applicationId: summaryCtrl.applicationId, participantId: summaryCtrl.participantId})" ng-show="summaryCtrl.application.participantID && summaryCtrl.isCurrentParticipantApplication()" title="{{ 'PROFILE.EDUCATION.PROVIDER.EDIT' | translate }} {{ 'APPLICATION.CONTACT_INFORMATION.HEADER' | translate }}">
+							<i class="fa fa-pencil medium" aria-hidden="true"></i>
+							{{ 'GENERAL.EDIT' | translate }}<span class="sr-only">  {{ 'APPLICATION.CONTACT_INFORMATION.HEADER' | translate }}</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-11">
+					<submitted-profile preferred-address="summaryCtrl.preferredAddress" preferred-phone="summaryCtrl.preferredPhone" preferred-email="summaryCtrl.preferredEmail"></submitted-profile>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row major-row">
+	<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleSchool"></span></div>
+	<div class="col-xs-12 col-md-11">
+		
+		<div class="row">
+			<div class="col-xs-8 col-md-3">
+				<h2>{{ 'EDUCATION.HEADER' | translate }}</h2>
+			</div>
+			<div class="col-xs-4 col-md-9 margin-top-4">
+				<a class="btn btn-default btn-xs" role="button" ui-sref="{{global.constants.routes.educationInformation}}({applicationId: summaryCtrl.applicationId, participantId: summaryCtrl.participantId})" ng-show="summaryCtrl.isCurrentParticipantApplication()" title="{{ 'PROFILE.EDUCATION.PROVIDER.EDIT' | translate }} {{ 'APPLICATION.EDUCATION_INFORMATION.HEADER' | translate }}">
+					<i class="fa fa-pencil medium" aria-hidden="true"></i>
+					{{ 'GENERAL.EDIT' | translate }}<span class="sr-only">  {{ 'APPLICATION.EDUCATION_INFORMATION.HEADER' | translate }}</span>
+				</a>
+			</div>
+		</div>
+		<submitted-education-information model="summaryCtrl.application"></submitted-education-information>
+	</div>
+</div>
+<div class="row major-row">
+	<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleClass"></span></div>
+	<div class="col-xs-12 col-md-11">
+		<div class="row">
+			<div class="col-xs-8 col-md-4">
+				<h2>{{ 'COURSES.HEADER' | translate }}</h2>
+			</div>
+			<div class="col-xs-4 col-md-8 margin-top-4">
+				<a class="btn btn-default btn-xs" role="button" ui-sref="{{global.constants.routes.courses}}({applicationId: summaryCtrl.applicationId})" ng-show="summaryCtrl.isCurrentParticipantApplication()" title="{{ 'PROFILE.EDUCATION.PROVIDER.EDIT' | translate }} {{ 'COURSES.HEADER' | translate }}">
+					<i class="fa fa-pencil medium" aria-hidden="true"></i>
+					{{ 'GENERAL.EDIT' | translate }}<span class="sr-only"> {{ 'COURSES.HEADER' | translate }}</span>
+				</a>
+			</div>
+		</div>
+		<course-list application-program-Id="summaryCtrl.applicationProgramId" course-application="summaryCtrl.submittedApplication" application-courses="summaryCtrl.submittedApplication.courses" application-snap-shot="summaryCtrl.applicationSnapShot"></course-list>
+	</div>
+</div>
+<div class="row major-row">
+	<div class="col-md-1 hidden-xs hidden-sm"><span class="icon-circleDocument"></span></div>
+	<div class="col-xs-12 col-md-11">
+		<div class="row">
+			<div class="col-xs-8 col-md-3">
+				<h2>{{ 'AGREEMENT.HEADER' | translate }}</h2>
+			</div>
+			<div class="col-xs-4 col-md-9 margin-top-4">
+				<a class="btn btn-default btn-xs" role="button" ui-sref="{{global.constants.routes.agreement}}({applicationId: summaryCtrl.applicationId})" ng-show="summaryCtrl.isCurrentParticipantApplication()" title="{{ 'PROFILE.EDUCATION.PROVIDER.EDIT' | translate }} {{ 'AGREEMENT.HEADER' | translate }}">
+					<i class="fa fa-pencil medium" aria-hidden="true"></i>
+					{{ 'GENERAL.EDIT' | translate }}<span class="sr-only"> {{ 'AGREEMENT.HEADER' | translate }}</span>
+				</a>
+			</div>
+		</div>
+		<div class="row input-row" ng-show="summaryCtrl.application.financialAidSourceId">
+			<div class="col-xs-12 col-sm-6">
+				<label>{{ 'AGREEMENT.GRANTS_SCHOLARSHIP' | translate }}</label>
+				<div><span class="uneditable"></span>{{summaryCtrl.application.financialAidSourceId.financialAidDescription}} ${{summaryCtrl.application.financialAidAmount}}</div>
+			</div>
+		</div>
+	</div>
+</div>

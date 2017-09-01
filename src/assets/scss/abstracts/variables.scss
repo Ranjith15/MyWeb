@@ -1,0 +1,180 @@
+@import '../../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables';
+
+// Color Palette
+//--------------
+$c-white:         #FFFFFF;
+$c-gray-1:        #636566;
+$c-gray-2:        #C4C4C4;
+$c-gray-dark-1:   #444546;
+$c-gray-light-1:  #FAFAFA;
+$c-gray-light-2:  #EDEDEE;
+$c-gray-light-3:  #B4B4B4;
+$c-blue-light-1:  #7888A6;
+$c-blue-light-2:  #CEE2FB;
+$c-blue-dark:     #5573AE;
+$c-blue-dark-2:   #00163C;
+$c-blue-dark-3:   #445e94;
+$c-green-1:       #158564;
+$c-green-2:       #5EC167;
+$c-yellow:        #FBBC05;
+$c-red:           #D73C31;
+$c-orange-1:      #FFBE5D;
+$c-orange-2:      #FCE5CE;
+$c-brown-1:       #784000;
+
+//Layout
+$size-1: .5rem;
+$z-subNav: 99;
+
+// Typography
+//--------------
+// Weights
+$fw-normal: 400;
+$fw-semibold:600; 
+$fw-bold: 700;
+
+// Size
+$fs-body: 1.4rem;
+$fs-xlarge: 2.4rem;
+$fs-large: 2rem;
+$fs-medium: 1.6rem;
+$fs-small:  1.4rem;
+$fs-xsmall: 1.2rem;
+
+// Letter Spacing
+$l-spacing: .05em;
+$letter-spacing: -.03em;
+
+//Start of Bootstrap variable overrides
+// navbar spacing and sizing
+
+$navbar-height: 60px;
+$navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2);
+$nav-link-padding: 10px 12px;
+
+// navbar toggle
+$navbar-default-toggle-hover-bg: none;
+$navbar-default-toggle-icon-bar-bg: $c-blue-dark;
+$navbar-default-toggle-border-color: none;
+
+// navbar colors
+$navbar-default-bg: $c-white;
+$navbar-border-radius: 0;
+$navbar-default-link-color: rgba($c-blue-dark, .9);
+$navbar-default-link-hover-color: rgba($c-blue-dark, .8);
+$navbar-default-link-active-color: rgba($c-blue-dark, 1);
+$navbar-default-link-active-bg: transparent;
+
+// spacing variables for tiles and appBlocks
+$pad-xs: 1rem;
+$pad-sm: 2rem;
+$pad-md: 3rem;
+$margin-bottom: 2rem;
+
+// dropdown
+$dropdown-link-color: rgba($c-blue-dark, .8);
+$dropdown-link-hover-color: $c-blue-dark;
+$dropdown-link-hover-bg: transparent;
+
+$navbar-collapse-max-height: 100%;
+
+//** Padding applied to the modal body
+$modal-inner-padding: 1rem 2rem;
+
+//** Modal backdrop background color
+$modal-backdrop-bg: $c-gray-1;
+//** Modal backdrop opacity
+$modal-backdrop-opacity: .7;
+
+//** Background color of modal content area
+$modal-content-bg: $c-gray-light-1;
+//** Modal content border color
+$modal-content-border-color: transparent;
+
+//** Modal header border color
+$modal-header-border-color: transparent;
+
+//** Modal footer border color
+$modal-footer-border-color: $c-gray-2;
+
+$modal-lg: 900px;
+$modal-md: 500px;
+
+// <input> colors
+$input-bg: $c-white;;
+$input-bg-disabled: $c-gray-light-1;
+$input-color: $c-gray-dark-1;
+$input-border: $c-gray-2;
+
+// This has no effect on '<select>'s in some browsers, due to the limited stylability of '<select>'s in CSS.
+$input-border-radius: .2rem;
+$input-border-radius-large: .2rem;
+$input-border-radius-small: .2rem;
+
+// Border color for inputs on focus
+$input-border-focus: $c-blue-light-1;
+
+// Placeholder text color
+$input-color-placeholder: #999;
+
+// Default .form-control height - can't use rems because of Bootstrap calculations
+$input-height-base: 30px;
+$input-height-large: 30px;
+$input-height-small: 30px;
+
+//** .form-group margin
+$form-group-margin-bottom: 1rem;
+
+$btn-font-weight: $fw-bold;
+
+$btn-default-color: $c-blue-dark;
+$btn-default-bg: transparent;
+$btn-default-border: $c-blue-dark;
+
+$btn-primary-color: $c-white;
+$btn-primary-bg: $c-blue-dark;
+$btn-primary-border: $c-blue-dark;
+
+$btn-danger-color: $c-white;
+$btn-danger-bg: $c-red;
+$btn-danger-border: $c-red;
+
+$btn-border-radius-base: .2rem;
+$btn-border-radius-small: .2rem;
+$btn-border-radius-extra-small: .2rem;
+
+$btn-font-size-small: 1.4rem;
+$btn-font-extra-size-small: 1.4rem;
+
+$padding-small-vertical: 0;
+$padding-base-horizontal: 4rem;
+$padding-small-horizontal: 2rem;
+$padding-small-compact: .8rem;
+
+$padding-extra-small-vertical: 0;
+$padding-extra-small-horizontal: 1rem;
+
+$line-height-extra-small: 3rem;
+$line-height-small: 3rem;
+$line-height: 4rem;
+
+$font-size-base: 14px;
+$font-size-h1: 2.4rem;
+$font-size-h2: 2rem;
+$font-size-h3: 1.7rem;
+$font-size-h4: 1.4rem;
+
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-base: $font-family-sans-serif;
+$text-color: $c-gray-dark-1;
+
+$body-bg: $c-gray-light-2;
+//** Global textual link color.
+$link-color: $c-blue-dark;
+//** Link hover color.
+$link-hover-color: $c-blue-dark;
+//** Link hover decoration.
+$link-hover-decoration: underline;
+
+// Open Sans font variable overrides
+$OpenSansPath: "../fonts";

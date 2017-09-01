@@ -1,0 +1,127 @@
+.appBlockWrap {
+  border: none;
+}
+  
+.application-status-block {
+  flex-direction: row;
+
+  & .status {
+    padding: 1rem .5rem;
+    display: flex;
+    align-items: flex-start;
+
+    & .spacer-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+
+  & .status-block-left {
+    width: 4.3rem;
+    margin-bottom: -0.1rem;
+    justify-content: center;
+  }
+
+  & .application-status-block-container {
+    position: relative;
+    font-weight: $fw-normal;
+    color: $c-gray-dark-1;
+    display: flex;
+    @include transition(box-shadow, .15s);
+    border-left: 0.1rem solid $c-gray-2;
+    border-bottom: 0.1rem solid $c-gray-2;
+    border-right: 0.1rem solid $c-gray-2;
+
+    & .details {
+      padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+      background: $c-white;
+      width: 100%;
+
+      & .details-container {
+        
+        & .message-source {
+          float: left;
+
+          @media (min-width: $screen-sm-min) {
+            float: right;
+          }
+        }
+
+        & .application-status {
+          font-weight: bold;
+        }
+
+        & .details-item,
+        & .application-item {
+          padding-bottom: 0;
+          line-height: 2rem;
+        }
+        
+        & .details-item {
+          padding-bottom: 0;
+          line-height: 2rem;
+
+          & .date {
+            float: none;
+          }
+
+          & .time {
+            text-align: right;
+          }
+
+          @media (min-width: $screen-sm-min) {
+            padding-bottom: 0rem;
+          }
+        }
+
+        & .display {
+          @media print {
+            width: 100%;
+          }
+        }
+      }
+
+      & .application-action {
+        @media(min-width: $screen-md-min) {
+          padding-left: initial;
+        }
+
+        @media (min-width: $screen-sm-min) {
+          padding-left: 0rem;
+        }
+      }
+
+      & .mobile-message {
+        padding-top: 1.5rem;
+      }
+    }
+
+    &.general {
+      & .details {
+        background-color: $c-gray-light-2;
+      }
+    }
+
+    &:last-child {
+      & .status-block-left {
+        margin-bottom: 0rem;
+      }
+    }
+  }
+
+  &:first-child {
+    border-top: 0.1rem solid $c-gray-2;
+  }
+
+  &:last-child {
+    margin-bottom: 0rem;
+  }
+}
+.submitted-application .tile .status-history {
+  padding-top: 0;
+}
+.supported-types {
+  margin-top: 2rem;
+  padding: 0;
+  line-height: 3rem;
+}

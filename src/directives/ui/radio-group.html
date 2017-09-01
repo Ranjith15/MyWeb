@@ -1,0 +1,4 @@
+<div class="row" ng-class="{'is-vertical' : radioGroupCtrl.isVertical === true }" role="radiogroup">
+  <ng-transclude></ng-transclude>
+  <radio-button ng-repeat="opt in radioGroupCtrl.optsArray" label="{{opt.name}}" value="{{opt.value}}"></radio-button>
+</div>

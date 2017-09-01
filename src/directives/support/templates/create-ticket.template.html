@@ -1,0 +1,101 @@
+<div class="tile">
+	<div id="supportTicketsHeader" class="header">
+		<h2>{{'SUPPORT.TICKET.HEADER' | translate}}</h2>
+	</div>
+	<div class="error" ng-if="createTicketCtrl.createStatus === 'error'"><span class="icon-error"></span>
+		<span>{{createTicketCtrl.message}}</span>
+	</div>
+	<div class="success" ng-if="createTicketCtrl.createStatus === 'success'"><span class="icon-statusApproved"></span>
+		<span>{{'SUPPORT.TICKET.TICKET_SUBMITTED' | translate: createTicketCtrl.translateNumber }}</span>
+	</div>
+	<div class="row">
+		<form name="createSupportTicket">
+			<div ng-show="createTicketCtrl.fileSizeInValid || createTicketCtrl.fileTypeInValid">
+				<div class="col-xs-12" ng-show="createTicketCtrl.fileSizeInValid">
+					<span class="help-block col-xs-12">
+						{{ 'SUPPORT.TICKET.UPLOAD.INVALID_FILE_SIZE' | translate }}
+					</span>
+				</div>
+				<div class="col-xs-12" ng-show="createTicketCtrl.fileTypeInValid">
+					<span class="help-block col-xs-12">
+						{{ 'SUPPORT.TICKET.UPLOAD.INVALID_FILE_TYPE' | translate }}
+					</span>
+				</div>
+				<div class="spacer col-xs-12"></div>
+				<div class="spacer col-xs-12"></div>
+			</div>
+			<div ng-class="{'loading': createTicketCtrl.createStatus == 'loading'}"></div>
+			<div ng-class="{'loading': createTicketCtrl.topicStatus == 'loading'}"></div>
+			<div ng-show="createTicketCtrl.createStatus !== 'loading'" class="col-xs-12">
+				<div ng-if="createTicketCtrl.topicStatus !== 'loading'">
+					<div ng-if="createTicketCtrl.supportTicketLink">
+						<div class="col-xs-12 col-sm-4 col-md-4">
+							<div class="panel margin-vertical-1">
+								<div class="panel-body">
+									<div ng-click="createTicketCtrl.toggleSupportTicketBox()">
+										<span class="icon-docComment"></span>
+										<a href="">{{'SUPPORT.TICKET.CREATE_NEW_TICKET' | translate}}</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="createTicketCtrl.openSupportTicketBox">
+					<div class="form-group" ng-class="{'field-error': createSupportTicket.topic.$invalid && createSupportTicket.submitted}">
+						<div class="row col-xs-12 col-sm-10 col-md-9">
+							<div class="heading-extra-small">{{'SUPPORT.TICKET.TOPIC' | translate}}</div>
+						</div>
+						<div class="row major-row col-xs-12 col-sm-6 col-md-6">
+							<select id="topic" class="form-control" name="topic" ng-options="topic.topicId as topic.name for topic in createTicketCtrl.topics" ng-model="createTicketCtrl.topic.topicId" ng-change="createTicketCtrl.onTopicChange()" ng-required="true"></select>
+							<span class="help-block" ng-show="createSupportTicket.topic.$invalid && (!createSupportTicket.topic.$pristine || createSupportTicket.submitted)">
+								<div ng-messages="createSupportTicket.topic.$error">
+									<div ng-messages-include src="../src/components/errors/general.html">
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+					<div class="form-group" ng-class="{'field-error': createSupportTicket.subTopic.$invalid && createSupportTicket.submitted}">
+						<div class="row col-xs-12 col-sm-10 col-md-9">
+							<div class="heading-extra-small">{{'SUPPORT.TICKET.SUBTOPIC' | translate}}</div>
+						</div>
+						<div class="row major-row col-xs-12 col-sm-6 col-md-6">
+							<select id="subTopic" class="form-control" name="subTopic" ng-options="subTopic.topicId as subTopic.name for subTopic in createTicketCtrl.subTopics" ng-model="createTicketCtrl.subTopic.topicId" ng-required="true"></select>
+							<span class="help-block" ng-show="createSupportTicket.topic.$invalid && (!createSupportTicket.subTopic.$pristine || createSupportTicket.submitted)">
+								<div ng-messages="createSupportTicket.subTopic.$error">
+									<div ng-messages-include src="../src/components/errors/general.html">
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+					<div class="form-group"  ng-class="{'field-error': createSupportTicket.comment.$invalid && createSupportTicket.submitted}">
+						<div class="row col-xs-12 col-sm-10 col-md-9">
+							<div class="heading-extra-small">{{'SUPPORT.TICKET.COMMENTS' | translate}}</div>
+						</div>
+						<div class="row major-row col-xs-12 col-sm-10 col-md-9">
+							<textarea rows="5" class="form-control" ng-model="createTicketCtrl.comment" maxlength="1000" required></textarea>
+							<span class="help-block" ng-show="createSupportTicket.topic.$invalid && (!createSupportTicket.comment.$pristine || createSupportTicket.submitted)">
+								<div ng-messages="createSupportTicket.comment.$error">
+									<div ng-messages-include src="../src/components/errors/general.html">
+									</div>
+								</div>
+							</span>
+						</div>
+					</div>
+					<div class="spacer hidden-xs col-md-12"></div>
+					<div class="spacer hidden-xs col-md-12"></div>
+					<support-upload model="createTicketCtrl" mode="create"></support-upload>
+					<div class="row">
+						<div class="col-xs-12" ui-view autoscroll="true"></div>
+					</div>
+					<div class="section-footer">
+						<button class="btn btn-primary btn-sm" ng-disabled="createSupportTicket.$invalid" ng-click="createTicketCtrl.submitSupportTicket()">{{'SUPPORT.TICKET.SUBMIT_TICKET' | translate}}</button>
+						<button class="btn btn-default btn-sm" ng-click="createTicketCtrl.cancelSupportTicket()">{{ 'GENERAL.CANCEL' | translate }}</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

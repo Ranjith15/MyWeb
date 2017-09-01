@@ -1,0 +1,85 @@
+<div class="row">
+	<div class="col-xs-6 col-sm-8 col-md-4 col-lg-4">
+		<h1>{{'HISTORY.CONSOLIDATED.TITLE' | translate}}</h1>
+	</div>
+</div>
+<div class="tile application-history-block">
+	<div class="error" ng-if="historyCtrl.status === 'error'"><span class="icon-error" ></span>
+		<span>{{historyCtrl.errorMessage}}</span>
+	</div>
+	<div class="header">
+		<div class="form-inline row">
+			<div class="col-xs-12 col-sm-7 col-md-5 col-lg-5" ng-if="!historyCtrl.fromClientAdmin && (global.isSupervisor() || global.isClientAdmin())">
+				<label for="teamMemberType">{{'HISTORY.FILTERS.TEAM_MEMBER_TYPE' | translate}}</label>
+				<div class="form-group">
+					<ui-select id="teamMemberType" ng-model="historyCtrl.queryParams.teamMemberType" theme="bootstrap" ng-change="historyCtrl.filterContent()">
+						<ui-select-match placeholder="Search">{{$select.selected.display}}</ui-select-match>
+						<ui-select-choices group-by="'group'" repeat="option.value as option in (historyCtrl.filters.options.teamMemberType | filter: $select.search) track by option.value">
+							<span class="ui-dropdown-options" ng-class="option.value === 'all' || option.value === 'team' ? 'users-group' : ''" ng-bind-html="option.display| highlight: $select.search"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 checkbox-dropdown">
+				<label for="benefitPeriod">{{'HISTORY.FILTERS.BENEFIT_PERIOD' | translate}}</label>
+				<div class="form-group">
+					<div id="benefitPeriod"
+						 class="multiselect-form-control form-control"
+						 ng-dropdown-multiselect
+						 options="historyCtrl.filters.options.benefitPeriod"
+						 selected-model="historyCtrl.selectedBenefitPeriods"
+						 extra-settings="historyCtrl.multiselectSettings"
+						 events="historyCtrl.benefitPeriodEvents"
+						 checkboxes="true">
+					</div>
+				</div>
+			</div>
+			<div class="hidden-xs hidden-sm">
+				<div class="absolute-icon-right">
+					<span class="applications-total">{{historyCtrl.total}} {{'HISTORY.APPLICATIONS' | translate}}</span>
+					<a href="" role="button" class="btn no-padding" ng-class="{'disabled': !historyCtrl.applicationResultSet.length}" ng-click="historyCtrl.exportAppsToCsv()" aria-label="{{'HISTORY.EXPORT_BUTTON.DOWNLOAD_DOC' | translate}}">
+						<i class="fa fa-download applications-download" aria-hidden="true" tooltip-placement="left" uib-tooltip="{{'HISTORY.EXPORT_BUTTON.TOOLTIP' | translate}}" ><span class="sr-only">{{'HISTORY.EXPORT_BUTTON.SR_TEXT' | translate}}</span></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-sm-12" ng-if="historyCtrl.fromClientAdmin">
+			<div class="form-inline pull-left-full-screen">
+				<a href="" role="button" ng-click="historyCtrl.backToSearchResults()">{{'HISTORY.BACK_TO_SEARCH_RESULTS' | translate}}</a>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-12">
+			<div class="form-inline pull-right-full-screen"><label for="sortBy">{{'HISTORY.FILTERS.SORT_BY' | translate}}</label>
+				<div class="form-group">
+					<select
+						class="form-control"
+						id="sortBy"
+						ng-model="historyCtrl.queryParams.sortBy"
+						ng-options="option.value as option.display for option in historyCtrl.filters.options.sortBy"
+						ng-change="historyCtrl.filterContent()">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 hidden-sm hidden-md hidden-lg">
+			<div class="pull-right margin-top-5">{{historyCtrl.total}} {{'HISTORY.APPLICATIONS' | translate}}</div>
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<div ng-show="historyCtrl.total <= 0">
+		<span>{{'HISTORY.NO_APPLICATIONS' | translate}}</span>
+	</div>
+	<!-- New application cards -->
+		<div ng-class="{'loading': historyCtrl.status === 'loading'}"></div>
+	<div ng-repeat="app in historyCtrl.applicationResultSet" ng-hide="historyCtrl.status === 'loading'">
+		<application-history app="app"></application-history>
+	</div>
+	<div ng-class="{'loading': historyCtrl.loadMoreAppsStatus === 'loading'}"></div>
+	<a id="history-user-apps-btn" role="button" ng-click="historyCtrl.loadMoreApps()" href="" class="btn btn-default" ng-if="historyCtrl.applicationResultSet.length < historyCtrl.total" ng-hide="historyCtrl.loadMoreAppsStatus === 'loading'">
+		<span>{{'HISTORY.MORE_BUTTON' | translate}}</span>
+	</a>
+</div>

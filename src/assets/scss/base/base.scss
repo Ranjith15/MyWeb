@@ -1,0 +1,25 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 60px;
+  
+  @media (min-width: $screen-sm-min) {
+    margin-top: 90px;
+  }
+
+  @media print {
+    margin-top: 1.5rem;
+    background-color: $c_white;
+  }
+}
+
+#skip-main-container:focus,
+#main-content:focus {
+    outline: none;
+}
+
+.row {
+  &.major-row,
+  &.input-row {
+    margin-top: 2rem;
+  }
+}

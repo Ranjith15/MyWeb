@@ -1,0 +1,71 @@
+//IMPORTANT: NO CSS IN THIS FILE
+// This compiles all global SCSS files in to one CSS file
+
+//Abstract
+@import './abstracts/variables';
+@import './abstracts/mixins';
+
+//Vendor
+@import './vendor/bootstrap.custom';
+@import './vendor/font-awesome.custom';
+@import './vendor/angular.custom';
+@import './vendor/font-awesome.custom';
+
+//Base
+@import './base/base';
+@import './base/font';
+@import './base/typography';
+@import './base/helpers';
+
+//Layouts
+@import './layouts/footer';
+@import './layouts/header';
+@import './layouts/tile';
+@import './layouts/section-footer';
+@import './layouts/tax-information-container';
+@import './layouts/print';
+
+//Components
+@import './components/icons';
+@import './components/accordion-list';
+@import './components/admin';
+@import './components/application-block';
+@import './components/application-action-block';
+@import './components/application-history-card';
+@import './components/application-status-block';
+@import './components/benefits';
+@import './components/calendar';
+@import './components/checkbox-dropdown';
+@import './components/course-list';
+@import './components/comment-list';
+@import './components/data-table';
+@import './components/document-fax';
+@import './components/document-table';
+@import './components/dropdown';
+@import './components/admin-table';
+@import './components/default-table';
+@import './components/dropdown-select';
+@import './components/document-list';
+@import './components/drop-zone';
+@import './components/fieldset';
+@import './components/home-inbox';
+@import './components/inline-datepicker';
+@import './components/multiselect-dropdown';
+@import './components/network-tile-block';
+@import './components/panel';
+@import './components/participant-action-block';
+@import './components/radio-button';
+@import './components/section-header';
+@import './components/select';
+@import './components/skip-main';
+@import './components/supporting-documents';
+@import './components/text-angular';
+@import './components/ui-select-dropdown';
+
+//Pages
+@import './pages/login';
+@import './pages/admin';
+@import './pages/history';
+@import './pages/home';
+@import './pages/newApplication';
+@import './pages/submitted-application';

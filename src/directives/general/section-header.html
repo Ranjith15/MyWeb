@@ -1,0 +1,16 @@
+<div class="section-header">
+	<div class="col-md-1 hidden-xs hidden-sm">
+		<span ng-class="sectionHeaderCtrl.sectionIcon"></span>
+	</div>
+	<div class="col-md-11">
+		<div class="header-container">
+			<h2>{{sectionHeaderCtrl.sectionTitle}}</h2>
+			<a href="javascript:void(0)" ng-show="sectionHeaderCtrl.hasEdit" ng-click="sectionHeaderCtrl.onEditClick()" class="btn btn-default btn-xs header-edit-btn" role="button" aria-hidden="true">
+				<i class="fa fa-pencil" aria-hidden="true"></i>
+				{{ 'PROFILE.EDUCATION.PROVIDER.EDIT' | translate}}
+			</a>
+		</div>
+
+		<ng-transclude></ng-transclude>
+	</div>
+</div>

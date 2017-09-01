@@ -1,0 +1,48 @@
+<h1 class="sr-only">{{'APPLICATION.MANAGER_REVIEW.MANAGER_REVIEW' | translate}}</h1>
+<div ng-class="{'loading': managerReviewCtrl.status === 'loading'}"></div>
+<div class="tile" ng-if="managerReviewCtrl.status !== 'loading'">
+	<div class="header appBlockWrap">
+		<app-block>
+			<block-label><span class="thin">{{'GENERAL.APPLICATION' | translate}} <sup>#</sup></span>{{managerReviewCtrl.application.applicationNumber}}</block-label>
+			<block-left>
+				<div class="heading-large"><span>{{managerReviewCtrl.application.participantID.user.lastName}}, {{managerReviewCtrl.application.participantID.user.firstName}}</span></div>
+				<div class="heading-small">{{'PROFILE.SUPERVISED_PARTICIPANTS.EMPLOYEE_ID' | translate}}: {{managerReviewCtrl.application.participantID.employeeId}}</div>
+			</block-left>
+			<block-right>
+				<div class="modified">
+					{{ 'HOME.TASKLIST.LAST_MODIFIED' | translate }}
+				</div> 
+				<div class="date">
+					{{managerReviewCtrl.application.dateModified | timezoneDate:"mediumDate"}}
+				</div>
+			</block-right>
+		</app-block>
+	</div>
+	<div class="spacer"></div>
+	<div class="row major-row" ng-if="managerReviewCtrl.reviewContent">
+		<div class="col-xs-12 col-md-11 pull-right">
+			<p ng-bind-html="managerReviewCtrl.reviewContent | trustHtml"></p>
+		</div>
+	</div>
+	<div class="row major-row" ng-if="managerReviewCtrl.reassignApprovalIntro">
+		<div class="col-md-11 pull-right" ng-bind-html="managerReviewCtrl.reassignApprovalIntro | trustHtml"></div>
+	</div>
+	<div class="row">
+		<section-header section-icon="icon-circleSchool" section-title="{{'EDUCATION.HEADER' | translate }}"></section-header>
+		<submitted-education-information model="managerReviewCtrl.application"></submitted-education-information>
+	</div>
+
+	<div class="row major-row">
+		<section-header section-icon="icon-circleClass" section-title="{{'SUBMITTED_APPLICATION.COURSES.HEADER' | translate }}"></section-header>
+		<course-list application-program-Id="managerReviewCtrl.applicationProgramId" course-application="managerReviewCtrl.submittedApplication" application-courses="managerReviewCtrl.submittedApplication.courses" application-snap-shot="managerReviewCtrl.applicationSnapShot"></course-list>
+	</div>
+
+	<div class="row major-row">
+		<div class="col-xs-12 col-md-11 pull-right">
+			<p ng-bind-html="managerReviewCtrl.changeAppStatus | trustHtml"></p>
+		</div>
+	</div>
+
+	<manager-approval application-id="managerReviewCtrl.applicationId" program-id="managerReviewCtrl.submittedApplication.benefitPeriod.programID.programID"></manager-approval>
+
+</div>
